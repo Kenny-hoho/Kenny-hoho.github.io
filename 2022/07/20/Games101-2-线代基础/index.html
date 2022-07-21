@@ -16,24 +16,24 @@
   <meta name="author" content="Kenny-hoho">
   <meta name="keywords" content="">
   
-    <meta name="description" content="3DSlicer插件制作  参考文档： 3DSlicer建立C++插件步骤 3DSlicer: Module-Create Loadable 官方文档  1.准备工作 如果选择开发命令行接口（Command Line Interface (CLI)）或者可加载插件需要先编译3DSlicer，如果是单纯python脚本不需要编译3DSlicer   2. 插件模板生成 使用3DSlicer自带的E">
+    <meta name="description" content="Games101-2-线代基础">
 <meta property="og:type" content="article">
-<meta property="og:title" content="3DSlicer配置与编译">
-<meta property="og:url" content="https://kenny-hoho.github.io/2022/06/19/3DSlicer%E6%8F%92%E4%BB%B6%E5%88%B6%E4%BD%9C/index.html">
+<meta property="og:title" content="Games101-2-线代基础">
+<meta property="og:url" content="https://kenny-hoho.github.io/2022/07/20/Games101-2-%E7%BA%BF%E4%BB%A3%E5%9F%BA%E7%A1%80/index.html">
 <meta property="og:site_name" content="Kenny-hoho">
-<meta property="og:description" content="3DSlicer插件制作  参考文档： 3DSlicer建立C++插件步骤 3DSlicer: Module-Create Loadable 官方文档  1.准备工作 如果选择开发命令行接口（Command Line Interface (CLI)）或者可加载插件需要先编译3DSlicer，如果是单纯python脚本不需要编译3DSlicer   2. 插件模板生成 使用3DSlicer自带的E">
+<meta property="og:description" content="Games101-2-线代基础">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://kenny-hoho.github.io/img/bg/3DSlicerLogo.png">
-<meta property="article:published_time" content="2022-06-18T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-06-27T09:46:39.956Z">
+<meta property="og:image" content="https://kenny-hoho.github.io/img/bg/cg_bg.png">
+<meta property="article:published_time" content="2022-07-19T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-07-21T07:17:29.422Z">
 <meta property="article:author" content="Kenny-hoho">
-<meta property="article:tag" content="3DSlicer">
+<meta property="article:tag" content="Games101">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://kenny-hoho.github.io/img/bg/3DSlicerLogo.png">
+<meta name="twitter:image" content="https://kenny-hoho.github.io/img/bg/cg_bg.png">
   
   
   
-  <title>3DSlicer配置与编译 - Kenny-hoho</title>
+  <title>Games101-2-线代基础 - Kenny-hoho</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -196,7 +196,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">3DSlicer配置与编译</span>
+            <span id="subtitle">Games101-2-线代基础</span>
           
         </div>
 
@@ -207,8 +207,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-06-19 00:00" pubdate>
-          2022年6月19日 凌晨
+        <time datetime="2022-07-20 00:00" pubdate>
+          2022年7月20日 凌晨
         </time>
       </span>
     
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.6k 字
+          258 字
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          22 分钟
+          3 分钟
         
       </span>
     
@@ -268,51 +268,47 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">3DSlicer配置与编译</h1>
+            <h1 style="display: none">Games101-2-线代基础</h1>
             
             <div class="markdown-body">
               
-              <h1 id="3dslicer插件制作"><a class="markdownIt-Anchor" href="#3dslicer插件制作"></a> 3DSlicer插件制作</h1>
-<h2 id="参考文档"><a class="markdownIt-Anchor" href="#参考文档"></a> 参考文档：</h2>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/sang_12345/article/details/121805914">3DSlicer建立C++插件步骤</a><br />
-<a target="_blank" rel="noopener" href="https://www.freesion.com/article/1531976481/">3DSlicer: Module-Create Loadable</a><br />
-<a target="_blank" rel="noopener" href="https://slicer.readthedocs.io/en/latest/developer_guide/extensions.html">官方文档</a></p>
-<h2 id="1准备工作"><a class="markdownIt-Anchor" href="#1准备工作"></a> 1.准备工作</h2>
-<p>如果选择开发命令行接口（Command Line Interface (CLI)）或者可加载插件需要先编译3DSlicer，如果是<strong>单纯python脚本不需要编译3DSlicer</strong><br />
-<img src="/article_img/2022-06-06-18-35-54.png" srcset="/img/loading.gif" lazyload alt="" /></p>
-<h2 id="2-插件模板生成"><a class="markdownIt-Anchor" href="#2-插件模板生成"></a> 2. 插件模板生成</h2>
-<p>使用3DSlicer自带的Extension Wizard模块可以方便的创建插件。这里建立一个script类型的插件，具体参考官方文档，会自动生成一个script类型的插件的模板python文件，可以在这个模板文件中进行修改。</p>
-<h2 id="3-插件功能开发流程"><a class="markdownIt-Anchor" href="#3-插件功能开发流程"></a> 3. 插件功能开发流程</h2>
-<p>3DSlicer功能强大完全可以仅使用3DSlicer和代码编辑器就可以进行插件的实现和调试，这里就仅使用pycharm作为编辑器（没有配置python编译器，编译调试均在3DSlicer中进行）</p>
-<p><img src="/article_img/2022-06-20-14-08-41.png" srcset="/img/loading.gif" lazyload alt="" /></p>
-<p><strong>Python Interactor</strong> 可以在左上角的 <strong>View</strong> 中打开，或者使用快捷键 <strong>ctrl+ 3</strong> 打开，利用模板生成的按钮可以进行调试：</p>
-<h3 id="常用按钮"><a class="markdownIt-Anchor" href="#常用按钮"></a> <strong>常用按钮</strong></h3>
-<p><strong>Reload</strong>：可以重新加载插件，编辑python文件之后保存，点击这个按钮就可以重载插件，十分方便用于调试。注：对上方的<strong>Help &amp; Acknowledge</strong> 的修改需要重启之后才能应用。<br />
-<strong>Edit UI</strong>：直接从Designer打开 ui 文件，方便直接对插件界面进行修改（对界面的修改仅限于左侧部分界面，右侧窗口不能修改）</p>
-<h2 id="4-插件功能实现"><a class="markdownIt-Anchor" href="#4-插件功能实现"></a> 4. 插件功能实现</h2>
-<p>对插件功能的实现主要是利用3DSlicer本身集成的python package和其自定义的包进行开发，也可以使用3DSlicer不包含的第三方包，使用方法是利用3DSlicer中的pip</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">try</span>:<br>    <span class="hljs-keyword">import</span> library_name<br><span class="hljs-keyword">except</span>:<br>    slicer.util.pip_install(<span class="hljs-string">&#x27;library_name&#x27;</span>)<br>    <span class="hljs-keyword">import</span> library_name<br></code></pre></td></tr></table></figure>
-<h3 id="1参考文档"><a class="markdownIt-Anchor" href="#1参考文档"></a> <strong>1）参考文档</strong></h3>
-<p><a target="_blank" rel="noopener" href="https://slicer.readthedocs.io/en/latest/developer_guide/script_repository.html#change-slice-orientation">Script Repository</a> 介绍常用功能实现的脚本</p>
-<p><a target="_blank" rel="noopener" href="https://slicer.readthedocs.io/en/latest/developer_guide/slicer.html#slicer.util.MRMLNodeNotFoundException">slicer package</a> 对 <strong>slicer</strong> 库进行介绍,开发插件常用的主要功能的实现都需要使用这个库，来对3DSlicer软件进行定制，<a href="mwoehlke-kitware.github.io/Slicer/Base/slicer.html#slicer.util.quit">部分slicer库函数代码介绍</a></p>
-<h3 id="2导入图像功能实现"><a class="markdownIt-Anchor" href="#2导入图像功能实现"></a> <strong>2）导入图像功能实现</strong></h3>
-<p>本插件主要处理的图像是2D图像，格式为jpeg，png等，这些图导入3DSlicer时不能直接将这些格式的图像导入，需要先转换成3DSlicer支持的数据类型，图片格式一般要转换成 <strong>Volume</strong> 类型，具体<a target="_blank" rel="noopener" href="https://www.slicer.org/wiki/Documentation/4.8/SlicerApplication/SupportedDataFormat">数据类型</a>参考如下：</p>
-<p><img src="/article_img/2022-06-20-14-41-24.png" srcset="/img/loading.gif" lazyload alt="" /></p>
-<p>导入的图片有几种不同的方法，都是利用 <strong>slicer</strong> 库：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># loadNodeFromFile方法，这个会导入同文件夹中的好几张图片，尽管只选择导入一个文件</span><br>slicer.util.loadNodeFromFile(<span class="hljs-string">&#x27;filepath&#x27;</span>, <span class="hljs-string">&#x27;VolumeFile&#x27;</span>)<br><br><span class="hljs-comment"># loadVolume方法，可以设定只导入一张，**选择这个方法**</span><br>loadedVolumeNode = slicer.util.loadVolume(<span class="hljs-string">&#x27;filepath&#x27;</span>, &#123;<span class="hljs-string">&quot;singleFile&quot;</span>: <span class="hljs-literal">True</span>&#125;)<br><br><span class="hljs-comment"># 直接调用3DSlicer的导入数据模块，但不能得到用户选择的文件路径</span><br>slicer.util.openAddDataDialog()<br></code></pre></td></tr></table></figure>
-<p>这三种方法导入之后，都会自动显示到右侧窗口，覆盖之前显示的内容。</p>
-<p>针对前两种方法，要获得用户选择的文件需要使用3DSlicer自带的 <strong>qt</strong> 库，这里的qt库不是一般我们在python中使用的 <strong>pyqt</strong> 库，一开始没有找到这个库，以为需要导入 <strong>pyqt</strong>，但是 <strong>pyqt</strong> 的函数都需要定义在一个继承自qt的库，这里不满足这个条件，之后在<a target="_blank" rel="noopener" href="https://discourse.slicer.org/t/opendialog-does-not-load-node-into-scene/23874">论坛讨论</a>中找到了解决方法：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> qt<br><br>d = qt.QFileDialog()<br>d.<span class="hljs-built_in">exec</span>()<br>slicer.util.loadVolume(d.selectedFiles()[<span class="hljs-number">0</span>])<br></code></pre></td></tr></table></figure>
-<p>这里其实本来也有3DSlicer封装好的函数，用来打开文件浏览器，</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># openDialog()方法，但是这个函数暂时出了bug，在写文章一周前才在源码层面解决，所以就用上面那种方法。</span><br><span class="hljs-keyword">import</span> slicer<br><br> io = slicer.app.ioManager()<br> params = &#123;&#125;<br> io.openDialog(<span class="hljs-string">&quot;VolumeFile&quot;</span>, slicer.qSlicerFileDialog.Read, params)<br></code></pre></td></tr></table></figure>
-<h3 id="3显示图像实现"><a class="markdownIt-Anchor" href="#3显示图像实现"></a> <strong>3）显示图像实现</strong></h3>
-<p><img src="/article_img/2022-06-20-18-05-00.png" srcset="/img/loading.gif" lazyload alt="" /></p>
-<p>在3DSlicer中，其右侧的窗口不能直接显示jpeg，png等等图片，需要先 <strong>Load</strong> 也就是上述的导入，在导入之后，会自动将图片显示在右侧，就算不是三维图像也会在 <strong>yellow</strong> 层和 <strong>Green</strong> 层（也就是三视图的另外两个方向），所以需要自定义显示的窗口</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 显示到红色窗口</span><br>red_logic = slicer.app.layoutManager().sliceWidget(<span class="hljs-string">&quot;Red&quot;</span>).sliceLogic()<br>red_logic.GetSliceCompositeNode().SetBackgroundVolumeID(VolumeName.GetID())<br><span class="hljs-comment"># 将图像移到窗口中间，相当于点击上图中的Reset field of view</span><br>slicer.util.resetSliceViews()<br></code></pre></td></tr></table></figure>
-<p><img src="/article_img/2022-06-20-18-11-02.png" srcset="/img/loading.gif" lazyload alt="" /></p>
-<p>希望实现的效果如上图，左侧是原始图像，右侧是处理之后的图像。但是 <strong>yellow</strong> 窗口默认方向是 <strong>sagittal</strong> 用如下代码进行更改</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 改变黄色窗口的显示方向</span><br>slice_node = slicer.app.layoutManager().sliceWidget(<span class="hljs-string">&quot;Yellow&quot;</span>).mrmlSliceNode()<br>slice_to_ras = slice_node.GetSliceToRAS()<br>transform = vtk.vtkTransform()<br>transform.SetMatrix(slice_to_ras)<br>transform.RotateX(<span class="hljs-number">90</span>)<br>transform.RotateZ(<span class="hljs-number">90</span>)<br>slice_to_ras.DeepCopy(transform.GetMatrix())<br>slice_node.UpdateMatrices()<br></code></pre></td></tr></table></figure>
-<h3 id="4显示图像实现"><a class="markdownIt-Anchor" href="#4显示图像实现"></a> <strong>4）显示图像实现</strong></h3>
+              <p>Games101-2-线代基础</p>
+<span id="more"></span>
+<h1 id="games101现代计算机图形学入门-2"><a class="markdownIt-Anchor" href="#games101现代计算机图形学入门-2"></a> Games101现代计算机图形学入门-2</h1>
+<h1 id="线性代数基础知识"><a class="markdownIt-Anchor" href="#线性代数基础知识"></a> 线性代数基础知识</h1>
+<h2 id="点乘"><a class="markdownIt-Anchor" href="#点乘"></a> 点乘</h2>
+<h3 id="点乘计算方法"><a class="markdownIt-Anchor" href="#点乘计算方法"></a> 点乘计算方法</h3>
+<p><img src="/article_img/2022-07-21-13-46-46.png" srcset="/img/loading.gif" lazyload alt="" /></p>
+<p>点乘常用来计算两个向量间的<strong>夹角</strong></p>
+<p><img src="/article_img/2022-07-21-13-53-30.png" srcset="/img/loading.gif" lazyload alt="" /></p>
+<p>点乘常用来计算一个向量在另一个向量上的<strong>投影</strong>，借助这个可以将向量进行分解</p>
+<p><img src="/article_img/2022-07-21-13-55-49.png" srcset="/img/loading.gif" lazyload alt="" /></p>
+<p>判断<strong>前和后</strong>：点乘正值表示在前，点乘负值表示在后，点乘0表示垂直</p>
+<p>判断两个向量的<strong>接近程度</strong>：越接近点乘值越接近1，越远离点乘值越接近-1（都是单位向量）</p>
+<p><img src="/article_img/2022-07-21-14-00-29.png" srcset="/img/loading.gif" lazyload alt="" /></p>
+<h2 id="叉乘"><a class="markdownIt-Anchor" href="#叉乘"></a> 叉乘</h2>
+<h3 id="右手定则"><a class="markdownIt-Anchor" href="#右手定则"></a> <strong>右手定则</strong></h3>
+<p>用来判断结果向量的方向</p>
+<p><img src="/article_img/2022-07-21-14-08-35.png" srcset="/img/loading.gif" lazyload alt="" /></p>
+<h3 id="叉乘运算规律"><a class="markdownIt-Anchor" href="#叉乘运算规律"></a> 叉乘运算规律</h3>
+<p><img src="/article_img/2022-07-21-14-10-55.png" srcset="/img/loading.gif" lazyload alt="" /></p>
+<h3 id="叉乘在代数中的计算法则"><a class="markdownIt-Anchor" href="#叉乘在代数中的计算法则"></a> 叉乘在代数中的计算法则</h3>
+<p><img src="/article_img/2022-07-21-14-12-24.png" srcset="/img/loading.gif" lazyload alt="" /></p>
+<h3 id="叉乘的作用"><a class="markdownIt-Anchor" href="#叉乘的作用"></a> 叉乘的作用</h3>
+<ol>
+<li>判断左和右： 正左负右</li>
+<li>判定内与外<br />
+<img src="/article_img/2022-07-21-14-15-24.png" srcset="/img/loading.gif" lazyload alt="" /></li>
+</ol>
+<h2 id="矩阵"><a class="markdownIt-Anchor" href="#矩阵"></a> 矩阵</h2>
+<ol>
+<li>矩阵的乘法</li>
+<li>矩阵的转置</li>
+<li>单位矩阵和逆矩阵</li>
+</ol>
+<h1 id="参考"><a class="markdownIt-Anchor" href="#参考"></a> 参考</h1>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1X7411F744?p=2&amp;vd_source=93b215eab72b2548f75d0772e28f8b20">课程视频</a></p>
+<p><a target="_blank" rel="noopener" href="https://sites.cs.ucsb.edu/~lingqi/teaching/games101.html">课程网址</a></p>
 
               
             </div>
@@ -345,7 +341,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/3DSlicer/">#3DSlicer</a>
+        <a href="/tags/Games101/">#Games101</a>
       
     </div>
   
@@ -357,8 +353,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>3DSlicer配置与编译</div>
-      <div>https://kenny-hoho.github.io/2022/06/19/3DSlicer插件制作/</div>
+      <div>Games101-2-线代基础</div>
+      <div>https://kenny-hoho.github.io/2022/07/20/Games101-2-线代基础/</div>
     </div>
     <div class="license-meta">
       
@@ -370,7 +366,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年6月19日</div>
+          <div>2022年7月20日</div>
         </div>
       
       
@@ -395,6 +391,29 @@
 
 
 
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/07/21/Games101-3-%E5%8F%98%E6%8D%A2/" title="Games101-3-变换">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Games101-3-变换</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/06/19/3DSlicer%E9%85%8D%E7%BD%AE%E7%BC%96%E8%AF%91/" title="3DSlicer配置与编译">
+                        <span class="hidden-mobile">3DSlicer配置与编译</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
               
             </div>
 
