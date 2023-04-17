@@ -1,0 +1,839 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/bg/profile.jpg">
+  <link rel="icon" href="/img/bg/profile.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Kenny-hoho">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="learnopengl-3-纹理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="learnopengl-3-纹理">
+<meta property="og:url" content="https://kenny-hoho.github.io/2022/11/01/learnopengl-3-%E7%BA%B9%E7%90%86/index.html">
+<meta property="og:site_name" content="Kenny-hoho">
+<meta property="og:description" content="learnopengl-3-纹理">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://kenny-hoho.github.io/img/bg/opengl.jpg">
+<meta property="article:published_time" content="2022-10-31T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-11-10T06:12:52.989Z">
+<meta property="article:author" content="Kenny-hoho">
+<meta property="article:tag" content="OpenGL">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://kenny-hoho.github.io/img/bg/opengl.jpg">
+  
+  
+  
+  <title>learnopengl-3-纹理 - Kenny-hoho</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"kenny-hoho.github.io","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":["home"]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Kenny</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/Pink_city.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">learnopengl-3-纹理</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-11-01 00:00" pubdate>
+          2022年11月1日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          56 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">learnopengl-3-纹理</h1>
+            
+            <div class="markdown-body">
+              
+              <p>learnopengl-3-纹理</p>
+<span id="more"></span>
+
+<p><a target="_blank" rel="noopener" href="https://learnopengl-cn.github.io/01%20Getting%20started/06%20Textures/">纹理-LearnOpenGL CN</a></p>
+<p>纹理是一个2D图片（甚至也有1D和3D的纹理），它可以用来添加物体的细节；你可以想象纹理是一张绘有砖块的纸，无缝折叠贴合到你的3D的房子上，这样你的房子看起来就像有砖墙外表了。</p>
+<h1 id="纹理坐标"><a href="#纹理坐标" class="headerlink" title="纹理坐标"></a>纹理坐标</h1><p>用来标明该从纹理图像的哪个部分采样（译注：采集片段颜色）。使用纹理坐标获取纹理颜色叫做采样(Sampling)。</p>
+<p><img src="/article_img/2022-11-01-16-58-12.png" srcset="/img/loading.gif" lazyload></p>
+<p>纹理坐标格式：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-type">float</span> texCoords[] = &#123;<br>    <span class="hljs-number">0.0f</span>, <span class="hljs-number">0.0f</span>, <span class="hljs-comment">// 左下角</span><br>    <span class="hljs-number">1.0f</span>, <span class="hljs-number">0.0f</span>, <span class="hljs-comment">// 右下角</span><br>    <span class="hljs-number">0.5f</span>, <span class="hljs-number">1.0f</span> <span class="hljs-comment">// 上中</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h1 id="纹理环绕方式"><a href="#纹理环绕方式" class="headerlink" title="纹理环绕方式"></a>纹理环绕方式</h1><table>
+<thead>
+<tr>
+<th align="center">环绕方式</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">GL_REPEAT</td>
+<td align="center">对纹理的默认行为。重复纹理图像。</td>
+</tr>
+<tr>
+<td align="center">GL_MIRRORED_REPEAT</td>
+<td align="center">和GL_REPEAT一样，但每次重复图片是镜像放置的。</td>
+</tr>
+<tr>
+<td align="center">GL_CLAMP_TO_EDGE</td>
+<td align="center">纹理坐标会被约束在0到1之间，超出的部分会重复纹理坐标的边缘，产生一种边缘被拉伸的效果。</td>
+</tr>
+<tr>
+<td align="center">GL_CLAMP_TO_BORDER</td>
+<td align="center">超出的坐标为用户指定的边缘颜色</td>
+</tr>
+</tbody></table>
+<p><img src="/article_img/2022-11-01-17-15-23.png" srcset="/img/loading.gif" lazyload></p>
+<p>用法：  </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-built_in">glTexParameteri</span>(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);<br><span class="hljs-built_in">glTexParameteri</span>(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);<br></code></pre></td></tr></table></figure>
+<p>可以单独对坐标轴设置纹理环绕方式。</p>
+<p>GL_CLAMP_TO_BORDER 方式由于是用户指定的边缘颜色，因此要再指定一个边缘的颜色，同时也不需要再指定坐标轴了。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-type">float</span> borderColor[] = &#123;<span class="hljs-number">1.0f</span>, <span class="hljs-number">1.0f</span>, <span class="hljs-number">0.0f</span>, <span class="hljs-number">1.0f</span>&#125;;<br><span class="hljs-built_in">glTexParameterfv</span>(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);<br></code></pre></td></tr></table></figure>
+
+<h1 id="纹理过滤"><a href="#纹理过滤" class="headerlink" title="纹理过滤"></a>纹理过滤</h1><h2 id="纹理像素（Texture-Pixel）"><a href="#纹理像素（Texture-Pixel）" class="headerlink" title="纹理像素（Texture Pixel）"></a>纹理像素（Texture Pixel）</h2><p>Texture Pixel也叫Texel，你可以想象你打开一张.jpg格式图片，不断放大你会发现它是由无数像素点组成的，这个点就是纹理像素，其实就是<strong>纹理的分辨率</strong>。</p>
+<p>如果要将一个分辨率较低的纹理加在一个很大的物体上，看上去物体的分辨率就很低，为了减轻这种现象，需要纹理过滤。</p>
+<h2 id="纹理过滤-1"><a href="#纹理过滤-1" class="headerlink" title="纹理过滤"></a>纹理过滤</h2><p>这一部分在<a href="Games101-4-%E7%9D%80%E8%89%B2.md">Games101-着色</a>中有过详细介绍</p>
+<ol>
+<li>邻近过滤（GL_NEAREST）<br><img src="/article_img/2022-11-01-17-16-23.png" srcset="/img/loading.gif" lazyload></li>
+<li>线性过滤（GL_LINEAR）<br><img src="/article_img/2022-11-01-17-16-55.png" srcset="/img/loading.gif" lazyload><br>使用的算法就是双线性插值，由周围几个像素的颜色算出最终应该采用的颜色。<br><img src="/article_img/2022-08-29-18-33-20.png" srcset="/img/loading.gif" lazyload></li>
+</ol>
+<p>下图是两种过滤方法的效果对比<br><img src="/article_img/2022-11-01-17-17-08.png" srcset="/img/loading.gif" lazyload></p>
+<p>用法：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-built_in">glTexParameteri</span>(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER， GL_NEAREST);<br><span class="hljs-built_in">glTexParameteri</span>(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER， GL_LINEAR);<br></code></pre></td></tr></table></figure>
+
+<h1 id="多级渐远纹理"><a href="#多级渐远纹理" class="headerlink" title="多级渐远纹理"></a>多级渐远纹理</h1><p>这一部分也在<a href="Games101-4-%E7%9D%80%E8%89%B2.md">Games101-着色</a>中有过详细介绍</p>
+<p>当物体很小，而纹理分辨率很大的时候难以决定最终真正显示的像素的颜色，因为最终可见的像素很可能覆盖了纹理贴图上的很大一部分，同时还会产生很多浪费。</p>
+<p>OpenGL中使用Mipmap解决这个问题。</p>
+<p><img src="/article_img/2022-08-29-18-41-41.png" srcset="/img/loading.gif" lazyload></p>
+<p>可以使用glGenerateMipmaps函数来自动生成Mipmap</p>
+<p><img src="/article_img/2022-11-01-17-30-18.png" srcset="/img/loading.gif" lazyload></p>
+<p>在切换Mipmap时，在两个层之间会产生生硬的边界，因此在切换时也需要过滤。</p>
+<table>
+<thead>
+<tr>
+<th align="center">过滤方式</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">GL_NEAREST_MIPMAP_NEAREST</td>
+<td align="center">使用最邻近的多级渐远纹理来匹配像素大小，并使用邻近插值进行纹理采样</td>
+</tr>
+<tr>
+<td align="center">GL_LINEAR_MIPMAP_NEAREST</td>
+<td align="center">使用最邻近的多级渐远纹理级别，并使用线性插值进行采样</td>
+</tr>
+<tr>
+<td align="center">GL_NEAREST_MIPMAP_LINEAR</td>
+<td align="center">在两个最匹配像素大小的多级渐远纹理之间进行线性插值，使用邻近插值进行采样</td>
+</tr>
+<tr>
+<td align="center">GL_LINEAR_MIPMAP_LINEAR</td>
+<td align="center">在两个邻近的多级渐远纹理之间使用线性插值，并使用线性插值进行采样</td>
+</tr>
+</tbody></table>
+<p><img src="/article_img/2022-08-29-18-52-05.png" srcset="/img/loading.gif" lazyload></p>
+<p>这里看这个三线性插值（GL_LINEAR_MIPMAP_LINEAR）的原理图就很容易理解，GL_<strong>A</strong>_MIPMAP_<strong>B</strong> 中<strong>A</strong>是指不同层级之间的切换方式，<strong>B</strong>指每个层级内部的选择方式。</p>
+<p>使用：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-built_in">glTexParameteri</span>(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);<br><span class="hljs-built_in">glTexParameteri</span>(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);<br></code></pre></td></tr></table></figure>
+
+<p>注意：<br>函数的第二个参数，是分别设置纹理缩小时过滤和纹理放大时过滤的参数。<strong>Mipmap只在纹理被缩小时有效。</strong></p>
+<h1 id="加载与创建纹理"><a href="#加载与创建纹理" class="headerlink" title="加载与创建纹理"></a>加载与创建纹理</h1><h2 id="stb-image-h"><a href="#stb-image-h" class="headerlink" title="stb_image.h"></a>stb_image.h</h2><p>加载纹理使用stb_image.h头文件，这个头文件中就包含了函数的实现，因此只需要将其添加到工程中，再创建一个C++文件输入：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">define</span> STB_IMAGE_IMPLEMENTATION</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;stb_image.h&quot;</span></span><br></code></pre></td></tr></table></figure>
+<p>即可调用<strong>stbi_load</strong>函数进行图片的加载。</p>
+<h2 id="生成纹理"><a href="#生成纹理" class="headerlink" title="生成纹理"></a>生成纹理</h2><p>生成一个纹理的过程：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> texture;<br><span class="hljs-built_in">glGenTextures</span>(<span class="hljs-number">1</span>, &amp;texture);<br><span class="hljs-built_in">glBindTexture</span>(GL_TEXTURE_2D, texture);<br><span class="hljs-comment">// 为当前绑定的纹理对象设置环绕、过滤方式</span><br><span class="hljs-built_in">glTexParameteri</span>(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);   <br><span class="hljs-built_in">glTexParameteri</span>(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);<br><span class="hljs-built_in">glTexParameteri</span>(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);<br><span class="hljs-built_in">glTexParameteri</span>(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);<br><span class="hljs-comment">// 加载并生成纹理</span><br><span class="hljs-type">int</span> width, height, nrChannels;<br><span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> *data = <span class="hljs-built_in">stbi_load</span>(<span class="hljs-string">&quot;container.jpg&quot;</span>, &amp;width, &amp;height, &amp;nrChannels, <span class="hljs-number">0</span>);<br><span class="hljs-keyword">if</span> (data)<br>&#123;   <br>    <span class="hljs-comment">// 生成纹理</span><br>    <span class="hljs-built_in">glTexImage2D</span>(GL_TEXTURE_2D, <span class="hljs-number">0</span>, GL_RGB, width, height, <span class="hljs-number">0</span>, GL_RGB, GL_UNSIGNED_BYTE, data);<br>    <span class="hljs-built_in">glGenerateMipmap</span>(GL_TEXTURE_2D);<br>&#125;<br><span class="hljs-keyword">else</span><br>&#123;<br>    std::cout &lt;&lt; <span class="hljs-string">&quot;Failed to load texture&quot;</span> &lt;&lt; std::endl;<br>&#125;<br><span class="hljs-built_in">stbi_image_free</span>(data);<br></code></pre></td></tr></table></figure>
+
+<h1 id="应用纹理"><a href="#应用纹理" class="headerlink" title="应用纹理"></a>应用纹理</h1><h2 id="基本应用"><a href="#基本应用" class="headerlink" title="基本应用"></a>基本应用</h2><p>纹理的应用需要相应的改变着色器代码，在顶点着色器中设定一个输出向量将纹理坐标传给片段着色器，在片段着色器中定义一个类型是sampler2D的uniform用来接收纹理图片，最后调用GLSL中的texture函数来采样纹理的颜色。</p>
+<p>sampler2D是一个GLSL的数据类型，叫做采样器，还有sampler1D, sampler3D, 用来把纹理对象传给片段着色器。</p>
+<p>顶点着色器：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#version 330 core</span><br><span class="hljs-built_in">layout</span> (location = <span class="hljs-number">0</span>) in vec3 aPos;<br><span class="hljs-built_in">layout</span> (location = <span class="hljs-number">1</span>) in vec3 aColor;<br><span class="hljs-built_in">layout</span> (location = <span class="hljs-number">2</span>) in vec2 aTexCoord;<br><br>out vec3 ourColor;<br>out vec2 TexCoord;<br><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    gl_Position = <span class="hljs-built_in">vec4</span>(aPos, <span class="hljs-number">1.0</span>);<br>    ourColor = aColor;<br>    TexCoord = aTexCoord;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>片段着色器：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#version 330 core</span><br>out vec4 FragColor;<br><br>in vec3 ourColor;<br>in vec2 TexCoord;<br><br>uniform sampler2D ourTexture;<br><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    FragColor = <span class="hljs-built_in">texture</span>(ourTexture, TexCoord);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>渲染循环：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-built_in">glBindTexture</span>(GL_TEXTURE_2D, texture);<br><span class="hljs-built_in">glBindVertexArray</span>(VAO);<br><span class="hljs-built_in">glDrawElements</span>(GL_TRIANGLES, <span class="hljs-number">6</span>, GL_UNSIGNED_INT, <span class="hljs-number">0</span>);<br></code></pre></td></tr></table></figure>
+
+<h2 id="纹理单元"><a href="#纹理单元" class="headerlink" title="纹理单元"></a>纹理单元</h2><p><img src="/article_img/2022-11-02-15-10-07.png" srcset="/img/loading.gif" lazyload></p>
+<p>纹理单元的目的是为了让我们可以使用多个纹理，通过把纹理单元<strong>赋值</strong>给采样器，我们可以一次绑定多个纹理，只要我们首先<strong>激活</strong>对应的纹理单元；</p>
+<p>OpenGL保证有16个纹理单元供使用，且GL_TEXTRUE0默认被激活，所以只用一个纹理时可以不激活纹理单元0。</p>
+<p>使用方法：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs C++"><br><br><span class="hljs-comment">// 激活纹理单元并将纹理绑定到相应的纹理单元</span><br><span class="hljs-built_in">glActiveTexture</span>(GL_TEXTURE0);<br><span class="hljs-built_in">glBindTexture</span>(GL_TEXTURE_2D, texture1);<br><span class="hljs-built_in">glTexImage2D</span>(..., data1);<br><span class="hljs-built_in">glGenerateMipmap</span>(GL_TEXTURE_2D);<br><span class="hljs-built_in">glActiveTexture</span>(GL_TEXTURE1);<br><span class="hljs-built_in">glBindTexture</span>(GL_TEXTURE_2D, texture2);<br><span class="hljs-built_in">glTexImage2D</span>(..., data2);<br><span class="hljs-built_in">glGenerateMipmap</span>(GL_TEXTURE_2D)<br><br><span class="hljs-comment">// 设置uniform的值</span><br>ourShader.<span class="hljs-built_in">setInt</span>(<span class="hljs-string">&quot;texture1&quot;</span>, <span class="hljs-number">0</span>);<br>ourShader.<span class="hljs-built_in">setInt</span>(<span class="hljs-string">&quot;texture2&quot;</span>, <span class="hljs-number">1</span>);<br></code></pre></td></tr></table></figure>
+
+<h1 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h1><ol>
+<li><p>修改片段着色器，仅让笑脸图案朝另一个方向看</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C++">FragColor = <span class="hljs-built_in">mix</span>(<span class="hljs-built_in">texture</span>(texture1, TexCoord), <span class="hljs-built_in">texture</span>(texture2, <span class="hljs-built_in">vec2</span>(<span class="hljs-number">1.0</span> - TexCoord.x, TexCoord.y)), <span class="hljs-number">0.2</span>);<br></code></pre></td></tr></table></figure></li>
+<li><p>尝试用不同的纹理环绕方式，设定一个从0.0f到2.0f范围内的（而不是原来的0.0f到1.0f）纹理坐标。试试看能不能在箱子的角落放置4个笑脸。记得一定要试试其它的环绕方式。</p>
+<p> 环绕方式和过滤方式需要对不同的纹理分别设置</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> texture1, texture2;<br><span class="hljs-built_in">glGenTextures</span>(<span class="hljs-number">1</span>, &amp;texture1);<br><span class="hljs-built_in">glActiveTexture</span>(GL_TEXTURE0);<br><span class="hljs-built_in">glBindTexture</span>(GL_TEXTURE_2D, texture1);<br><span class="hljs-comment">// 设置环绕，过滤方式</span><br><span class="hljs-built_in">glTexParameteri</span>(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);<br><span class="hljs-built_in">glTexParameteri</span>(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);<br><span class="hljs-built_in">glTexParameteri</span>(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);<br><span class="hljs-built_in">glTexParameteri</span>(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);<br><br><span class="hljs-built_in">glTexImage2D</span>(GL_TEXTURE_2D, <span class="hljs-number">0</span>, GL_RGB, width, height, <span class="hljs-number">0</span>, GL_RGB, GL_UNSIGNED_BYTE, data1);<br><span class="hljs-built_in">glGenerateMipmap</span>(GL_TEXTURE_2D);<br><span class="hljs-comment">// 释放图像内存</span><br><span class="hljs-built_in">stbi_image_free</span>(data1);<br><br><span class="hljs-built_in">glGenTextures</span>(<span class="hljs-number">1</span>, &amp;texture2);<br><span class="hljs-built_in">glActiveTexture</span>(GL_TEXTURE2);<br><span class="hljs-built_in">glBindTexture</span>(GL_TEXTURE_2D, texture2);<br><span class="hljs-comment">// 设置环绕，过滤方式</span><br><span class="hljs-built_in">glTexParameteri</span>(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);<br><span class="hljs-built_in">glTexParameteri</span>(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);<br><span class="hljs-built_in">glTexParameteri</span>(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);<br><span class="hljs-built_in">glTexParameteri</span>(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);<br><br><span class="hljs-built_in">glTexImage2D</span>(GL_TEXTURE_2D, <span class="hljs-number">0</span>, GL_RGBA, width, height, <span class="hljs-number">0</span>, GL_RGBA, GL_UNSIGNED_BYTE, data2);<br><span class="hljs-built_in">glGenerateMipmap</span>(GL_TEXTURE_2D);<br></code></pre></td></tr></table></figure>
+<p><img src="/article_img/2022-11-01-19-04-15.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>尝试在矩形上只显示纹理图像的中间一部分，修改纹理坐标，达到能看见单个的像素的效果。尝试使用GL_NEAREST的纹理过滤方式让像素显示得更清晰</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-type">float</span> offset = <span class="hljs-number">0.03</span>;<br><br><span class="hljs-type">float</span> vertices[] = &#123;<br>    <span class="hljs-comment">//     ---- 位置 ----       ---- 颜色 ----     - 纹理坐标 -</span><br>     <span class="hljs-number">0.5f</span>,  <span class="hljs-number">0.5f</span>, <span class="hljs-number">0.0f</span>,   <span class="hljs-number">1.0f</span>, <span class="hljs-number">0.0f</span>, <span class="hljs-number">0.0f</span>,   <span class="hljs-number">0.5f</span> + offset, <span class="hljs-number">0.5f</span> + offset,   <span class="hljs-comment">// 右上</span><br>     <span class="hljs-number">0.5f</span>, <span class="hljs-number">-0.5f</span>, <span class="hljs-number">0.0f</span>,   <span class="hljs-number">0.0f</span>, <span class="hljs-number">1.0f</span>, <span class="hljs-number">0.0f</span>,   <span class="hljs-number">0.5f</span> + offset, <span class="hljs-number">0.5f</span> - offset,   <span class="hljs-comment">// 右下</span><br>    <span class="hljs-number">-0.5f</span>, <span class="hljs-number">-0.5f</span>, <span class="hljs-number">0.0f</span>,   <span class="hljs-number">0.0f</span>, <span class="hljs-number">0.0f</span>, <span class="hljs-number">1.0f</span>,   <span class="hljs-number">0.5f</span> - offset, <span class="hljs-number">0.5f</span> - offset,   <span class="hljs-comment">// 左下</span><br>    <span class="hljs-number">-0.5f</span>,  <span class="hljs-number">0.5f</span>, <span class="hljs-number">0.0f</span>,   <span class="hljs-number">1.0f</span>, <span class="hljs-number">1.0f</span>, <span class="hljs-number">0.0f</span>,   <span class="hljs-number">0.5f</span> - offset, <span class="hljs-number">0.5f</span> + offset    <span class="hljs-comment">// 左上</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+<p>将纹理放大后的效果：<br><img src="/article_img/2022-11-01-19-10-25.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-built_in">glTexParameteri</span>(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);<br><span class="hljs-built_in">glTexParameteri</span>(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);<br></code></pre></td></tr></table></figure>
+<p>可以明显看出使用GL_LINEAR过滤方法锯齿感更弱<br><img src="/article_img/2022-11-01-19-12-45.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>使用一个uniform变量作为mix函数的第三个参数来改变两个纹理可见度，使用上和下键来改变箱子或笑脸的可见度<br><img src="/article_img/2022-11-01-19-40-30.png" srcset="/img/loading.gif" lazyload><br><img src="/article_img/2022-11-01-19-40-57.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">// 输入函数，让所有输入代码保持整洁</span><br> <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">processInput</span><span class="hljs-params">(GLFWwindow* window, <span class="hljs-type">float</span> &amp;mix_ratio)</span> </span>&#123;<br>     <span class="hljs-keyword">if</span> (<span class="hljs-built_in">glfwGetKey</span>(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) &#123;<br>         std::cout &lt;&lt; <span class="hljs-string">&quot;ESCAPE PRESSED!&quot;</span> &lt;&lt; std::endl;<br>         <span class="hljs-built_in">glfwSetWindowShouldClose</span>(window, <span class="hljs-literal">true</span>);<br>     &#125;<br>         <br>     <span class="hljs-keyword">if</span> (<span class="hljs-built_in">glfwGetKey</span>(window, GLFW_KEY_UP) == GLFW_PRESS) &#123;<br>         mix_ratio += <span class="hljs-number">0.1f</span>;<br>         <span class="hljs-keyword">if</span> (mix_ratio &gt; <span class="hljs-number">1.0f</span>)<br>             mix_ratio = <span class="hljs-number">1.0f</span>;<br>         std::cout &lt;&lt; <span class="hljs-string">&quot;UP PRESSED!&quot;</span> &lt;&lt; std::endl;<br>     &#125;<br>     <span class="hljs-keyword">if</span> (<span class="hljs-built_in">glfwGetKey</span>(window, GLFW_KEY_DOWN) == GLFW_PRESS) &#123;<br>         mix_ratio -= <span class="hljs-number">0.1f</span>;<br>         <span class="hljs-keyword">if</span> (mix_ratio &lt; <span class="hljs-number">0.0f</span>)<br>             mix_ratio = <span class="hljs-number">0.0f</span>;<br>         std::cout &lt;&lt; <span class="hljs-string">&quot;DOWN PRESSED!&quot;</span> &lt;&lt; std::endl;<br>     &#125;<br> &#125;<br><br> <span class="hljs-comment">// 渲染循环</span><br> ourShader.<span class="hljs-built_in">setFloat</span>(<span class="hljs-string">&quot;mix_ratio&quot;</span>, mix_ratio);<br><br></code></pre></td></tr></table></figure></li>
+</ol>
+
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/OpenGL%E7%AC%94%E8%AE%B0/" class="category-chain-item">-[OpenGL笔记]</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/OpenGL/">#OpenGL</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>learnopengl-3-纹理</div>
+      <div>https://kenny-hoho.github.io/2022/11/01/learnopengl-3-纹理/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Kenny-hoho</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年11月1日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/11/02/learnopengl-4-%E5%8F%98%E6%8D%A2%E5%92%8C%E5%9D%90%E6%A0%87%E7%B3%BB/" title="learnopengl-4-变换和坐标系">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">learnopengl-4-变换和坐标系</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/10/29/Games101-11-%E7%9B%B8%E6%9C%BA%E4%B8%8E%E9%80%8F%E9%95%9C/" title="Games101-11-相机与透镜">
+                        <span class="hidden-mobile">Games101-11-相机与透镜</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        MathJax = {
+          tex    : {
+            inlineMath: { '[+]': [['$', '$']] }
+          },
+          loader : {
+            load: ['ui/lazy']
+          },
+          options: {
+            renderActions: {
+              findScript    : [10, doc => {
+                document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                  const display = !!node.type.match(/; *mode=display/);
+                  const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                  const text = document.createTextNode('');
+                  node.parentNode.replaceChild(text, node);
+                  math.start = { node: text, delim: '', n: 0 };
+                  math.end = { node: text, delim: '', n: 0 };
+                  doc.math.push(math);
+                });
+              }, '', false],
+              insertedScript: [200, () => {
+                document.querySelectorAll('mjx-container').forEach(node => {
+                  let target = node.parentNode;
+                  if (target.nodeName.toLowerCase() === 'li') {
+                    target.parentNode.classList.add('has-jax');
+                  }
+                });
+              }, '', false]
+            }
+          }
+        };
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.0/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

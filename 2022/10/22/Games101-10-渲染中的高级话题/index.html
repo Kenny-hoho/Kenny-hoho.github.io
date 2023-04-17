@@ -1,0 +1,794 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/bg/profile.jpg">
+  <link rel="icon" href="/img/bg/profile.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Kenny-hoho">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Games101-10-渲染中的高级话题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Games101-10-渲染中的高级话题">
+<meta property="og:url" content="https://kenny-hoho.github.io/2022/10/22/Games101-10-%E6%B8%B2%E6%9F%93%E4%B8%AD%E7%9A%84%E9%AB%98%E7%BA%A7%E8%AF%9D%E9%A2%98/index.html">
+<meta property="og:site_name" content="Kenny-hoho">
+<meta property="og:description" content="Games101-10-渲染中的高级话题">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://kenny-hoho.github.io/img/bg/cg_bg.png">
+<meta property="article:published_time" content="2022-10-21T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-10-22T07:36:24.684Z">
+<meta property="article:author" content="Kenny-hoho">
+<meta property="article:tag" content="Games101">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://kenny-hoho.github.io/img/bg/cg_bg.png">
+  
+  
+  
+  <title>Games101-10-渲染中的高级话题 - Kenny-hoho</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"kenny-hoho.github.io","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":["home"]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Kenny</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/Pink_city.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">Games101-10-渲染中的高级话题</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-10-22 00:00" pubdate>
+          2022年10月22日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          14 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Games101-10-渲染中的高级话题</h1>
+            
+            <div class="markdown-body">
+              
+              <p>Games101-10-渲染中的高级话题</p>
+<span id="more"></span>
+
+<h1 id="高级光线传播"><a href="#高级光线传播" class="headerlink" title="高级光线传播"></a>高级光线传播</h1><ol>
+<li>无偏的光线传播方法<br>双向路径追踪（BDPT）<br>Metropolis光线传播（MLT）</li>
+<li>有偏的光线传播方法<br>Photon mapping（光子映射）<br>Vertex connection and merging（VCM）</li>
+<li>Instant radiosity（VPL &#x2F; many light methods）</li>
+</ol>
+<p>无偏和有偏的区别：<br>无偏方法没有任何系统错误；无论采样数是多少，无偏方法的期望永远是正确的值。<br>有偏方法只有在采样数趋于无穷时，期望才收敛于真实值。</p>
+<h2 id="Bidirectional-Path-Tracing-BDPT"><a href="#Bidirectional-Path-Tracing-BDPT" class="headerlink" title="Bidirectional Path Tracing(BDPT)"></a>Bidirectional Path Tracing(BDPT)</h2><p><img src="/article_img/2022-10-22-14-07-59.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/article_img/2022-10-22-14-08-44.png" srcset="/img/loading.gif" lazyload></p>
+<p>适用于光线传输很复杂的场景，如上图所示，直接光照只在左上角，而整个场景基本都是由间接光照照亮的。和之前在<a href="Games101-8-%E8%B7%AF%E5%BE%84%E8%BF%BD%E8%B8%AA.md">路径追踪</a>中要采取<strong>重要性采样</strong>的原因类似：从相机发出的路径难以到达光源，导致大量的路径浪费，产生严重的噪声。</p>
+<h2 id="Metropolis-Light-Transport-MLT"><a href="#Metropolis-Light-Transport-MLT" class="headerlink" title="Metropolis Light Transport(MLT)"></a>Metropolis Light Transport(MLT)</h2><p>Metropolis是个人名<br>MLT是马尔可夫链蒙特卡罗（Markov Chain Monte Carlo &#x2F; MCMC）的应用：根据当前采样找到下一次采样</p>
+<p><img src="/article_img/2022-10-22-14-17-30.png" srcset="/img/loading.gif" lazyload></p>
+<p>非常适用于在局部探索复杂的光路，一旦找到一条光路，就会生成一堆光路，从而相当于没有浪费采样。</p>
+<p><img src="/article_img/2022-10-22-14-19-42.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/article_img/2022-10-22-14-20-18.png" srcset="/img/loading.gif" lazyload></p>
+<p>缺点：<br>难以估计收敛速率，可能计算了一天还没有明显进步。每个像素的收敛速率不同从而导致生成的图片有些“脏”，从而也不能渲染动画，因为每一帧的噪声都不同。</p>
+<h2 id="Photon-Mapping（光子映射）"><a href="#Photon-Mapping（光子映射）" class="headerlink" title="Photon Mapping（光子映射）"></a>Photon Mapping（光子映射）</h2><p>一种有偏的两步方法，非常适合计算Specular-Diffuse-Specular (SDS) 路径以及生成焦散（caustics）现象。</p>
+<p><img src="/article_img/2022-10-22-14-25-50.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/article_img/2022-10-22-14-27-03.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/article_img/2022-10-22-14-27-38.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>光子映射步骤</strong>：  </p>
+<ol>
+<li>从光源发射光子，光子在场景中不断弹射直到碰到漫反射物体，之后将哪里有光子记录下来；</li>
+<li>从相机发射sub-paths，同样在场景中弹射直到碰到漫反射物体，统计sub-paths到达的每个着色点周围的 N 个光子，计算这 N 个光子覆盖的区域面积。</li>
+</ol>
+<p>显然，单位面积内光子越多，这个着色点就应该越亮。</p>
+<p><img src="/article_img/2022-10-22-14-35-10.png" srcset="/img/loading.gif" lazyload></p>
+<p>只有面积无限小的时候，才能收敛于真实值，因此光子映射是有偏但一致的方法。</p>
+<p><img src="/article_img/2022-10-22-14-36-55.png" srcset="/img/loading.gif" lazyload></p>
+<p>为什么不确定一个面积统计光子数量，而要确定N个光子，计算覆盖面积？</p>
+<p>因为如果确定面积统计光子，这个面积不会随着光源发出光子的数量增加而减小，也就不会有一个趋向于无穷小的过程。</p>
+<h2 id="Vertex-Connection-and-Merging"><a href="#Vertex-Connection-and-Merging" class="headerlink" title="Vertex Connection and Merging"></a>Vertex Connection and Merging</h2><p>一种BDPT和光子映射的组合。</p>
+<p><img src="/article_img/2022-10-22-14-40-09.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="Instant-Radiosity（IR）"><a href="#Instant-Radiosity（IR）" class="headerlink" title="Instant Radiosity（IR）"></a>Instant Radiosity（IR）</h2><p>有时也叫做多光源方法（Many-light approaches）</p>
+<p><img src="/article_img/2022-10-22-14-41-23.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/article_img/2022-10-22-14-42-29.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="高级外观建模"><a href="#高级外观建模" class="headerlink" title="高级外观建模"></a>高级外观建模</h1><ol>
+<li>非表面模型<br>Participating media（雾，云）<br>头发&#x2F;皮毛&#x2F;纤维（BCSFDF）<br>Granular material（颗粒材质）</li>
+<li>表面模型<br>Translucent material（BSSRDF）半透明材质<br>布<br>Detailed material</li>
+<li>程序化外观</li>
+</ol>
+<h2 id="Participating-Media（雾）"><a href="#Participating-Media（雾）" class="headerlink" title="Participating Media（雾）"></a>Participating Media（雾）</h2><p><img src="/article_img/2022-10-22-14-51-07.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/article_img/2022-10-22-14-50-09.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/article_img/2022-10-22-14-50-17.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/article_img/2022-10-22-14-50-26.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="头发-x2F-皮毛-x2F-纤维"><a href="#头发-x2F-皮毛-x2F-纤维" class="headerlink" title="头发&#x2F;皮毛&#x2F;纤维"></a>头发&#x2F;皮毛&#x2F;纤维</h2><p>Kajiya-Kay Model</p>
+<p><img src="/article_img/2022-10-22-14-55-15.png" srcset="/img/loading.gif" lazyload></p>
+<p>Marschner Model</p>
+<p>将头发看作一根玻璃柱，有三种类型的光线：直接反射光（R），两次折射（TT），折射反射再折射（TRT）</p>
+<p><img src="/article_img/2022-10-22-14-55-32.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/article_img/2022-10-22-14-55-42.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/article_img/2022-10-22-14-57-34.png" srcset="/img/loading.gif" lazyload></p>
+<p>Marschner模型已经能取得很不错的效果。</p>
+<p>但是将人类头发的模型（Marschner模型）应用于动物皮毛不能得到很好的效果</p>
+<p><img src="/article_img/2022-10-22-14-59-42.png" srcset="/img/loading.gif" lazyload></p>
+<p>因为动物的毛发中有很粗的Medulla对光线进行散射</p>
+<p><img src="/article_img/2022-10-22-14-58-49.png" srcset="/img/loading.gif" lazyload></p>
+<p>为了模拟真实的毛发结构，提出了双层玻璃柱模型（就是闫大神提出的），增加了medulla造成的散射。</p>
+<p><img src="/article_img/2022-10-22-15-01-06.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/article_img/2022-10-22-15-03-00.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/article_img/2022-10-22-15-03-45.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="Granular-Material（颗粒材质）"><a href="#Granular-Material（颗粒材质）" class="headerlink" title="Granular Material（颗粒材质）"></a>Granular Material（颗粒材质）</h2><p><img src="/article_img/2022-10-22-15-05-34.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/article_img/2022-10-22-15-06-05.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="半透明材质"><a href="#半透明材质" class="headerlink" title="半透明材质"></a>半透明材质</h2><p><img src="/article_img/2022-10-22-15-06-25.png" srcset="/img/loading.gif" lazyload></p>
+<p>次表面散射：<br>光线射入半透明物体后有可能会从任意方向射出。</p>
+<p><img src="/article_img/2022-10-22-15-17-26.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/article_img/2022-10-22-15-20-05.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/article_img/2022-10-22-15-22-02.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/article_img/2022-10-22-15-22-42.png" srcset="/img/loading.gif" lazyload></p>
+<p>BSSRDF还适用于模拟人类皮肤</p>
+<p><img src="/article_img/2022-10-22-15-23-45.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="布料"><a href="#布料" class="headerlink" title="布料"></a>布料</h2><p><img src="/article_img/2022-10-22-15-26-34.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="表面细节"><a href="#表面细节" class="headerlink" title="表面细节"></a>表面细节</h2><p>真实的物体表面不会像渲染结果一样完美</p>
+<p><img src="/article_img/2022-10-22-15-27-38.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/article_img/2022-10-22-15-29-17.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/article_img/2022-10-22-15-29-34.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/article_img/2022-10-22-15-30-36.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="程序化外观"><a href="#程序化外观" class="headerlink" title="程序化外观"></a>程序化外观</h2><p>利用噪声函数，模拟物体材质效果，每次要渲染的时候再计算应该如何显示。</p>
+<p><img src="/article_img/2022-10-22-15-32-53.png" srcset="/img/loading.gif" lazyload></p>
+<p>还可以定义3D噪声函数，来模拟物体内部的材质。</p>
+<p><img src="/article_img/2022-10-22-15-32-59.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1X7411F744?p=18&vd_source=93b215eab72b2548f75d0772e28f8b20">课程视频</a><br><a target="_blank" rel="noopener" href="https://sites.cs.ucsb.edu/~lingqi/teaching/games101.html">GAMES101: 现代计算机图形学入门</a><br><a target="_blank" rel="noopener" href="https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_18.pdf">GAMES101_Lecture_18.pdf</a>  </p>
+
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Games101%E7%AC%94%E8%AE%B0/" class="category-chain-item">-[Games101笔记]</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Games101/">#Games101</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Games101-10-渲染中的高级话题</div>
+      <div>https://kenny-hoho.github.io/2022/10/22/Games101-10-渲染中的高级话题/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Kenny-hoho</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年10月22日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/10/27/learnopengl-1-%E4%BD%A0%E5%A5%BD%E4%B8%89%E8%A7%92%E5%BD%A2/" title="learnopengl-1-你好三角形">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">learnopengl-1-你好三角形</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/10/18/Games101-9-%E5%A4%96%E8%A7%82%E5%92%8C%E6%9D%90%E8%B4%A8/" title="Games101-9-外观和材质">
+                        <span class="hidden-mobile">Games101-9-外观和材质</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        MathJax = {
+          tex    : {
+            inlineMath: { '[+]': [['$', '$']] }
+          },
+          loader : {
+            load: ['ui/lazy']
+          },
+          options: {
+            renderActions: {
+              findScript    : [10, doc => {
+                document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                  const display = !!node.type.match(/; *mode=display/);
+                  const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                  const text = document.createTextNode('');
+                  node.parentNode.replaceChild(text, node);
+                  math.start = { node: text, delim: '', n: 0 };
+                  math.end = { node: text, delim: '', n: 0 };
+                  doc.math.push(math);
+                });
+              }, '', false],
+              insertedScript: [200, () => {
+                document.querySelectorAll('mjx-container').forEach(node => {
+                  let target = node.parentNode;
+                  if (target.nodeName.toLowerCase() === 'li') {
+                    target.parentNode.classList.add('has-jax');
+                  }
+                });
+              }, '', false]
+            }
+          }
+        };
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.0/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

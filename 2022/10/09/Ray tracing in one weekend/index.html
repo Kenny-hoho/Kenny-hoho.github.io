@@ -1,0 +1,816 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/bg/profile.jpg">
+  <link rel="icon" href="/img/bg/profile.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Kenny-hoho">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Ray tracing in one weekend笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ray tracing in one weekend笔记">
+<meta property="og:url" content="https://kenny-hoho.github.io/2022/10/09/Ray%20tracing%20in%20one%20weekend/index.html">
+<meta property="og:site_name" content="Kenny-hoho">
+<meta property="og:description" content="Ray tracing in one weekend笔记">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://kenny-hoho.github.io/img/bg/RayTracing_weekend.jpg">
+<meta property="article:published_time" content="2022-10-08T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-10-29T10:43:18.972Z">
+<meta property="article:author" content="Kenny-hoho">
+<meta property="article:tag" content="Ray Tracing">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://kenny-hoho.github.io/img/bg/RayTracing_weekend.jpg">
+  
+  
+  
+  <title>Ray tracing in one weekend笔记 - Kenny-hoho</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"kenny-hoho.github.io","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":["home"]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Kenny</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/Pink_city.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">Ray tracing in one weekend笔记</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-10-09 00:00" pubdate>
+          2022年10月9日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          49 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Ray tracing in one weekend笔记</h1>
+            
+            <div class="markdown-body">
+              
+              <p>Ray tracing in one weekend笔记</p>
+<span id="more"></span>
+
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a target="_blank" rel="noopener" href="https://raytracing.github.io/books/RayTracingInOneWeekend.html">Ray Tracing in one weekend</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/128582904">中文翻译</a></p>
+<h1 id="输出图像"><a href="#输出图像" class="headerlink" title="输出图像"></a>输出图像</h1><p>使用ppm格式</p>
+<p><img src="/article_img/2022-09-26-14-26-50.png" srcset="/img/loading.gif" lazyload></p>
+<p>显示ppm格式的图像使用：<a href="https://link.zhihu.com/?target=http://openseeit.sourceforge.net/">OpenSeeIt</a>，生成图像需要在cmd切换到应用程序目录并执行命令：</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arduino">Raytracing_in_one_weekend.exe &gt; image.ppm<br></code></pre></td></tr></table></figure>
+
+<p><img src="/article_img/2022-09-26-14-28-48.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="vec3类"><a href="#vec3类" class="headerlink" title="vec3类"></a>vec3类</h1><p>这里就复习一下c++语法吧</p>
+<h2 id="const关键字小结："><a href="#const关键字小结：" class="headerlink" title="const关键字小结："></a>const关键字小结：</h2><ol>
+<li><p>const修饰普通类型的变量，表示是一个常量，不能重新赋值</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-type">const</span> a = <span class="hljs-number">10</span>;<br>b = a; <span class="hljs-comment">//正确</span><br>a = <span class="hljs-number">7</span>; <span class="hljs-comment">//错误</span><br></code></pre></td></tr></table></figure></li>
+<li><p>const 修饰指针变量，”左定值，右定向，const修饰不变量”，就是修饰谁谁就不能被改变</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// const修饰指针</span><br><span class="hljs-type">int</span> a = <span class="hljs-number">8</span>;<br><span class="hljs-type">int</span> * <span class="hljs-type">const</span> p = &amp;a;<br>*p = <span class="hljs-number">9</span>; <span class="hljs-comment">//正确</span><br>p = &amp;b; <span class="hljs-comment">//错误</span><br><br><span class="hljs-comment">// const修饰指针内容</span><br><span class="hljs-type">const</span> <span class="hljs-type">int</span> *p = <span class="hljs-number">9</span>;<br><br><span class="hljs-comment">// const修饰指针和指针指向的内容, 指针p和*p都不能改变</span><br><span class="hljs-type">int</span> a = <span class="hljs-number">8</span>;<br><span class="hljs-type">const</span> <span class="hljs-type">int</span> * <span class="hljs-type">const</span> p = &amp;a;<br></code></pre></td></tr></table></figure></li>
+<li><p>const参数传递和函数返回值</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// const修饰传递的值</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">fun</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">int</span> a)</span></span>&#123;<br>   cout&lt;&lt;a;<br>   <span class="hljs-comment">// ++a;  是错误的，a 不能被改变</span><br>&#125;<br><span class="hljs-comment">// const修饰传递的指针,防止指针被意外篡改</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">fun</span><span class="hljs-params">(<span class="hljs-type">int</span> * <span class="hljs-type">const</span> p)</span></span>&#123;<br>   ...<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>自定义类型的参数传递，需要临时对象复制参数，对于临时对象的构造，需要调用构造函数，比较浪费时间，因此我们采取 const 外加引用传递的方法。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">fun</span><span class="hljs-params">(<span class="hljs-type">const</span> my_class&amp; a)</span></span>&#123;<br>   cout&lt;&lt;a.<span class="hljs-built_in">class_fun</span>();<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>const修饰类成员函数</p>
+<p>const 修饰类成员函数，其目的是防止成员函数修改被调用对象的值，如果我们不想修改一个调用对象的值，所有的成员函数都应当声明为 const 成员函数。</p>
+</li>
+</ol>
+<h2 id="构造函数和运算符重载"><a href="#构造函数和运算符重载" class="headerlink" title="构造函数和运算符重载"></a>构造函数和运算符重载</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">//构造函数</span><br><span class="hljs-built_in">vec3</span>(<span class="hljs-type">double</span> x,<span class="hljs-type">double</span> y,<span class="hljs-type">double</span> z):e&#123;x,y,z&#125;&#123;&#125;<br><span class="hljs-comment">//运算符重载</span><br>vec3 <span class="hljs-keyword">operator</span>*=(<span class="hljs-type">int</span> t)&#123;<br>   ...<br>&#125;<br><span class="hljs-keyword">inline</span> vec3 <span class="hljs-keyword">operator</span>*(<span class="hljs-type">const</span> vec3&amp; u, <span class="hljs-type">const</span> vec3&amp; v) &#123;<br>   <span class="hljs-keyword">return</span> <span class="hljs-built_in">vec3</span>(u.e[<span class="hljs-number">0</span>] * v.e[<span class="hljs-number">0</span>], u.e[<span class="hljs-number">1</span>] * v.e[<span class="hljs-number">1</span>], u.e[<span class="hljs-number">2</span>] * v.e[<span class="hljs-number">2</span>]);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="inline关键字"><a href="#inline关键字" class="headerlink" title="inline关键字"></a>inline关键字</h2><p>在 c&#x2F;c++ 中，为了解决一些频繁调用的小函数大量消耗栈空间（栈内存）的问题，特别的引入了 inline 修饰符，表示为内联函数。</p>
+<p>栈空间就是指放置程序的局部数据（也就是函数内数据）的内存空间。</p>
+<p>在系统下，栈空间是有限的，假如频繁大量的使用就会造成因栈空间不足而导致程序出错的问题，如，函数的死循环递归调用的最终结果就是导致栈内存空间枯竭。</p>
+<p><strong>inline就是把函数内容替换到函数调用处。</strong></p>
+<p><strong>注意：inline函数里不能有while和switch，不能是递归函数</strong></p>
+<h2 id="C-中的别名定义"><a href="#C-中的别名定义" class="headerlink" title="C++中的别名定义"></a>C++中的别名定义</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// 使用别名来区分点和颜色，只是用来区分，不会有警告</span><br><span class="hljs-keyword">using</span> point3 = vec3;<br><span class="hljs-keyword">using</span> color = vec3;<br></code></pre></td></tr></table></figure>
+
+<h1 id="光线，简单摄像机和背景"><a href="#光线，简单摄像机和背景" class="headerlink" title="光线，简单摄像机和背景"></a>光线，简单摄像机和背景</h1><p><img src="/article_img/2022-09-26-21-08-46.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">color <span class="hljs-title">ray_color</span><span class="hljs-params">(<span class="hljs-type">const</span> ray&amp; r)</span> </span>&#123;<br>	<span class="hljs-comment">// 线性插值颜色</span><br>	vec3 unit_direction = <span class="hljs-built_in">unit_vector</span>(r.<span class="hljs-built_in">direction</span>());<br>	<span class="hljs-keyword">auto</span> t = <span class="hljs-number">0.5</span> * (unit_direction.<span class="hljs-built_in">y</span>() + <span class="hljs-number">1.0</span>);<br>   <span class="hljs-comment">// blendedValue=(1−t)⋅startValue+t⋅endValue</span><br>	<span class="hljs-keyword">return</span> (<span class="hljs-number">1.0</span> - t) * <span class="hljs-built_in">color</span>(<span class="hljs-number">1.0</span>, <span class="hljs-number">1.0</span>, <span class="hljs-number">1.0</span>) + t * <span class="hljs-built_in">color</span>(<span class="hljs-number">0.5</span>, <span class="hljs-number">0.7</span>, <span class="hljs-number">1.0</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/article_img/2022-09-26-21-01-37.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="添加球面"><a href="#添加球面" class="headerlink" title="添加球面"></a>添加球面</h1><p>绘制一个球心在（0，0，-1）处，半径为0.5的球。</p>
+<p>主要在于判断球面和光线是否相交，Games101中提到的光线与隐式表面的求交问题，将光线方程带入球面方程，求t。</p>
+<p><img src="/article_img/2022-09-27-11-50-26.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">hit_sphere</span><span class="hljs-params">(<span class="hljs-type">const</span> point3&amp; center, <span class="hljs-type">double</span> radius, <span class="hljs-type">const</span> ray&amp; r)</span> </span>&#123;<br><br>	<span class="hljs-comment">//  t2b⋅b+2tb⋅(A−C)+(A−C)⋅(A−C)−r2=0</span><br><br>	vec3 oc = r.<span class="hljs-built_in">origin</span>() - center;<br>	<span class="hljs-keyword">auto</span> a = <span class="hljs-built_in">dot</span>(r.<span class="hljs-built_in">direction</span>(), r.<span class="hljs-built_in">direction</span>());<br>	<span class="hljs-keyword">auto</span> b = <span class="hljs-number">2</span> * <span class="hljs-built_in">dot</span>(r.<span class="hljs-built_in">direction</span>(), oc);<br>	<span class="hljs-keyword">auto</span> c = <span class="hljs-built_in">dot</span>(oc, oc) - radius * radius;<br>	<span class="hljs-keyword">auto</span> discriminant = b * b - <span class="hljs-number">4</span> * a * c;<br>	<span class="hljs-keyword">return</span> (discriminant &gt; <span class="hljs-number">0</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/article_img/2022-09-27-11-50-57.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>存在的问题</strong>：若将球心放置在（0，0，1）渲染的结果和此时一样。</p>
+<h1 id="法线和多个物体"><a href="#法线和多个物体" class="headerlink" title="法线和多个物体"></a>法线和多个物体</h1><h2 id="法线可视化"><a href="#法线可视化" class="headerlink" title="法线可视化"></a>法线可视化</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">if</span> (t &gt; <span class="hljs-number">0.0</span>) &#123; <span class="hljs-comment">// 如果与球面相交直接return颜色</span><br>	<span class="hljs-comment">// 求得法线</span><br>	vec3 N = <span class="hljs-built_in">unit_vector</span>(r.<span class="hljs-built_in">at</span>(t) - <span class="hljs-built_in">vec3</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">-1</span>));<br>     <span class="hljs-comment">// 将值映射到（0，1），尽管已经是单位向量，但是由于法线坐标会有负值，仍需要做映射</span><br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0.5</span> * <span class="hljs-built_in">color</span>(N.<span class="hljs-built_in">x</span>() + <span class="hljs-number">1</span>, N.<span class="hljs-built_in">y</span>() + <span class="hljs-number">1</span>, N.<span class="hljs-built_in">z</span>() + <span class="hljs-number">1</span>); <br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/article_img/2022-09-27-13-10-42.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="hit-record结构体"><a href="#hit-record结构体" class="headerlink" title="hit_record结构体"></a>hit_record结构体</h2><p>记录光线与物体交点的信息：交点坐标，交点处法线，光线方程中的t值</p>
+<p>以及判断光线是从哪个方向射向平面，从而<strong>设定法线方向始终与光线入射方向相反</strong>。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">hit_record</span> &#123; <span class="hljs-comment">// 记录了与物体交点的信息：交点坐标，交点处法线，光线方程中的t值</span><br>	point3 p;<br>	vec3 normal;<br>	<span class="hljs-type">double</span> t;<br><br>	<span class="hljs-comment">// 判断光线是从哪个方向射向平面</span><br>	<span class="hljs-type">bool</span> front_face;<br><br>	<span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">set_face_normal</span><span class="hljs-params">(<span class="hljs-type">const</span> ray&amp; r, <span class="hljs-type">const</span> vec3&amp; outward_normal)</span> </span>&#123;<br>		<span class="hljs-comment">// 保证法线始终与光线入射方向相反</span><br>		front_face = <span class="hljs-built_in">dot</span>(r.<span class="hljs-built_in">direction</span>(), outward_normal) &lt; <span class="hljs-number">0</span>;<br>		<span class="hljs-comment">// 设置normal</span><br>		normal = front_face ? outward_normal : -outward_normal;<br>	&#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h2 id="hittable类"><a href="#hittable类" class="headerlink" title="hittable类"></a>hittable类</h2><p>定义了一个虚函数，本书中只解决了与球面判断相交的问题，就是将线段代入球面方程看是否有解。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">hittable</span> &#123;<br><span class="hljs-keyword">public</span>:<br>   <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">bool</span> <span class="hljs-title">hit</span><span class="hljs-params">(<span class="hljs-type">const</span> ray&amp; r, <span class="hljs-type">double</span> t_min, <span class="hljs-type">double</span> t_max, hit_record&amp; rec)</span><span class="hljs-type">const</span> </span>= <span class="hljs-number">0</span>;<br>&#125;;<br></code></pre></td></tr></table></figure>
+<h2 id="sphere类"><a href="#sphere类" class="headerlink" title="sphere类"></a>sphere类</h2><p>sphere类继承自hittable类，实现了hit函数，有两个变量：球心坐标和半径</p>
+<h2 id="hittable-list类（Some-New-C-Features）"><a href="#hittable-list类（Some-New-C-Features）" class="headerlink" title="hittable_list类（Some New C++ Features）"></a>hittable_list类（Some New C++ Features）</h2><h2 id="渲染结果"><a href="#渲染结果" class="headerlink" title="渲染结果"></a>渲染结果</h2><p>在main函数中创建hittable_list对象world，表示场景信息，其中有一个大球一个小球（渲染结果如下），地面（大球）是绿色是因为这里的法线都是向上，观察小球的顶部也是绿色。</p>
+<p><img src="/article_img/2022-09-27-19-39-22.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="抗锯齿"><a href="#抗锯齿" class="headerlink" title="抗锯齿"></a>抗锯齿</h1><p>加大采样率，在每个像素中随机采样一百次，将结果平均作为该像素的颜色。</p>
+<p><img src="/article_img/2022-09-28-16-15-11.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/article_img/2022-09-29-15-43-18.png" srcset="/img/loading.gif" lazyload><br>将相机部分的代码封装到了camera类。</p>
+<h1 id="漫反射材质"><a href="#漫反射材质" class="headerlink" title="漫反射材质"></a>漫反射材质</h1><p><img src="/article_img/2022-09-29-15-45-06.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/article_img/2022-09-29-15-45-22.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/article_img/2022-09-29-15-45-33.png" srcset="/img/loading.gif" lazyload></p>
+<p>方法1： 单位圆中随机<br>方法2： 在单位圆上随机生成<br>方法3： 直接生成反射方向  </p>
+<p>方法1比方法2要更加真实，因为前者能让更多光线向相机方向反射，而后者更多光线会靠近法线方法，导致反射次数增加（阴影很黑），使用方法2明显渲染速度变快很多。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">color <span class="hljs-title">ray_color</span><span class="hljs-params">(<span class="hljs-type">const</span> ray&amp; r, <span class="hljs-type">const</span> hittable&amp; world, <span class="hljs-type">int</span> depth)</span> </span>&#123;<br>	hit_record rec;<br><br>	<span class="hljs-keyword">if</span> (depth &lt;= <span class="hljs-number">0</span>)<br>		<span class="hljs-keyword">return</span> <span class="hljs-built_in">color</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>);<br><br>	<span class="hljs-keyword">if</span> (world.<span class="hljs-built_in">hit</span>(r,<span class="hljs-number">0.001</span>,infinity,rec))&#123; <span class="hljs-comment">// 如果与球面相交直接return颜色</span><br>		<span class="hljs-comment">// 求得法线</span><br>		<span class="hljs-comment">//return 0.5 * (rec.normal + color(1,1,1));</span><br><br>		<span class="hljs-comment">/* 漫反射</span><br><span class="hljs-comment">      方法1：单位圆中随机</span><br><span class="hljs-comment">		point3 target = rec.p + rec.normal + random_in_unit_vector(); </span><br><span class="hljs-comment">      方法3：直接生成反射方向</span><br><span class="hljs-comment">		point3 target = rec.p + random_in_hemisphere(); </span><br><span class="hljs-comment">      方法2：在单位圆上随机生成</span><br><span class="hljs-comment">      */</span><br>		point3 target = rec.p + rec.normal + <span class="hljs-built_in">random_unit_vector</span>(); <br>		<span class="hljs-keyword">return</span> <span class="hljs-number">0.5</span> * <span class="hljs-built_in">ray_color</span>(<span class="hljs-built_in">ray</span>(rec.p, target - rec.p), world, depth - <span class="hljs-number">1</span>); <br>	&#125;<br>	<span class="hljs-comment">// 线性插值颜色</span><br>	vec3 unit_direction = <span class="hljs-built_in">unit_vector</span>(r.<span class="hljs-built_in">direction</span>());<br>	<span class="hljs-keyword">auto</span> t = <span class="hljs-number">0.5</span> * (unit_direction.<span class="hljs-built_in">y</span>() + <span class="hljs-number">1.0</span>);<br>	<span class="hljs-keyword">return</span> (<span class="hljs-number">1.0</span> - t) * <span class="hljs-built_in">color</span>(<span class="hljs-number">1.0</span>, <span class="hljs-number">1.0</span>, <span class="hljs-number">1.0</span>) + t * <span class="hljs-built_in">color</span>(<span class="hljs-number">0.5</span>, <span class="hljs-number">0.7</span>, <span class="hljs-number">1.0</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>color(1,1,1)表示白色，color(0,0,0)表示黑色，这里的0.5*ray_color(…)相当于每次光线衰减50%，就是变暗一半。</p>
+<p><img src="/article_img/2022-09-29-15-52-40.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="金属材质"><a href="#金属材质" class="headerlink" title="金属材质"></a>金属材质</h1><h2 id="材质类"><a href="#材质类" class="headerlink" title="材质类"></a>材质类</h2><p>抽象类： material类<br>继承类： metal类，lambertian类</p>
+<p><img src="/article_img/2022-09-30-14-48-32.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="左侧球呈现镜面效果的原因："><a href="#左侧球呈现镜面效果的原因：" class="headerlink" title="左侧球呈现镜面效果的原因："></a>左侧球呈现镜面效果的原因：</h2><p>光线从相机射出，与球面相交，调用交点材质的scatter函数计算反射光线以及得到衰减率，<strong>进入递归</strong>，发现反射光线不与物体相交，即进行线性插值颜色，<strong>递归结束</strong>，得到的线性插值颜色与衰减率相乘（<strong>这就是为什么左侧球与背景颜色相似但是稍暗一些的原因</strong>），得到最终的颜色。</p>
+<h2 id="右侧球带有颜色的原因："><a href="#右侧球带有颜色的原因：" class="headerlink" title="右侧球带有颜色的原因："></a>右侧球带有颜色的原因：</h2><p>就是因为其衰减率的RGB三个值不相同，导致有的颜色衰减的更多，就看起来有了某种颜色，而不是简单的变暗。</p>
+<h2 id="关键代码"><a href="#关键代码" class="headerlink" title="关键代码"></a>关键代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">color <span class="hljs-title">ray_color</span><span class="hljs-params">(<span class="hljs-type">const</span> ray&amp; r, <span class="hljs-type">const</span> hittable&amp; world, <span class="hljs-type">int</span> depth)</span> </span>&#123;<br>	hit_record rec;<br><br>	<span class="hljs-keyword">if</span> (depth &lt;= <span class="hljs-number">0</span>)<br>		<span class="hljs-keyword">return</span> <span class="hljs-built_in">color</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>);<br><br>	<span class="hljs-keyword">if</span> (world.<span class="hljs-built_in">hit</span>(r,<span class="hljs-number">0.001</span>,infinity,rec))&#123; <span class="hljs-comment">// 与球面相交</span><br>		ray scattered;<br>		color attenuation;   <span class="hljs-comment">// 衰减率</span><br><br>      <span class="hljs-comment">// 调用材质的scatter函数，得到该反射点的材质的衰减率和反射光线。</span><br>		<span class="hljs-keyword">if</span> (rec.mat_ptr-&gt;<span class="hljs-built_in">scatter</span>(r, rec, attenuation, scattered))<br>			<span class="hljs-keyword">return</span> attenuation * <span class="hljs-built_in">ray_color</span>(scattered, world, depth - <span class="hljs-number">1</span>);<br>		<span class="hljs-keyword">return</span> <span class="hljs-built_in">color</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>);<br>	&#125;<br>	<span class="hljs-comment">// 线性插值颜色</span><br>	vec3 unit_direction = <span class="hljs-built_in">unit_vector</span>(r.<span class="hljs-built_in">direction</span>());<br>	<span class="hljs-keyword">auto</span> t = <span class="hljs-number">0.5</span> * (unit_direction.<span class="hljs-built_in">y</span>() + <span class="hljs-number">1.0</span>);<br>	<span class="hljs-keyword">return</span> (<span class="hljs-number">1.0</span> - t) * <span class="hljs-built_in">color</span>(<span class="hljs-number">1.0</span>, <span class="hljs-number">1.0</span>, <span class="hljs-number">1.0</span>) + t * <span class="hljs-built_in">color</span>(<span class="hljs-number">0.5</span>, <span class="hljs-number">0.7</span>, <span class="hljs-number">1.0</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h1 id="模糊反射（磨砂镜面）"><a href="#模糊反射（磨砂镜面）" class="headerlink" title="模糊反射（磨砂镜面）"></a>模糊反射（磨砂镜面）</h1><p><img src="/article_img/2022-10-08-14-55-02.png" srcset="/img/loading.gif" lazyload></p>
+<p>反射光线加一个随机的向量（在单位圆中生成）</p>
+<p>在金属材质类（metal）中加一个属性：磨砂系数（fuzz）</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++">scattered = <span class="hljs-built_in">ray</span>(rec.p, reflected + fuzz * <span class="hljs-built_in">random_in_unit_sphere</span>());<br></code></pre></td></tr></table></figure>
+<p><img src="/article_img/2022-10-08-14-54-52.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="电解质（透明物体）"><a href="#电解质（透明物体）" class="headerlink" title="电解质（透明物体）"></a>电解质（透明物体）</h1><h2 id="折射"><a href="#折射" class="headerlink" title="折射"></a>折射</h2><p><img src="/article_img/2022-10-09-14-06-32.png" srcset="/img/loading.gif" lazyload></p>
+<p>一次折射会让场景颠倒</p>
+<h2 id="Schlick近似"><a href="#Schlick近似" class="headerlink" title="Schlick近似"></a>Schlick近似</h2><p>现实世界中的玻璃, 发生折射的概率会随着入射角而改变——从一个很狭窄的角度去看玻璃窗, 它会变成一面镜子。</p>
+<h2 id="中空球"><a href="#中空球" class="headerlink" title="中空球"></a>中空球</h2><p>将球的半径设置为负值，几何形状不会改变，但是法相全部反转到内部。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++">world.<span class="hljs-built_in">add</span>(<span class="hljs-built_in">make_shared</span>&lt;sphere&gt;(<span class="hljs-built_in">point3</span>(<span class="hljs-number">-1.0</span>,    <span class="hljs-number">0.0</span>, <span class="hljs-number">-1.0</span>),  <span class="hljs-number">-0.4</span>, material_left));<br></code></pre></td></tr></table></figure>
+
+<p><img src="/article_img/2022-10-09-14-25-53.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="相机"><a href="#相机" class="headerlink" title="相机"></a>相机</h1><h2 id="相机可视角度（Field-of-View）"><a href="#相机可视角度（Field-of-View）" class="headerlink" title="相机可视角度（Field of View）"></a>相机可视角度（Field of View）</h2><p>这里的可视角度是竖直方向上的可视角度，实际水平也可以。有了 FOV 再根据宽高比就能求出视图的宽高值。</p>
+<p><img src="/article_img/2022-10-09-14-28-04.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="相机的定位定向"><a href="#相机的定位定向" class="headerlink" title="相机的定位定向"></a>相机的定位定向</h2><p><img src="/article_img/2022-10-09-14-51-30.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/article_img/2022-10-09-14-51-38.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">auto</span> w = <span class="hljs-built_in">unit_vector</span>(lookfrom - lookat);<br><span class="hljs-keyword">auto</span> u = <span class="hljs-built_in">unit_vector</span>(<span class="hljs-built_in">cross</span>(vup, w));<br><span class="hljs-keyword">auto</span> v = <span class="hljs-built_in">cross</span>(w, u);<br></code></pre></td></tr></table></figure>
+
+<p>这里就是要新建一个坐标系，经过以上代码的运算，得到一个新的坐标系：相机看向-w方向，相机的向上方向是v，还有一个水平的方向u。</p>
+<p>改变camera类，可以设定相机的位置和相机看向的方向。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">camera <span class="hljs-title">cam</span><span class="hljs-params">(point3(<span class="hljs-number">-2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>), point3(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">-1</span>), vec3(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>), <span class="hljs-number">90</span>, aspect_ratio)</span></span>;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/article_img/2022-10-09-14-52-21.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="景深"><a href="#景深" class="headerlink" title="景深"></a>景深</h1><p><img src="/article_img/2022-10-09-15-26-37.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="常看常新"><a href="#常看常新" class="headerlink" title="常看常新"></a>常看常新</h1><h2 id="成像平面"><a href="#成像平面" class="headerlink" title="成像平面"></a>成像平面</h2><p>之前在我的印象中光线追踪模型应该是下图这样的，摄像机和成像平面在整个场景之前，但其实成像平面在哪并没有什么关系，本例的成像平面就与物体在同一深度。</p>
+<p><img src="/article_img/2022-10-29-18-15-59.png" srcset="/img/loading.gif" lazyload></p>
+<p>仔细一想，成像平面的意义在于确定从相机发出的路径，所以如下图所示，只要成像平面的面积与平面到相机的距离成比例变化，其实发出的路径都是一样的，都在图示的锥体中。</p>
+<p><img src="/article_img/2022-10-29-18-20-06.png" srcset="/img/loading.gif" lazyload></p>
+<p>而FOV实际上也是在改变这个锥体，FOV越大，成像平面也就越大（平面到相机的垂直相同的情况下）。</p>
+<p>关于FOV还有一个有趣的观察，在这个光线追踪例子中，FOV越小，最终得到的图像和真正将相机离物体很近拍出的图像一模一样。而在现实中（如下图）我们可以轻易的分辨出是从很近的地方拍照还是通过变焦从很远的地方拍照（会明显模糊），而在本例子中并不会产生模糊。原因在于现实中的相机焦距不是任意可调的，理论上来说，拍摄越远的物体，相机内部的成像平面也应该离透镜越远，而真实的相机大小是有限的，因此会产生模糊，在本文中的虚拟的透镜焦距确实是可以任意调整的，因此并不会模糊，就像在很近的距离拍摄的一样，物体又大又清晰。</p>
+<p><img src="/article_img/2022-10-29-13-44-32.png" srcset="/img/loading.gif" lazyload></p>
+
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Ray-Tracing-%E7%AC%94%E8%AE%B0/" class="category-chain-item">-[Ray Tracing 笔记]</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Ray-Tracing/">#Ray Tracing</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Ray tracing in one weekend笔记</div>
+      <div>https://kenny-hoho.github.io/2022/10/09/Ray tracing in one weekend/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Kenny-hoho</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年10月9日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/10/11/Games101-6-%E5%85%89%E7%BA%BF%E8%BF%BD%E8%B8%AA(Whitted-Style)/" title="Games101-6-光线追踪(Whitted-Style)">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Games101-6-光线追踪(Whitted-Style)</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/08/25/Games101-4-%E7%9D%80%E8%89%B2/" title="Games101-4-着色">
+                        <span class="hidden-mobile">Games101-4-着色</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        MathJax = {
+          tex    : {
+            inlineMath: { '[+]': [['$', '$']] }
+          },
+          loader : {
+            load: ['ui/lazy']
+          },
+          options: {
+            renderActions: {
+              findScript    : [10, doc => {
+                document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                  const display = !!node.type.match(/; *mode=display/);
+                  const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                  const text = document.createTextNode('');
+                  node.parentNode.replaceChild(text, node);
+                  math.start = { node: text, delim: '', n: 0 };
+                  math.end = { node: text, delim: '', n: 0 };
+                  doc.math.push(math);
+                });
+              }, '', false],
+              insertedScript: [200, () => {
+                document.querySelectorAll('mjx-container').forEach(node => {
+                  let target = node.parentNode;
+                  if (target.nodeName.toLowerCase() === 'li') {
+                    target.parentNode.classList.add('has-jax');
+                  }
+                });
+              }, '', false]
+            }
+          }
+        };
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.0/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
