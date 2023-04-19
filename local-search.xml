@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>C++Review-How C++ Works</title>
+    <link href="/2023/04/17/C++Review_How/"/>
+    <url>/2023/04/17/C++Review_How/</url>
+    
+    <content type="html"><![CDATA[<p>复习C++</p><span id="more"></span><p>主要参考 <a href="https://www.bilibili.com/video/BV1qh411p7Sa?p=6&vd_source=93b215eab72b2548f75d0772e28f8b20">Cherno’s C++ 教程</a></p><h1 id="C-从文本到程序"><a href="#C-从文本到程序" class="headerlink" title="C++从文本到程序"></a>C++从文本到程序</h1><p>我们编写的代码本质就是文本（text），要让这个文本变成机器可以执行的应用（binary），需要有两个主要的操作：编译（compiling）和链接（linking）。</p><p>当我们按下编译键（ctrl+F7）时只会进行编译，按下build键时会先编译后链接。</p><h1 id="C-编译器（Compiling）"><a href="#C-编译器（Compiling）" class="headerlink" title="C++编译器（Compiling）"></a>C++编译器（Compiling）</h1><p>C++编译器的工作是将<strong>文本</strong>（.cpp文件或者.h文件）转换为<strong>obj</strong>文件，也就是机器语言。</p><p>说到底就是编译器把代码转化为constant data或者instructions</p><p><strong>编译的基本步骤</strong></p><ol><li>需要<strong>预处理（pre-process）</strong> 代码，处理所有的预处理语句（preprocessor）</li><li>编辑<strong>解释（tokenizing）</strong>和<strong>解析（parsing）</strong>，将c++文件里的这些文本翻译成编译器可以理解和处理的语句<br>结果就是创建<strong>抽象语法树（abstract syntax tree）</strong></li><li>根据这颗抽象语法树产生cpu真正执行的机器码</li></ol><h2 id="编译单元（translation-unit）和文件的关系"><a href="#编译单元（translation-unit）和文件的关系" class="headerlink" title="编译单元（translation unit）和文件的关系"></a>编译单元（translation unit）和文件的关系</h2><p>C++不关心文件（file），是什么文件对编译器来说并没有硬性要求，编译器会默认cpp文件是C++文件，h文件是header文件，但是这只是默认，完全可以自定义另一种文件.cherno文件是C++文件，编译器就会将cherno文件当作C++文件处理。</p><p>一个<strong>编译单元（translation unit）</strong> 对应一个<strong>obj文件</strong>，一般都是每个文件是一个编译单元，但是如果使用了#include，将别的文件包含在当前的文件中（本质就是创建了一个大的cpp文件，里面有很多cpp文件），且只编译当前这个文件，那么这个文件和他include的文件组成一个编译单元，也就只会得到一个obj文件。</p><h2 id="预处理（pre-process）"><a href="#预处理（pre-process）" class="headerlink" title="预处理（pre-process）"></a>预处理（pre-process）</h2><p><strong>#include</strong>的工作原理就是找到你include的文件，之后<strong>复制</strong>其全部内容到当前的文件。</p><p><strong>#define</strong>的工作原理就是用anything替换INTEGER</p><p><img src="/article_img/2023-04-19-12-13-27.png"></p><p>Math.i是生成的预处理文件，可以在项目属性里设置生成预处理文件，但是这样VS就不会生成obj文件了。</p><h2 id="obj文件"><a href="#obj文件" class="headerlink" title="obj文件"></a>obj文件</h2><p>obj文件就已经是机器码了：<br><img src="/article_img/2023-04-19-12-51-20.png"></p><p>如果选择了<strong>优化</strong>，在编译阶段就会对代码进行优化，比如删掉未使用的代码，计算所有的常量，删掉多余的寄存器等等。而为了使Debug方便，VS在Debug模式下默认禁止代码优化，就导致其运行起来较慢。</p><h1 id="C-链接器（Linking）"><a href="#C-链接器（Linking）" class="headerlink" title="C++链接器（Linking）"></a>C++链接器（Linking）</h1><p>当我们将每个编译单元编译成一个Obj文件之后，这些文件是独立的，并不能进行交流，而我们经常将不同的代码写在不同的文件中，因此我们需要<strong>链接（Linking）</strong>，将这些独立的Obj文件联系起来。就算我们将所有的代码都写在一个文件中，我们也需要告知程序的入口（main函数）在哪，也需要链接操作。</p><h2 id="常见的链接错误"><a href="#常见的链接错误" class="headerlink" title="常见的链接错误"></a>常见的链接错误</h2><ol><li>unresolved external symbol（未解决的外部符号）：链接器找不到他需要的东西</li><li>one or more multiply defined symbols found（重复定义）：链接器不知道选择哪个<br>常见于include头文件时，可以使用static，inline或者移动函数定义的方式（关键点就是理解include实际上就是复制粘贴！）</li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>-[C++]</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>C++</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>百人计划-动画TA-动作理论基础</title>
     <link href="/2023/03/29/%E7%99%BE%E4%BA%BA%E8%AE%A1%E5%88%92-%E5%8A%A8%E7%94%BBTA-%E5%8A%A8%E4%BD%9C%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/"/>
     <url>/2023/03/29/%E7%99%BE%E4%BA%BA%E8%AE%A1%E5%88%92-%E5%8A%A8%E7%94%BBTA-%E5%8A%A8%E4%BD%9C%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/</url>

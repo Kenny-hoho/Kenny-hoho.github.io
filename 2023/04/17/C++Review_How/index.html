@@ -16,24 +16,24 @@
   <meta name="author" content="Kenny-hoho">
   <meta name="keywords" content="">
   
-    <meta name="description" content="百人计划-动画TA-动作理论基础">
+    <meta name="description" content="复习C++">
 <meta property="og:type" content="article">
-<meta property="og:title" content="百人计划-动画TA-动作理论基础">
-<meta property="og:url" content="https://kenny-hoho.github.io/2023/03/29/%E7%99%BE%E4%BA%BA%E8%AE%A1%E5%88%92-%E5%8A%A8%E7%94%BBTA-%E5%8A%A8%E4%BD%9C%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:title" content="C++Review-How C++ Works">
+<meta property="og:url" content="https://kenny-hoho.github.io/2023/04/17/C++Review_How/index.html">
 <meta property="og:site_name" content="Kenny-hoho">
-<meta property="og:description" content="百人计划-动画TA-动作理论基础">
+<meta property="og:description" content="复习C++">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://kenny-hoho.github.io/img/bg/West2.jpg">
-<meta property="article:published_time" content="2023-03-28T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-04-17T09:45:32.578Z">
+<meta property="og:image" content="https://kenny-hoho.github.io/img/bg/cpp.jpg">
+<meta property="article:published_time" content="2023-04-16T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-04-19T06:21:33.055Z">
 <meta property="article:author" content="Kenny-hoho">
-<meta property="article:tag" content="百人计划">
+<meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://kenny-hoho.github.io/img/bg/West2.jpg">
+<meta name="twitter:image" content="https://kenny-hoho.github.io/img/bg/cpp.jpg">
   
   
   
-  <title>百人计划-动画TA-动作理论基础 - Kenny-hoho</title>
+  <title>C++Review-How C++ Works - Kenny-hoho</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -196,7 +196,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">百人计划-动画TA-动作理论基础</span>
+            <span id="subtitle">C++Review-How C++ Works</span>
           
         </div>
 
@@ -207,8 +207,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-03-29 00:00" pubdate>
-          2023年3月29日 凌晨
+        <time datetime="2023-04-17 00:00" pubdate>
+          2023年4月17日 凌晨
         </time>
       </span>
     
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.1k 字
+          1.3k 字
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          9 分钟
+          12 分钟
         
       </span>
     
@@ -272,53 +272,37 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">百人计划-动画TA-动作理论基础</h1>
+            <h1 style="display: none">C++Review-How C++ Works</h1>
             
             <div class="markdown-body">
               
-              <p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Bh411t7AF?p=2&vd_source=93b215eab72b2548f75d0772e28f8b20">百人计划-动画TA-动作理论基础</a></p>
+              <p>复习C++</p>
 <span id="more"></span>
 
-<h1 id="动画基础知识"><a href="#动画基础知识" class="headerlink" title="动画基础知识"></a>动画基础知识</h1><h2 id="什么是运动"><a href="#什么是运动" class="headerlink" title="什么是运动"></a>什么是运动</h2><p>运动（translation）包括平移（position），旋转（rotation）和缩放（scale）（缩放一般用于夸张的卡通动画效果）。计算机角色动画的基础是骨骼动画，骨骼动画就是用某种方式驱动顶点的移动。</p>
-<p><img src="/article_img/2023-03-29-13-40-25.png" srcset="/img/loading.gif" lazyload></p>
-<h2 id="蒙皮（Skining）"><a href="#蒙皮（Skining）" class="headerlink" title="蒙皮（Skining）"></a>蒙皮（Skining）</h2><p>蒙皮字面意思理解就是给骨骼蒙上一层皮肤，蒙皮系统以某种方式驱动哪些顶点去到哪里。</p>
-<p><img src="/article_img/2023-03-29-13-43-09.png" srcset="/img/loading.gif" lazyload></p>
-<p>常见的蒙皮算法：</p>
+<p>主要参考 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1qh411p7Sa?p=6&vd_source=93b215eab72b2548f75d0772e28f8b20">Cherno’s C++ 教程</a></p>
+<h1 id="C-从文本到程序"><a href="#C-从文本到程序" class="headerlink" title="C++从文本到程序"></a>C++从文本到程序</h1><p>我们编写的代码本质就是文本（text），要让这个文本变成机器可以执行的应用（binary），需要有两个主要的操作：编译（compiling）和链接（linking）。</p>
+<p>当我们按下编译键（ctrl+F7）时只会进行编译，按下build键时会先编译后链接。</p>
+<h1 id="C-编译器（Compiling）"><a href="#C-编译器（Compiling）" class="headerlink" title="C++编译器（Compiling）"></a>C++编译器（Compiling）</h1><p>C++编译器的工作是将<strong>文本</strong>（.cpp文件或者.h文件）转换为<strong>obj</strong>文件，也就是机器语言。</p>
+<p>说到底就是编译器把代码转化为constant data或者instructions</p>
+<p><strong>编译的基本步骤</strong></p>
 <ol>
-<li><strong>LBS(Linear Blending Skining)线性混合蒙皮</strong>，大步幅蒙皮都是这种方式，但是会有挤压重叠（可以添加辅助骨骼保持关节形状）</li>
-<li><strong>DQS(Dual Quaternion Skining)双四元数蒙皮</strong>，游戏引擎不支持，如DAZ的模型</li>
-<li><strong>JCM(Joint Controlled Morphs)骨骼驱动变形</strong>，等于PSD（Pose space deformations），用骨骼驱动morphs变形，如Metahuman</li>
-<li><strong>RBF(Radial Basis Function)辅助骨骼驱动</strong>，除了关节还可以做一些肌肉的驱动</li>
-<li><strong>RTSS(Real-time Skeletal Skining)基于优化旋转中心的实时骨骼蒙皮</strong>，比较新的概念</li>
+<li>需要<strong>预处理（pre-process）</strong> 代码，处理所有的预处理语句（preprocessor）</li>
+<li>编辑<strong>解释（tokenizing）</strong>和<strong>解析（parsing）</strong>，将c++文件里的这些文本翻译成编译器可以理解和处理的语句<br>结果就是创建<strong>抽象语法树（abstract syntax tree）</strong></li>
+<li>根据这颗抽象语法树产生cpu真正执行的机器码</li>
 </ol>
-<h2 id="动画类型"><a href="#动画类型" class="headerlink" title="动画类型"></a>动画类型</h2><ol>
-<li><strong>逐帧动画</strong>：sprite（精灵）动画</li>
-<li><strong>骨骼动画</strong>：3D动画，spine动画（2D骨骼）</li>
-<li><strong>顶点动画</strong>：物理模拟后的动画数据，用于不便于用骨骼驱动的布料，流体和破碎等等；<br>VAT(vertex animation texture)将每帧顶点数据记录到贴图上，贴图尺寸：帧数*顶点数<br>shader顶点动画，在vertex shader中控制顶点按照一定规律和公式做偏移动画，常用于草地摆动，海浪等<br>离线定点动画，离线渲染完成后导出abc文件到引擎</li>
+<h2 id="编译单元（translation-unit）和文件的关系"><a href="#编译单元（translation-unit）和文件的关系" class="headerlink" title="编译单元（translation unit）和文件的关系"></a>编译单元（translation unit）和文件的关系</h2><p>C++不关心文件（file），是什么文件对编译器来说并没有硬性要求，编译器会默认cpp文件是C++文件，h文件是header文件，但是这只是默认，完全可以自定义另一种文件.cherno文件是C++文件，编译器就会将cherno文件当作C++文件处理。</p>
+<p>一个<strong>编译单元（translation unit）</strong> 对应一个<strong>obj文件</strong>，一般都是每个文件是一个编译单元，但是如果使用了#include，将别的文件包含在当前的文件中（本质就是创建了一个大的cpp文件，里面有很多cpp文件），且只编译当前这个文件，那么这个文件和他include的文件组成一个编译单元，也就只会得到一个obj文件。</p>
+<h2 id="预处理（pre-process）"><a href="#预处理（pre-process）" class="headerlink" title="预处理（pre-process）"></a>预处理（pre-process）</h2><p><strong>#include</strong>的工作原理就是找到你include的文件，之后<strong>复制</strong>其全部内容到当前的文件。</p>
+<p><strong>#define</strong>的工作原理就是用anything替换INTEGER</p>
+<p><img src="/article_img/2023-04-19-12-13-27.png" srcset="/img/loading.gif" lazyload></p>
+<p>Math.i是生成的预处理文件，可以在项目属性里设置生成预处理文件，但是这样VS就不会生成obj文件了。</p>
+<h2 id="obj文件"><a href="#obj文件" class="headerlink" title="obj文件"></a>obj文件</h2><p>obj文件就已经是机器码了：<br><img src="/article_img/2023-04-19-12-51-20.png" srcset="/img/loading.gif" lazyload></p>
+<p>如果选择了<strong>优化</strong>，在编译阶段就会对代码进行优化，比如删掉未使用的代码，计算所有的常量，删掉多余的寄存器等等。而为了使Debug方便，VS在Debug模式下默认禁止代码优化，就导致其运行起来较慢。</p>
+<h1 id="C-链接器（Linking）"><a href="#C-链接器（Linking）" class="headerlink" title="C++链接器（Linking）"></a>C++链接器（Linking）</h1><p>当我们将每个编译单元编译成一个Obj文件之后，这些文件是独立的，并不能进行交流，而我们经常将不同的代码写在不同的文件中，因此我们需要<strong>链接（Linking）</strong>，将这些独立的Obj文件联系起来。就算我们将所有的代码都写在一个文件中，我们也需要告知程序的入口（main函数）在哪，也需要链接操作。</p>
+<h2 id="常见的链接错误"><a href="#常见的链接错误" class="headerlink" title="常见的链接错误"></a>常见的链接错误</h2><ol>
+<li>unresolved external symbol（未解决的外部符号）：链接器找不到他需要的东西</li>
+<li>one or more multiply defined symbols found（重复定义）：链接器不知道选择哪个<br>常见于include头文件时，可以使用static，inline或者移动函数定义的方式（关键点就是理解include实际上就是复制粘贴！）</li>
 </ol>
-<h2 id="FK和IK"><a href="#FK和IK" class="headerlink" title="FK和IK"></a>FK和IK</h2><p>正向运动学和反向运动学，在DCC中的绑定用到了IK，在引擎中可以实时计算IK实现脚部对地面倾斜度的适配，牵手适配不同身高</p>
-<h1 id="动画质量和流畅度"><a href="#动画质量和流畅度" class="headerlink" title="动画质量和流畅度"></a>动画质量和流畅度</h1><p>好的动画符合运动规律，运动轨迹是弧线</p>
-<h2 id="如何营造打击感"><a href="#如何营造打击感" class="headerlink" title="如何营造打击感"></a>如何营造打击感</h2><p>首先打击感是结合视觉、听觉、特效等方面的综合表现营造的</p>
-<ol>
-<li><strong>合理的打击反馈</strong>，被大机房在受到攻击时一般会做出相应的受击反馈</li>
-<li><strong>打击抽帧和顿帧</strong><br>击打后停顿的是抽帧，击打后震动的是顿帧<br>攻击的前摇后摇</li>
-<li><strong>攻击节奏和按键反馈</strong></li>
-<li><strong>硬直和打断</strong></li>
-</ol>
-<h2 id="夸张的魅力"><a href="#夸张的魅力" class="headerlink" title="夸张的魅力"></a>夸张的魅力</h2><ol>
-<li><strong>挤压和拉伸</strong><br>挤压程度最大，表现出物体越Q弹；3D中起跳的先下蹲再伸展也是挤压和拉伸</li>
-<li><strong>拖尾和变形</strong><br>二次元中是视觉残留，3D中就是运动模糊</li>
-<li><strong>不正确的透视</strong></li>
-<li><strong>时间操控</strong></li>
-</ol>
-<h1 id="动画表现提升点"><a href="#动画表现提升点" class="headerlink" title="动画表现提升点"></a>动画表现提升点</h1><h2 id="表情"><a href="#表情" class="headerlink" title="表情"></a>表情</h2><ol>
-<li>写实：基本是动捕</li>
-<li>美式卡通：挤压拉伸</li>
-<li>日式卡通：保证五官形状</li>
-</ol>
-<h2 id="交互体验"><a href="#交互体验" class="headerlink" title="交互体验"></a>交互体验</h2><h2 id="动作状态融合"><a href="#动作状态融合" class="headerlink" title="动作状态融合"></a>动作状态融合</h2><p><a target="_blank" rel="noopener" href="https://www.unrealengine.com/marketplace/zh-CN/product/advanced-locomotion-system-v1">ALS</a></p>
-<p><img src="/article_img/2023-03-29-14-23-17.png" srcset="/img/loading.gif" lazyload></p>
-<h1 id="参考资料（下饭）"><a href="#参考资料（下饭）" class="headerlink" title="参考资料（下饭）"></a>参考资料（下饭）</h1><p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Qt411v7ih/?spm_id_from=333.337.search-card.all.click&vd_source=93b215eab72b2548f75d0772e28f8b20">动画十二法则</a><br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Mt4y1X7oB/?spm_id_from=333.337.search-card.all.click&vd_source=93b215eab72b2548f75d0772e28f8b20">动画师生存手册</a></p>
 
               
             </div>
@@ -336,7 +320,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E5%8A%A8%E7%94%BBTA/" class="category-chain-item">-[动画TA]</a>
+  <a href="/categories/C/" class="category-chain-item">-[C++]</a>
   
   
 
@@ -351,7 +335,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E7%99%BE%E4%BA%BA%E8%AE%A1%E5%88%92/">#百人计划</a>
+        <a href="/tags/C/">#C++</a>
       
     </div>
   
@@ -363,8 +347,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>百人计划-动画TA-动作理论基础</div>
-      <div>https://kenny-hoho.github.io/2023/03/29/百人计划-动画TA-动作理论基础/</div>
+      <div>C++Review-How C++ Works</div>
+      <div>https://kenny-hoho.github.io/2023/04/17/C++Review_How/</div>
     </div>
     <div class="license-meta">
       
@@ -376,7 +360,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年3月29日</div>
+          <div>2023年4月17日</div>
         </div>
       
       
@@ -406,18 +390,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/04/17/C++Review_How/" title="C++Review-How C++ Works">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">C++Review-How C++ Works</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/03/26/MotionMactching%E5%9F%BA%E7%A1%80/" title="MotionMactching基础">
-                        <span class="hidden-mobile">MotionMactching基础</span>
+                      <a href="/2023/03/29/%E7%99%BE%E4%BA%BA%E8%AE%A1%E5%88%92-%E5%8A%A8%E7%94%BBTA-%E5%8A%A8%E4%BD%9C%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/" title="百人计划-动画TA-动作理论基础">
+                        <span class="hidden-mobile">百人计划-动画TA-动作理论基础</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
