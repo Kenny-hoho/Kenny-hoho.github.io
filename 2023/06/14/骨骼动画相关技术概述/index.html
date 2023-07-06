@@ -1,0 +1,828 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/bg/profile.jpg">
+  <link rel="icon" href="/img/bg/profile.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Kenny-hoho">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="骨骼动画相关技术概述">
+<meta property="og:type" content="article">
+<meta property="og:title" content="骨骼动画相关技术概述">
+<meta property="og:url" content="https://kenny-hoho.github.io/2023/06/14/%E9%AA%A8%E9%AA%BC%E5%8A%A8%E7%94%BB%E7%9B%B8%E5%85%B3%E6%8A%80%E6%9C%AF%E6%A6%82%E8%BF%B0/index.html">
+<meta property="og:site_name" content="Kenny-hoho">
+<meta property="og:description" content="骨骼动画相关技术概述">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://kenny-hoho.github.io/img/bg/SkeletonAnimation.png">
+<meta property="article:published_time" content="2023-06-13T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-07-06T05:48:18.132Z">
+<meta property="article:author" content="Kenny-hoho">
+<meta property="article:tag" content="计算机角色动画">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://kenny-hoho.github.io/img/bg/SkeletonAnimation.png">
+  
+  
+  
+  <title>骨骼动画相关技术概述 - Kenny-hoho</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"kenny-hoho.github.io","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":["home"]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Kenny</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/Pink_city.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">骨骼动画相关技术概述</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-06-14 00:00" pubdate>
+          2023年6月14日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          30 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">骨骼动画相关技术概述</h1>
+            
+            <div class="markdown-body">
+              
+              <p>骨骼动画相关技术概述</p>
+<span id="more"></span>
+
+<p>本文结构参考游戏引擎架构（第二版）第11章 动画系统，专注与骨骼蒙皮动画。</p>
+<p>3D动画早期使用<strong>刚性层阶式动画</strong>，将角色模型直接拆分成大腿、小腿、躯干等部分，直接控制这些部分旋转，但是这种技术会在关节位置产生缝隙。还有一种技术是<strong>每顶点动画技术</strong>，这种动画直接控制角色模型的全部顶点，效果很好但是需要储存全部顶点，在实时游戏中几乎无法使用。<strong>变形目标动画</strong>（morph target animation）与顶点动画类似，但是只存储少量极端姿势（extreme pose）在运行时进行混合，常用于面部动画。</p>
+<p>蒙皮动画兼具了刚性层阶式动画和顶点动画的优点，通过蒙皮技术实现，每个骨骼控制一些顶点的移动，在制作动画时只需要控制骨骼的移动即可，是现在最常用的3D动画技术。</p>
+<p><img src="/article_img/2023-06-15-13-51-13.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="骨骼与姿势"><a href="#骨骼与姿势" class="headerlink" title="骨骼与姿势"></a>骨骼与姿势</h1><p>骨骼（skeleton）由骨头（bone）组成，骨头几乎只指关节（joint），因为骨头是刚体几乎不会改变形状，动画师通过直接控制关节构造一个个姿势（pose），这些姿势连续播放就形成了动画。</p>
+<h2 id="骨骼层级结构"><a href="#骨骼层级结构" class="headerlink" title="骨骼层级结构"></a>骨骼层级结构</h2><p>骨骼都有一个根（root），所有的其他骨头都是这个根骨的子物体：<br><img src="/article_img/2023-06-15-13-59-08.png" srcset="/img/loading.gif" lazyload></p>
+<p>典型的骨骼数据结构：<br><img src="/article_img/2023-06-15-14-01-44.png" srcset="/img/loading.gif" lazyload></p>
+<p>bones或joint中存储了骨骼的名字，绑定姿势的逆变换（将模型坐标转换到该骨骼下的局部坐标，这里存储为4*3的矩阵应该是为了节省存储空间，因为最后一行为（0，0，0，1）），父索引（索引可方便查找和存储）。</p>
+<h2 id="姿势"><a href="#姿势" class="headerlink" title="姿势"></a>姿势</h2><p>把角色摆出各种姿势，插值并播放就产生了动画，每个姿势由每个关节的 <strong>SQT（scale，quaternion，translation）</strong> 表示。</p>
+<table>
+<thead>
+<tr>
+<th><img src="/article_img/2023-06-15-14-07-41.png" srcset="/img/loading.gif" lazyload></th>
+<th><img src="/article_img/2023-06-15-14-07-52.png" srcset="/img/loading.gif" lazyload></th>
+</tr>
+</thead>
+</table>
+<h3 id="绑定姿势"><a href="#绑定姿势" class="headerlink" title="绑定姿势"></a>绑定姿势</h3><p>一般为 T-pose 或 A-pose，表示网格绑定到骨骼上时的姿势，也叫参考姿势（reference pose）或放松姿势（rest pose）。</p>
+<table>
+<thead>
+<tr>
+<th><img src="/article_img/2023-06-15-14-13-24.png" srcset="/img/loading.gif" lazyload></th>
+<th><img src="/article_img/2023-06-15-14-18-05.png" srcset="/img/loading.gif" lazyload></th>
+</tr>
+</thead>
+</table>
+<h3 id="局部姿势"><a href="#局部姿势" class="headerlink" title="局部姿势"></a>局部姿势</h3><p>最常见的关节姿势是相对于父关节来指定的，有时使用局部姿势描述相对于父关节的姿势，即关节局部坐标中的 SQT 变换。</p>
+<h3 id="全局姿势"><a href="#全局姿势" class="headerlink" title="全局姿势"></a>全局姿势</h3><p>全局姿势指将关节姿势表示为模型空间或者世界空间，通过从该关节遍历至根关节并乘上每个关节的局部姿势算出。<strong>全局姿势在计算蒙皮矩阵时需要</strong>，一般存储在上面的关节数据结构中的<strong>绑定姿势的逆变换</strong>。<br>每个关节的局部姿势就是局部坐标系，局部姿势的变化就是局部坐标系的变化，因此参照<strong>基变换</strong>的概念，可有如下结论，即乘上局部姿势（局部坐标系的基）可以将局部坐标转换到全局坐标（<strong>参照3Blue1Brown的线性代数的本质基变换章节</strong>）<br><img src="/article_img/2023-06-15-14-30-10.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="蒙皮绑定"><a href="#蒙皮绑定" class="headerlink" title="蒙皮绑定"></a>蒙皮绑定</h1><p>每个顶点一般绑定至4或4的倍数个关节，其数据结构为：<br><img src="/article_img/2023-06-15-15-32-15.png" srcset="/img/loading.gif" lazyload><br><strong>这里的position是模型空间（废话…）</strong></p>
+<table>
+<thead>
+<tr>
+<th><img src="/article_img/2023-06-15-15-40-35.png" srcset="/img/loading.gif" lazyload></th>
+<th><img src="/article_img/2023-06-15-15-44-37.png" srcset="/img/loading.gif" lazyload></th>
+</tr>
+</thead>
+</table>
+<p>蒙皮可以使顶点跟随骨骼移动的原理如上图所示，先将顶点转换至绑定到的关节空间，因为关节移动时，顶点相对于关节的位置不变，移动关节之后可以将顶点再转换回模型空间，就完成了顶点在模型空间的移动。</p>
+<h2 id="线性混合蒙皮"><a href="#线性混合蒙皮" class="headerlink" title="线性混合蒙皮"></a>线性混合蒙皮</h2><p><img src="/article_img/2023-06-15-15-47-19.png" srcset="/img/loading.gif" lazyload><br>对每个顶点来说，其被绑定到的每个关节对他的影响程度不同，设定每个关节的权重，就可以通过加权算出顶点受这些关节共同影响后的位置。这就是<strong>线性混合蒙皮（Linear Blend Skinning）</strong></p>
+<p><img src="/article_img/2023-06-15-16-16-44.png" srcset="/img/loading.gif" lazyload></p>
+<p>但是线性混合不能维持体积，会产生如下的Candy-Wrapper Artifact<br><img src="/article_img/2023-06-15-15-56-55.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="双四元数蒙皮（Dual-Quaternion-Skinning）"><a href="#双四元数蒙皮（Dual-Quaternion-Skinning）" class="headerlink" title="双四元数蒙皮（Dual-Quaternion Skinning）"></a>双四元数蒙皮（Dual-Quaternion Skinning）</h2><table>
+<thead>
+<tr>
+<th><img src="/article_img/2023-06-15-16-02-40.png" srcset="/img/loading.gif" lazyload></th>
+<th><img src="/article_img/2023-06-16-12-43-57.png" srcset="/img/loading.gif" lazyload></th>
+</tr>
+</thead>
+</table>
+<h2 id="如何解决LBS的问题"><a href="#如何解决LBS的问题" class="headerlink" title="如何解决LBS的问题"></a>如何解决LBS的问题</h2><h3 id="添加修型骨骼"><a href="#添加修型骨骼" class="headerlink" title="添加修型骨骼"></a>添加修型骨骼</h3><p>UE5的小白人就添加了许多修型骨骼，通过ControlRig实现修型。</p>
+<table>
+<thead>
+<tr>
+<th><img src="/article_img/DrivenJoint.gif" srcset="/img/loading.gif" lazyload></th>
+<th><img src="/article_img/DrivenJoint1.gif" srcset="/img/loading.gif" lazyload></th>
+</tr>
+</thead>
+</table>
+<h3 id="使用blendshape-morph-target"><a href="#使用blendshape-morph-target" class="headerlink" title="使用blendshape (morph target)"></a>使用blendshape (morph target)</h3><p>对于对动画质量要求更高的3A游戏，添加再多的修型骨骼也较难达到模拟真实的肌肉运动，因此还是使用顶点动画的方法，建模师提前制作多个不同关节运动角度时的肌肉模型，之后在骨骼运动时读取这个结果。<br><img src="/article_img/2023-06-16-13-00-52.png" srcset="/img/loading.gif" lazyload></p>
+<p>如何驱动BS：</p>
+<ol>
+<li>动画师手K</li>
+<li>JCM(Joint Controlled Morphs)骨骼驱动变形，等于Maya的PSD（Pose space deformations），用骨骼驱动morphs变形</li>
+<li>RBF驱动（之后详细讲）</li>
+</ol>
+<p>PSD的相关技术文章：<br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/456538362">Pose Space Deformation——从实践到原理再到实践</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/391409060">基于径向基函数的Pose Space Deformation</a></p>
+<p>同时还需要考虑的问题是顶点动画开销太大，还是希望可以使用骨骼驱动，于是希望将blendshape通过某种方法烘焙到骨骼上，就有了蒙皮分解技术（例如SSDR-线性蒙皮分解）</p>
+<h2 id="蒙皮分解（蒙皮动画的逆运算）"><a href="#蒙皮分解（蒙皮动画的逆运算）" class="headerlink" title="蒙皮分解（蒙皮动画的逆运算）"></a>蒙皮分解（蒙皮动画的逆运算）</h2><table>
+<thead>
+<tr>
+<th><img src="/article_img/2023-06-15-15-44-37.png" srcset="/img/loading.gif" lazyload></th>
+<th><img src="/article_img/2023-06-15-15-47-19.png" srcset="/img/loading.gif" lazyload></th>
+</tr>
+</thead>
+</table>
+<p>SSDR是一个优化问题，输入是所有顶点的动画（每一帧来看就是所有顶点的模型空间的坐标），需要拟合出蒙皮计算公式中的 <strong>顶点蒙皮权重，$C_{j \to m}$（每帧的全局姿势）</strong></p>
+<p>原论文：<a target="_blank" rel="noopener" href="http://graphics.cs.uh.edu/ble/papers/2012sa-ssdr/">Smooth Skinning Decomposition with Rigid Bones</a></p>
+<h2 id="自动蒙皮"><a href="#自动蒙皮" class="headerlink" title="自动蒙皮"></a>自动蒙皮</h2><p>Siggraph2021: <a target="_blank" rel="noopener" href="https://peizhuoli.github.io/neural-blend-shapes/index.html">Learning Skeletal Articulations with Neural Blend Shapes</a></p>
+<p>Siggraph2019: <a target="_blank" rel="noopener" href="https://github.com/FuxiCV/NeuroSkinning#:~:text=NeuroSkinning%3A%20Automatic%20Skin%20Binding%20for%20Production%20Characters%20with,skin%20weights%20for%20skeleton-based%20deformation%20of%20production%20characters.">NeuroSkinning: Automatic Skin Binding for Production Characters with Deep Graph Networks</a></p>
+<h1 id="动画混合"><a href="#动画混合" class="headerlink" title="动画混合"></a>动画混合</h1><h2 id="线性插值混合"><a href="#线性插值混合" class="headerlink" title="线性插值混合"></a>线性插值混合</h2><p><img src="/article_img/2023-06-16-14-57-08.png" srcset="/img/loading.gif" lazyload><br><img src="/article_img/2023-06-16-14-58-35.png" srcset="/img/loading.gif" lazyload><br>在线性插值时，直接对于矩阵插值不可行，因此一般对 SQT 格式的局部姿势插值，其中尤其注意对旋转的插值，一般使用四元数LERP 或 SLEAP（球面线性插值）</p>
+<p>下面列举几种线性插值混合的应用</p>
+<h3 id="淡入淡出"><a href="#淡入淡出" class="headerlink" title="淡入淡出"></a>淡入淡出</h3><p>淡入淡出是为了解决不同动画片段间的过渡问题，防止动画出现跳变。<br><img src="/article_img/2023-06-16-15-05-40.png" srcset="/img/loading.gif" lazyload><br>上图使用贝塞尔曲线的混合因子，可以达到更好的淡入淡出效果。</p>
+<h2 id="骨骼分部混合"><a href="#骨骼分部混合" class="headerlink" title="骨骼分部混合"></a>骨骼分部混合</h2><p>在线性插值混合时，屏蔽部分关节，不进行线性插值即可。一般需要创建一个遮罩，在unity中的Avatar Mask（混合模式为override）</p>
+<p>但是这种方法太过生硬，因为一般人类不可能只有一部分关节移动，这些关节的移动都会带动全身移动，单纯进行骨骼分布混合无法实现这种效果。</p>
+<h2 id="加法混合"><a href="#加法混合" class="headerlink" title="加法混合"></a>加法混合</h2><p>加法混合的原理是记录从参考姿势到 <strong>“加法片段”（也叫“区别片段”）</strong> 的变换，再把这个变换应用到其他需要进行加法混合的片段上，就可以实现很多有趣的姿势和动作变换，例如：将表示疲惫的加法片段应用于跑步片段就可以得到疲惫地跑步地动画。在unity中的Avatar Mask（混合模式为additive）</p>
+<table>
+<thead>
+<tr>
+<th><img src="/article_img/2023-06-18-14-09-12.png" srcset="/img/loading.gif" lazyload></th>
+<th><img src="/article_img/2023-06-18-14-09-20.png" srcset="/img/loading.gif" lazyload></th>
+</tr>
+</thead>
+</table>
+<p>$D_j$ 表示区别片段，$S_j$ 表示来源动画（也就是例子中的疲惫状态的动画），$R_j^{-1}$ 表示参考姿势， $A_j$ 表示经过变换后的结果动画（疲惫地跑步）， $T_j$ 表示需要被应用的目标动画（跑步动画）。</p>
+<h1 id="FK和IK"><a href="#FK和IK" class="headerlink" title="FK和IK"></a>FK和IK</h1><p>FK是Forward Kinematic 前向运动学，IK是Inverse Kinematic 逆向运动学，直观理解假如我们需要用左手拿一个苹果（假设可以拿到），FK需要我们指定从肩膀到左手的每个关节的旋转，IK则是直接将左手固定到苹果处，再计算我们的胳膊上的每个关节要如何旋转。<strong>IK可以看作一个优化问题</strong></p>
+<table>
+<thead>
+<tr>
+<th><img src="/article_img/2023-06-18-15-31-33.png" srcset="/img/loading.gif" lazyload></th>
+<th><img src="/article_img/2023-06-18-15-37-23.png" srcset="/img/loading.gif" lazyload></th>
+</tr>
+</thead>
+</table>
+<p><strong>IK可能无解，可能有一个或多个解。</strong><br><img src="/article_img/2023-06-18-15-34-47.png" srcset="/img/loading.gif" lazyload></p>
+<p>对于IK问题需要注意的有两点：</p>
+<ol>
+<li>IK问题有没有解</li>
+<li>设置IK的终止条件，防止陷入无限循环</li>
+</ol>
+<h2 id="Two-bone-IK"><a href="#Two-bone-IK" class="headerlink" title="Two-bone IK"></a>Two-bone IK</h2><p><img src="/article_img/2023-06-18-15-40-06.png" srcset="/img/loading.gif" lazyload></p>
+<p>对于TwoBoneIK，可以使用解析法进行计算，由于三个点确定一个平面，所以需要增加一个控制点（也就是UE4中的PoleVector 极坐标点）来解三维空间内的旋转角度。</p>
+<p><img src="/article_img/TwoBoneIK.gif" srcset="/img/loading.gif" lazyload></p>
+<p>Unreal中的TwoBoneIK节点。</p>
+<h2 id="CCDIK"><a href="#CCDIK" class="headerlink" title="CCDIK"></a>CCDIK</h2><p>循环坐标推演（Cyclic coordinate descent）<br><img src="/article_img/2023-06-18-16-01-57.png" srcset="/img/loading.gif" lazyload></p>
+<p>计算简单，只需要点乘叉乘，但其会有较强的倾向性，导致某些动作不自然，一般会对CCD添加约束。</p>
+<h2 id="雅可比逆矩阵法"><a href="#雅可比逆矩阵法" class="headerlink" title="雅可比逆矩阵法"></a>雅可比逆矩阵法</h2><p>比较复杂，是一种梯度下降的方法</p>
+<h2 id="FABRIK"><a href="#FABRIK" class="headerlink" title="FABRIK"></a>FABRIK</h2><p>Forward and backward reaching inverse kinematics（前向和后向到达IK）<br><img src="/article_img/2023-06-18-16-54-06.png" srcset="/img/loading.gif" lazyload><br>原理如图，看上去与CCD类似，但是FABRIK关注的是位置而不是旋转。FABRIK先从末端出发到达IK目标，依次反推回根节点，再让根节点到达初始点，依次反推至末端受动器，循环进行到终止条件即可。</p>
+<p>FABRIK计算简单，并且适用于解决多个末端受动器的问题（如手指，双手指向同个目标），CCD和雅各比矩阵解决起来要困难一些。FABRIK只需要再sub-bases处计算平均值再向根节点迭代即可。<br><img src="/article_img/2023-06-18-17-03-10.png" srcset="/img/loading.gif" lazyload></p>
+<p><a target="_blank" rel="noopener" href="https://www.sciencedirect.com/science/article/pii/S1524070311000178">原论文：FABRIK: A fast, iterative solver for the Inverse Kinematics problem</a></p>
+<h1 id="动画重定向"><a href="#动画重定向" class="headerlink" title="动画重定向"></a>动画重定向</h1><p>Siggraph2020: <a target="_blank" rel="noopener" href="https://deepmotionediting.github.io/retargeting">Skeleton-Aware Networks for Deep Motion Retargeting</a></p>
+<h1 id="基于数据的角色动画"><a href="#基于数据的角色动画" class="headerlink" title="基于数据的角色动画"></a>基于数据的角色动画</h1><h1 id="基于物理的角色动画"><a href="#基于物理的角色动画" class="headerlink" title="基于物理的角色动画"></a>基于物理的角色动画</h1><h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a target="_blank" rel="noopener" href="https://games-105.github.io/">Games-105</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/616173667">建立下个时代的高清游戏美术资源生产管线(五):绑定篇-绑定基本概念</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/391409060">基于径向基函数的Pose Space Deformation</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/499405167">【游戏开发】逆向运动学（IK）详解</a></p>
+
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%AC%94%E8%AE%B0/" class="category-chain-item">-[笔记]</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%92%E8%89%B2%E5%8A%A8%E7%94%BB/">#计算机角色动画</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>骨骼动画相关技术概述</div>
+      <div>https://kenny-hoho.github.io/2023/06/14/骨骼动画相关技术概述/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Kenny-hoho</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年6月14日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/04/17/C++Review_How/" title="C++Review-How C++ Works">
+                        <span class="hidden-mobile">C++Review-How C++ Works</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        MathJax = {
+          tex    : {
+            inlineMath: { '[+]': [['$', '$']] }
+          },
+          loader : {
+            load: ['ui/lazy']
+          },
+          options: {
+            renderActions: {
+              findScript    : [10, doc => {
+                document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                  const display = !!node.type.match(/; *mode=display/);
+                  const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                  const text = document.createTextNode('');
+                  node.parentNode.replaceChild(text, node);
+                  math.start = { node: text, delim: '', n: 0 };
+                  math.end = { node: text, delim: '', n: 0 };
+                  doc.math.push(math);
+                });
+              }, '', false],
+              insertedScript: [200, () => {
+                document.querySelectorAll('mjx-container').forEach(node => {
+                  let target = node.parentNode;
+                  if (target.nodeName.toLowerCase() === 'li') {
+                    target.parentNode.classList.add('has-jax');
+                  }
+                });
+              }, '', false]
+            }
+          }
+        };
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.0/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
