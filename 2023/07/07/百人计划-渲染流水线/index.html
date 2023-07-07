@@ -16,24 +16,24 @@
   <meta name="author" content="Kenny-hoho">
   <meta name="keywords" content="">
   
-    <meta name="description" content="在Game104的动画章节中，讲解了欧拉角存在的问题，其中最难理解的就是欧拉角的万向节死锁问题，特此记录一下对这个问题的理解。">
+    <meta name="description" content="参考资料：百人计划-渲染流水线《Unity Shader入门精要》 第2章 渲染流水线">
 <meta property="og:type" content="article">
-<meta property="og:title" content="万向节死锁问题（Gimbal Lock）">
-<meta property="og:url" content="https://kenny-hoho.github.io/2023/03/17/%E4%B8%87%E5%90%91%E8%8A%82%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:title" content="百人计划-渲染流水线">
+<meta property="og:url" content="https://kenny-hoho.github.io/2023/07/07/%E7%99%BE%E4%BA%BA%E8%AE%A1%E5%88%92-%E6%B8%B2%E6%9F%93%E6%B5%81%E6%B0%B4%E7%BA%BF/index.html">
 <meta property="og:site_name" content="Kenny-hoho">
-<meta property="og:description" content="在Game104的动画章节中，讲解了欧拉角存在的问题，其中最难理解的就是欧拉角的万向节死锁问题，特此记录一下对这个问题的理解。">
+<meta property="og:description" content="参考资料：百人计划-渲染流水线《Unity Shader入门精要》 第2章 渲染流水线">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://kenny-hoho.github.io/img/bg/EulerAngle.jpg">
-<meta property="article:published_time" content="2023-03-16T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-07-07T06:11:15.400Z">
+<meta property="og:image" content="https://kenny-hoho.github.io/img/bg/West2.jpg">
+<meta property="article:published_time" content="2023-07-06T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-07-07T08:23:27.572Z">
 <meta property="article:author" content="Kenny-hoho">
-<meta property="article:tag" content="计算机角色动画">
+<meta property="article:tag" content="百人计划">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://kenny-hoho.github.io/img/bg/EulerAngle.jpg">
+<meta name="twitter:image" content="https://kenny-hoho.github.io/img/bg/West2.jpg">
   
   
   
-  <title>万向节死锁问题（Gimbal Lock） - Kenny-hoho</title>
+  <title>百人计划-渲染流水线 - Kenny-hoho</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -196,7 +196,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">万向节死锁问题（Gimbal Lock）</span>
+            <span id="subtitle">百人计划-渲染流水线</span>
           
         </div>
 
@@ -207,8 +207,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-03-17 00:00" pubdate>
-          2023年3月17日 凌晨
+        <time datetime="2023-07-07 00:00" pubdate>
+          2023年7月7日 凌晨
         </time>
       </span>
     
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.4k 字
+          1.9k 字
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          12 分钟
+          16 分钟
         
       </span>
     
@@ -272,36 +272,101 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">万向节死锁问题（Gimbal Lock）</h1>
+            <h1 style="display: none">百人计划-渲染流水线</h1>
             
             <div class="markdown-body">
               
-              <p>在Game104的动画章节中，讲解了欧拉角存在的问题，其中最难理解的就是欧拉角的万向节死锁问题，特此记录一下对这个问题的理解。</p>
+              <p>参考资料：<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1L54y1s7xw/?p=2&spm_id_from=pageDriver&vd_source=93b215eab72b2548f75d0772e28f8b20">百人计划-渲染流水线</a><br>《Unity Shader入门精要》 第2章 渲染流水线</p>
 <span id="more"></span>
 
-<p>参考资料：<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Nr4y1j7kn/?spm_id_from=333.337.search-card.all.click&vd_source=93b215eab72b2548f75d0772e28f8b20">bilibili_无伤理解欧拉角中的“万向死锁”现象</a></p>
-<h1 id="欧拉角（Euler-Angle）"><a href="#欧拉角（Euler-Angle）" class="headerlink" title="欧拉角（Euler Angle）"></a>欧拉角（Euler Angle）</h1><p><img src="/article_img/2023-03-17-15-28-09.png" srcset="/img/loading.gif" lazyload></p>
-<p><img src="/article_img/2023-03-17-15-21-58.png" srcset="/img/loading.gif" lazyload></p>
-<p>欧拉证明了三维空间内的任意旋转，可以由围绕三个正交轴旋转组合而来。如上图所示，旋转用旋转矩阵表示，将围绕三个轴的旋转矩阵相乘即可得到实现任意旋转的旋转矩阵。</p>
-<h1 id="万向节死锁（Gimbal-Lock）"><a href="#万向节死锁（Gimbal-Lock）" class="headerlink" title="万向节死锁（Gimbal Lock）"></a>万向节死锁（Gimbal Lock）</h1><div align=center>
-<img src="/article_img/Gimbal_Lock.gif" srcset="/img/loading.gif" lazyload/>
-</div>
-
-<p>一般用上图中的平衡环解释什么是万向节死锁。在平衡环案例中可以轻易看出万向节死锁发生的原理，两个环重叠在同一个平面，导致最外圈的大环旋转和最内圈的小环旋转的结果完全一样，都是绕竖直方向旋转。</p>
-<p>产生这个现象有一个前提条件，即外圈环的旋转会带动内圈环的旋转，而内圈环的旋转不能带动外圈环的旋转。用坐标系来理解：我们规定一个旋转变换的顺序，按照绕X轴Y轴Z轴的顺序将三个旋转矩阵相乘得到最终旋转矩阵，绕X轴的旋转会带动Y轴和Z轴的旋转，Y轴的旋转只能带动Z轴的旋转，这就导致如果我们绕Y轴旋转90°，Y轴会带动Z轴也旋转90°而不会带动X轴旋转，此时Z轴就会和X轴重合，导致绕X、Z轴旋转的结果完全一样。</p>
-<p>平衡环有这个前提条件是由于其机械结构，而我们在实现欧拉角变换的时候，为什么也要遵守这个规则呢？</p>
-<p>首先明确一点：</p>
-<p><img src="/article_img/2023-03-17-15-39-57.png" srcset="/img/loading.gif" lazyload></p>
-<p>这一点其实就是反直觉的，我们经常下意识地将欧拉角变换理解成，先绕X轴转动一定角度，再绕Y轴，Z轴旋转一定角度，物体的旋转会带动其局部坐标系一同旋转，绕Y轴旋转90°，Y轴会带动Z轴也旋转90°并且带动X轴旋转90°。而真实的欧拉角变换是，通过一个由矩阵相乘计算出的最终旋转矩阵直接对物体进行一个变换，也就是说<strong>欧拉角旋转是一步完成的一个变换</strong>。</p>
-<p>当我们一旦规定绕三个正交轴旋转的先后循序，我们就确定了构成最终旋转矩阵的矩阵相乘顺序，而在矩阵乘法中没有交换律。</p>
-<p>我们规定了三个矩阵的相乘顺序是XYZ，即为：<strong>X(0°) * Y(90°) * Z(0°)<strong>，由线性代数知识可知，</strong>左侧矩阵的变换会被应用到其右侧的所有矩阵</strong>，这也就是平衡环中大环会带动小环，而小环不能带动大环的数学解释，也是为什么众多解释万向死锁的文章都用平衡环演示的原因。</p>
-<p><img src="/article_img/2023-03-17-16-13-42.png" srcset="/img/loading.gif" lazyload></p>
-<p>因此这个数学解释也就十分合理了。</p>
-<h1 id="万向死锁造成的问题"><a href="#万向死锁造成的问题" class="headerlink" title="万向死锁造成的问题"></a>万向死锁造成的问题</h1><p>其实万向死锁之后，并不是这个物体就再也不能随心所欲的旋转了，而是如果想要旋转，就需要同时对三个轴都旋转，这就会导致其旋转的移动轨迹不在正交平面上，就会导致我们不期望的转动轨迹。</p>
-<p>同过欧拉角实现的旋转动画，其每次只是应用一个变换，只是这个变换比上一帧应用的变换更近一步，产生了物体在转动的效果，也就是说，<strong>欧拉角旋转每次都是被作用在物体的初始状态上</strong>，这也可以进一步解释为什么上述案例中X轴会和Z轴重合，而不会随着物体转动而转动了，换个说法也就是在我们的直观理解中的<strong>新的X轴</strong>从来就不存在。</p>
-<h1 id="实际应用"><a href="#实际应用" class="headerlink" title="实际应用"></a>实际应用</h1><p>由我们上述的分析可知万向节死锁不可避免，不论怎样安排绕三个正交轴的旋转顺序，其中间的轴一旦旋转90°或-90°，均会产生万向节死锁。</p>
-<p>在实际运用中，一般会根据旋转的具体场景，将最不可能旋转到90°的轴安排在中间，比如在unity中，物体在Scene视图中的移动就是欧拉角移动，unity将x轴安排在中间，因为绕X轴的旋转即Pitch一般不会到达90°。</p>
-<p>在Unity中使用<a target="_blank" rel="noopener" href="https://docs.unity3d.com/ScriptReference/Transform.Rotate.html">Transform.Rotate</a>实现欧拉的旋转。</p>
+<h1 id="1-整体流程"><a href="#1-整体流程" class="headerlink" title="1 整体流程"></a>1 整体流程</h1><p><img src="/article_img/2023-07-06-16-14-09.png" srcset="/img/loading.gif" lazyload></p>
+<ol>
+<li>应用阶段：粗粒度剔除，进行渲染设置，准备基本数据，输出到几何阶段</li>
+<li>几何阶段：顶点着色器，曲面细分，几何着色器，顶点裁剪，屏幕映射</li>
+<li>光栅化阶段：三角形（点&#x2F;线）设置，三角形（点&#x2F;线）遍历，片段着色器</li>
+<li>逐片元操作：裁剪测试，透明度测试，深度测试，模板测试，混合</li>
+<li>后处理</li>
+</ol>
+<p><img src="/article_img/2023-07-06-16-21-18.png" srcset="/img/loading.gif" lazyload></p>
+<p>不同的教材和资料对渲染流水线的划分有所不同，有些将片元着色器和逐片元操作都归入光栅化阶段，有些将这两步独立为逐片元操作阶段，不用过于纠结。</p>
+<h1 id="2-应用阶段"><a href="#2-应用阶段" class="headerlink" title="2 应用阶段"></a>2 应用阶段</h1><p><img src="/article_img/2023-07-06-16-23-54.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>1. 把数据加载到显存中<br>2. 设置渲染状态<br>3. 调用Draw Call</strong></p>
+<h2 id="2-1-基本场景数据（把数据加载到显存中）"><a href="#2-1-基本场景数据（把数据加载到显存中）" class="headerlink" title="2.1 基本场景数据（把数据加载到显存中）"></a>2.1 基本场景数据（把数据加载到显存中）</h2><p><img src="/article_img/2023-07-07-15-09-53.png" srcset="/img/loading.gif" lazyload></p>
+<ol>
+<li>场景物体数据：Transform（位置，旋转，缩放）+ 网格数据（顶点位置，UV，法线，切线）</li>
+<li>摄像机数据：参数（位置，朝向，远近裁剪面，透视方式，比例）</li>
+<li>光源数据：类型（方向光，点光，面光）+ 参数（位置，方向，角度）</li>
+<li>阴影数据：是否需要阴影，阴影参数（对应光源，强度，级联参数，深度偏移，近平面偏移）</li>
+</ol>
+<h2 id="2-2-优化（算法加速，剔除）"><a href="#2-2-优化（算法加速，剔除）" class="headerlink" title="2.2 优化（算法加速，剔除）"></a>2.2 优化（算法加速，剔除）</h2><ol>
+<li>碰撞检测</li>
+<li>加速算法</li>
+<li>遮挡剔除（粗略）：裁剪光源，物体（八叉树，K-D树，BVH）</li>
+</ol>
+<h2 id="2-3-设置渲染状态，准备渲染参数"><a href="#2-3-设置渲染状态，准备渲染参数" class="headerlink" title="2.3 设置渲染状态，准备渲染参数"></a>2.3 设置渲染状态，准备渲染参数</h2><p>渲染状态定义了场景中的网格是怎样被渲染的，例如使用哪个顶点着色器&#x2F;片元着色器，材质，光源等等。<br><img src="/article_img/2023-07-07-15-13-47.png" srcset="/img/loading.gif" lazyload></p>
+<ol>
+<li>绘制设置：着色器，合批方式（减少Draw Call的方式使用批处理，合批方式决定哪些网格被合并）</li>
+<li>绘制顺序：透明物体的渲染顺序</li>
+<li>渲染目标：RenderTexture，FrameBuffer</li>
+<li>渲染模式：前向渲染，延迟渲染</li>
+</ol>
+<h2 id="2-4-调用DrawCall"><a href="#2-4-调用DrawCall" class="headerlink" title="2.4 调用DrawCall"></a>2.4 调用DrawCall</h2><p>CPU 调用一个渲染命令来告诉GPU: “嘿！老兄， 我都帮你把数据准备好啦， 你可以按照我的设置来开始渲染啦！” 而这个渲染命令就是 Draw Call。<br><img src="/article_img/2023-07-07-15-14-57.png" srcset="/img/loading.gif" lazyload></p>
+<p>Draw Call中造成的性能问题主要来自CPU</p>
+<table>
+<thead>
+<tr>
+<th><img src="/article_img/2023-07-07-16-16-58.png" srcset="/img/loading.gif" lazyload></th>
+<th><img src="/article_img/2023-07-07-16-17-07.png" srcset="/img/loading.gif" lazyload></th>
+<th><img src="/article_img/2023-07-07-16-17-14.png" srcset="/img/loading.gif" lazyload></th>
+</tr>
+</thead>
+</table>
+<p>调用完Draw Call之后，我们完成了CPU和GPU之间的通信，接下来进入了GPU流水线阶段，包括几何阶段和光栅化阶段。<br><img src="/article_img/2023-07-07-15-16-56.png" srcset="/img/loading.gif" lazyload><br>GPU流水线不是完全可控的，但是GPU向我们开放了很多控制权，<strong>绿色表示完全可编程完全可控，黄色表示不可编程但可以配置，蓝色表示完全不可编程。</strong></p>
+<h1 id="3-几何阶段"><a href="#3-几何阶段" class="headerlink" title="3 几何阶段"></a>3 几何阶段</h1><p><img src="/article_img/2023-07-06-16-28-50.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="3-1-顶点着色器（vertex-shader）"><a href="#3-1-顶点着色器（vertex-shader）" class="headerlink" title="3.1 顶点着色器（vertex shader）"></a>3.1 顶点着色器（vertex shader）</h2><p><img src="/article_img/2023-07-07-15-24-40.png" srcset="/img/loading.gif" lazyload><br>顶点着色器负责坐标变换和逐顶点光照，除此之外，顶点着色器也可以输出后续阶段所需的数据。</p>
+<ol>
+<li>坐标变换：顶点着色器必须完成的一个工作是 <strong>把顶点坐标从模型空间转换到齐次裁剪空间（即完成MVP变换）</strong> <a href="/_posts/Games101-2-%E5%8F%98%E6%8D%A2.md">Games101-变换</a>，<img src="/article_img/2023-07-07-15-30-15.png" srcset="/img/loading.gif" lazyload><br>还可以完成一些顶点动画来模拟水面，布料等。</li>
+</ol>
+<h2 id="3-2-裁剪"><a href="#3-2-裁剪" class="headerlink" title="3.2 裁剪"></a>3.2 裁剪</h2><p><img src="/article_img/2023-07-07-15-32-10.png" srcset="/img/loading.gif" lazyload><br>裁剪阶段是不可编程的，是硬件上的固定操作，但我们可以自定义个裁剪操作来进行配置</p>
+<h2 id="3-3-屏幕映射"><a href="#3-3-屏幕映射" class="headerlink" title="3.3 屏幕映射"></a>3.3 屏幕映射</h2><table>
+<thead>
+<tr>
+<th><img src="/article_img/2023-07-07-15-34-47.png" srcset="/img/loading.gif" lazyload></th>
+<th><img src="/article_img/2023-07-07-15-34-56.png" srcset="/img/loading.gif" lazyload></th>
+</tr>
+</thead>
+</table>
+<p>屏幕映射就是一个缩放过程，其对z坐标不做任何变换。<strong>要注意OpenGL和DirectX的屏幕坐标系有所不同。</strong></p>
+<h1 id="4-光栅化阶段"><a href="#4-光栅化阶段" class="headerlink" title="4 光栅化阶段"></a>4 光栅化阶段</h1><p>光栅化阶段有两个最重要的目标 计算每个图元覆盖了哪些像素，以及为这些像素计算它们的颜色。</p>
+<h2 id="4-1-三角形设置-x2F-图元组装（Primitive-Assembly）"><a href="#4-1-三角形设置-x2F-图元组装（Primitive-Assembly）" class="headerlink" title="4.1 三角形设置&#x2F;图元组装（Primitive Assembly）"></a>4.1 三角形设置&#x2F;图元组装（Primitive Assembly）</h2><p><img src="/article_img/2023-07-06-16-55-05.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="4-2-三角形遍历"><a href="#4-2-三角形遍历" class="headerlink" title="4.2 三角形遍历"></a>4.2 三角形遍历</h2><p>三角形遍历（Triangle Traversal）检查每个像素是否被一个三角网格所覆盖，若覆盖则会生成一个片元（fragment）</p>
+<table>
+<thead>
+<tr>
+<th><img src="/article_img/2023-07-06-16-55-00.png" srcset="/img/loading.gif" lazyload></th>
+<th><img src="/article_img/2023-07-07-15-42-20.png" srcset="/img/loading.gif" lazyload></th>
+</tr>
+</thead>
+</table>
+<p><strong>需要注意：片元并不完全等于像素，偏远中包含了很多状态（屏幕坐标，深度信息，法线，纹理坐标等等）</strong></p>
+<h1 id="5-逐片元操作"><a href="#5-逐片元操作" class="headerlink" title="5 逐片元操作"></a>5 逐片元操作</h1><h2 id="5-1-片元着色器"><a href="#5-1-片元着色器" class="headerlink" title="5.1 片元着色器"></a>5.1 片元着色器</h2><p>片元着色器 (Fragment Shader) 是另一个非常重要的可编程着色器阶段。在 DirectX 中，片元着色器被称为像素着色器 (Pixel Shader), 但片元着色器是个更合适的名字，因为此时的片元并不是一个真正意义上的像素。</p>
+<p><img src="/article_img/2023-07-07-15-50-58.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="5-2-逐片元操作"><a href="#5-2-逐片元操作" class="headerlink" title="5.2 逐片元操作"></a>5.2 逐片元操作</h2><p><img src="/article_img/2023-07-07-15-53-04.png" srcset="/img/loading.gif" lazyload><br>逐片元操作 (Per Fragment Operations) OpenGL 中的说法 Direct.X 这一阶段被称为输出合井阶段 (Output-Merger)，该阶段对每个片元进行操作，将它们的颜色以某种形式合并，得到最终在屏幕上像素显示的颜色。主要的工作有两个：</p>
+<ol>
+<li>对片元进行测试（Test）</li>
+<li>合并（Merge）</li>
+</ol>
+<p><img src="/article_img/2023-07-06-16-50-30.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="5-3-双重缓冲（Double-Buffering）"><a href="#5-3-双重缓冲（Double-Buffering）" class="headerlink" title="5.3 双重缓冲（Double Buffering）"></a>5.3 双重缓冲（Double Buffering）</h2><p>为了避免我们看到那些正在进行光栅化的图元，GPU对场景的渲染是在器后发生的，即在 <strong>后置缓冲 (Back Buffer)</strong> 中。 一旦场景已经被渲染到了后置缓冲中，GPU 就会交换后置缓冲区和 <strong>前置缓冲 (Front Buffer)</strong> 中的内容， 而前置缓冲区是之前显示在屏幕上的图像。 由</p>
+<h1 id="6-各阶段可控性"><a href="#6-各阶段可控性" class="headerlink" title="6 各阶段可控性"></a>6 各阶段可控性</h1><table>
+<thead>
+<tr>
+<th><img src="/article_img/2023-07-06-16-56-37.png" srcset="/img/loading.gif" lazyload></th>
+<th><img src="/article_img/2023-07-07-15-16-56.png" srcset="/img/loading.gif" lazyload></th>
+</tr>
+</thead>
+</table>
+<p>GPU流水线不是完全可控的，但是GPU向我们开放了很多控制权，<strong>绿色表示完全可编程完全可控，黄色表示不可编程但可以配置，蓝色表示完全不可编程。</strong></p>
 
               
             </div>
@@ -319,7 +384,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E7%AC%94%E8%AE%B0/" class="category-chain-item">-[笔记]</a>
+  <a href="/categories/%E5%8A%A8%E7%94%BBTA/" class="category-chain-item">-[动画TA]</a>
   
   
 
@@ -334,7 +399,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%92%E8%89%B2%E5%8A%A8%E7%94%BB/">#计算机角色动画</a>
+        <a href="/tags/%E7%99%BE%E4%BA%BA%E8%AE%A1%E5%88%92/">#百人计划</a>
       
     </div>
   
@@ -346,8 +411,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>万向节死锁问题（Gimbal Lock）</div>
-      <div>https://kenny-hoho.github.io/2023/03/17/万向节死锁问题/</div>
+      <div>百人计划-渲染流水线</div>
+      <div>https://kenny-hoho.github.io/2023/07/07/百人计划-渲染流水线/</div>
     </div>
     <div class="license-meta">
       
@@ -359,7 +424,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年3月17日</div>
+          <div>2023年7月7日</div>
         </div>
       
       
@@ -389,18 +454,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/03/18/Games105-1-%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/" title="Games105-1-数学基础">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Games105-1-数学基础</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/03/05/Unity%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/" title="Unity快捷键总结">
-                        <span class="hidden-mobile">Unity快捷键总结</span>
+                      <a href="/2023/06/14/%E9%AA%A8%E9%AA%BC%E5%8A%A8%E7%94%BB%E7%9B%B8%E5%85%B3%E6%8A%80%E6%9C%AF%E6%A6%82%E8%BF%B0/" title="骨骼动画相关技术概述">
+                        <span class="hidden-mobile">骨骼动画相关技术概述</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
