@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://kenny-hoho.github.io/img/bg/West2.jpg">
 <meta property="article:published_time" content="2023-07-06T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-07-08T06:18:05.083Z">
+<meta property="article:modified_time" content="2023-07-10T10:03:23.596Z">
 <meta property="article:author" content="Kenny-hoho">
 <meta property="article:tag" content="百人计划">
 <meta name="twitter:card" content="summary_large_image">
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.9k 字
+          2k 字
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          16 分钟
+          17 分钟
         
       </span>
     
@@ -339,7 +339,7 @@
 <p>屏幕映射就是一个缩放过程，其对z坐标不做任何变换。<strong>要注意OpenGL和DirectX的屏幕坐标系有所不同。</strong></p>
 <h1 id="4-光栅化阶段"><a href="#4-光栅化阶段" class="headerlink" title="4 光栅化阶段"></a>4 光栅化阶段</h1><p>光栅化阶段有两个最重要的目标 计算每个图元覆盖了哪些像素，以及为这些像素计算它们的颜色。</p>
 <h2 id="4-1-三角形设置-x2F-图元组装（Primitive-Assembly）"><a href="#4-1-三角形设置-x2F-图元组装（Primitive-Assembly）" class="headerlink" title="4.1 三角形设置&#x2F;图元组装（Primitive Assembly）"></a>4.1 三角形设置&#x2F;图元组装（Primitive Assembly）</h2><p><img src="/article_img/2023-07-06-16-55-05.png" srcset="/img/loading.gif" lazyload></p>
-<h2 id="4-2-三角形遍历"><a href="#4-2-三角形遍历" class="headerlink" title="4.2 三角形遍历"></a>4.2 三角形遍历</h2><p>三角形遍历（Triangle Traversal）检查每个像素是否被一个三角网格所覆盖，若覆盖则会生成一个片元（fragment）</p>
+<h2 id="4-2-三角形遍历"><a href="#4-2-三角形遍历" class="headerlink" title="4.2 三角形遍历"></a>4.2 三角形遍历</h2><p>三角形遍历（Triangle Traversal）检查每个像素是否被一个三角网格所覆盖，若覆盖则会生成一个片元（fragment），在这个阶段，GPU会对所有信息进行插值，也就是说对每一个片元来说其中包含了顶点位置，深度，法线等所有信息，这也就是为什么我们可以在片元着色器中仍然使用顶点计算光照并得到更好的效果。</p>
 <table>
 <thead>
 <tr>
