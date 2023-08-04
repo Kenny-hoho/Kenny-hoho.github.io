@@ -19,13 +19,13 @@
     <meta name="description" content="参考资料：百人计划-纹理基础《Unity Shader入门精要》 第7章 基础纹理">
 <meta property="og:type" content="article">
 <meta property="og:title" content="百人计划-纹理">
-<meta property="og:url" content="https://kenny-hoho.github.io/2023/07/08/%E7%99%BE%E4%BA%BA%E8%AE%A1%E5%88%92-%E7%BA%B9%E7%90%86/index.html">
+<meta property="og:url" content="https://kenny-hoho.github.io/2023/07/15/%E7%99%BE%E4%BA%BA%E8%AE%A1%E5%88%92-%E7%BA%B9%E7%90%86/index.html">
 <meta property="og:site_name" content="Kenny-hoho">
 <meta property="og:description" content="参考资料：百人计划-纹理基础《Unity Shader入门精要》 第7章 基础纹理">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://kenny-hoho.github.io/img/bg/West2.jpg">
-<meta property="article:published_time" content="2023-07-07T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-07-11T12:47:18.030Z">
+<meta property="article:published_time" content="2023-07-14T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-08-04T10:45:20.434Z">
 <meta property="article:author" content="Kenny-hoho">
 <meta property="article:tag" content="百人计划">
 <meta name="twitter:card" content="summary_large_image">
@@ -207,8 +207,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-07-08 00:00" pubdate>
-          2023年7月8日 凌晨
+        <time datetime="2023-07-15 00:00" pubdate>
+          2023年7月15日 凌晨
         </time>
       </span>
     
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3k 字
+          3.5k 字
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          25 分钟
+          30 分钟
         
       </span>
     
@@ -326,7 +326,7 @@
 <h3 id="Shader中的实现方法"><a href="#Shader中的实现方法" class="headerlink" title="Shader中的实现方法"></a>Shader中的实现方法</h3><p>在shader中计算光照时，需要让法线，光源方向，观察方向都在同一个坐标系中（无论在哪一个坐标系中，都不会对计算结果产生影响），因此针对切线空间下的法线纹理，就有两种实现方式：<strong>将所有向量转换到切线空间下</strong>和<strong>将所有向量转换到世界空间下</strong>。</p>
 <ol>
 <li>转换到切线空间：这种方法可以在顶点着色器中实现，将光源方向和观察方向转换到切线空间即可，这种方法由于在顶点着色器中实现所以计算量较小</li>
-<li>转换到世界空间：这种方法要将切线空间的法线转换到世界空间，因此必须在片元着色器中对法线贴图采样后进行一次矩阵乘法，效率上比较低，但是通用性更好，有时我们需要在世界空间下进行一些计算，如Cubemap</li>
+<li>转换到世界空间：这种方法要将切线空间的法线转换到世界空间，因此必须在片元着色器中对法线贴图采样后进行一次矩阵乘法，效率上比较低，但是通用性更好，有时我们需要在世界空间下进行一些计算，如Cubemap。在构建转换举止时一定要注意顺序必须是：<strong>切线，副切线，法线</strong> 的顺序！（因为这是切线空间对xyz轴的定义，见上图，如果顺序不对在转换时就会计算错误）<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">vert</span><span class="hljs-params">(in a2v v, out v2f o)</span></span>&#123;<br>   <span class="hljs-comment">//...</span><br>   <span class="hljs-comment">/*</span><br><span class="hljs-comment">   构建从切线空间转换到世界空间的转换矩阵</span><br><span class="hljs-comment">   */</span><br>   o.TtoW0 = <span class="hljs-built_in">float3</span>(worldTangent.x, worldBinormal.x, worldNormal.x, worldPos.x);<br>   o.TtoW1 = <span class="hljs-built_in">float3</span>(worldTangent.y, worldBinormal.y, worldNormal.y, worldPos.y);<br>   o.TtoW2 = <span class="hljs-built_in">float3</span>(worldTangent.z, worldBinormal.z, worldNormal.z, worldPos.z);<br>   <span class="hljs-comment">//...</span><br>&#125;<br><span class="hljs-function">fixed4 <span class="hljs-title">frag</span><span class="hljs-params">(in v2f i)</span> : SV_TARGET&#123;</span><br>   <span class="hljs-comment">//...</span><br>   fixed3 bump = <span class="hljs-built_in">UnpackNormal</span>(<span class="hljs-built_in">tex2D</span>(_BumpMap, i.uv)); <span class="hljs-comment">// 解包法线</span><br>   bump = <span class="hljs-built_in">fixed3</span>(<span class="hljs-built_in">dot</span>(i.TtoW0.xyz, bump), <span class="hljs-built_in">dot</span>(i.TtoW1.xyz, bump), <span class="hljs-built_in">dot</span>(i.TtoW2.xyz, bump))  <span class="hljs-comment">// 转换到世界空间</span><br>   <span class="hljs-comment">//...</span><br>&#125;<br></code></pre></td></tr></table></figure></li>
 </ol>
 <p>在对使用法线贴图时，需要先对法线贴图进行<strong>解包</strong>（从像素颜色转换到法线方向）:</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// 在Unity中设置纹理为法线贴图，可以使用内置函数否则要手动解包：normal = pixel*2-1</span><br>fixed3 normal = UnpackNormal(tex2D(_NormalMap, i.uv.zw));<br></code></pre></td></tr></table></figure>
@@ -397,7 +397,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>百人计划-纹理</div>
-      <div>https://kenny-hoho.github.io/2023/07/08/百人计划-纹理/</div>
+      <div>https://kenny-hoho.github.io/2023/07/15/百人计划-纹理/</div>
     </div>
     <div class="license-meta">
       
@@ -409,7 +409,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年7月8日</div>
+          <div>2023年7月15日</div>
         </div>
       
       
@@ -439,18 +439,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/07/09/%E7%99%BE%E4%BA%BA%E8%AE%A1%E5%88%92-%E7%BB%8F%E9%AA%8C%E5%85%89%E7%85%A7%E6%A8%A1%E5%9E%8B/" title="百人计划-传统经验光照模型详解">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">百人计划-传统经验光照模型详解</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/07/07/%E7%99%BE%E4%BA%BA%E8%AE%A1%E5%88%92-%E6%B8%B2%E6%9F%93%E6%B5%81%E6%B0%B4%E7%BA%BF/" title="百人计划-渲染流水线">
-                        <span class="hidden-mobile">百人计划-渲染流水线</span>
+                      <a href="/2023/07/09/%E7%99%BE%E4%BA%BA%E8%AE%A1%E5%88%92-%E7%BB%8F%E9%AA%8C%E5%85%89%E7%85%A7%E6%A8%A1%E5%9E%8B/" title="百人计划-传统经验光照模型详解">
+                        <span class="hidden-mobile">百人计划-传统经验光照模型详解</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
