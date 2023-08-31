@@ -18,14 +18,14 @@
   
     <meta name="description" content="记录学习unity开发中的各种问题和常见解决方法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【边学边做】DreamGuard">
+<meta property="og:title" content="【边学边做】DreamGuard（New Input System的使用方法）">
 <meta property="og:url" content="https://kenny-hoho.github.io/2023/03/22/[%E8%BE%B9%E5%AD%A6%E8%BE%B9%E5%81%9A]DreamGuard/index.html">
 <meta property="og:site_name" content="Kenny-hoho">
 <meta property="og:description" content="记录学习unity开发中的各种问题和常见解决方法">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://kenny-hoho.github.io/img/bg/Logo.jpg">
 <meta property="article:published_time" content="2023-03-21T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-04-17T09:45:40.873Z">
+<meta property="article:modified_time" content="2023-08-12T04:44:57.546Z">
 <meta property="article:author" content="Kenny-hoho">
 <meta property="article:tag" content="【边学边做】">
 <meta name="twitter:card" content="summary_large_image">
@@ -33,7 +33,7 @@
   
   
   
-  <title>【边学边做】DreamGuard - Kenny-hoho</title>
+  <title>【边学边做】DreamGuard（New Input System的使用方法） - Kenny-hoho</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -196,7 +196,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">【边学边做】DreamGuard</span>
+            <span id="subtitle">【边学边做】DreamGuard（New Input System的使用方法）</span>
           
         </div>
 
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.8k 字
+          3.9k 字
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          24 分钟
+          33 分钟
         
       </span>
     
@@ -272,7 +272,7 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">【边学边做】DreamGuard</h1>
+            <h1 style="display: none">【边学边做】DreamGuard（New Input System的使用方法）</h1>
             
             <div class="markdown-body">
               
@@ -281,16 +281,23 @@
 
 <h1 id="第三人称角色控制器"><a href="#第三人称角色控制器" class="headerlink" title="第三人称角色控制器"></a>第三人称角色控制器</h1><p>在开发DreamGuard的时候，原本打算使用unity自带的第三人称模板，但是发现其实现是基于New Input System，阅读代码出现困难，就想着自己实现一下。</p>
 <h2 id="New-Input-System"><a href="#New-Input-System" class="headerlink" title="New Input System"></a>New Input System</h2><p><a target="_blank" rel="noopener" href="https://docs.unity3d.com/Packages/com.unity.inputsystem@1.5/manual/index.html">官方文档</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1tg411j7ni/?spm_id_from=333.880.top_right_bar_window_custom_collection.content.click&vd_source=93b215eab72b2548f75d0772e28f8b20">视频教程</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1tg411j7ni/?spm_id_from=333.880.top_right_bar_window_custom_collection.content.click&vd_source=93b215eab72b2548f75d0772e28f8b20">视频教程1</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV17h4y1W7Z2/?spm_id_from=333.337.search-card.all.click&vd_source=93b215eab72b2548f75d0772e28f8b20">视频教程2</a></p>
 <p>我对New Input System的理解是unity希望规范开发者对用户输入的处理。New Input System除了实现老版本输入系统的功能外，主要还方便了用户输入设备的切换（如从键盘切换到手柄）以及方便对不同输入模式的切换（如在游戏中空格代表跳跃，在ui界面中空格代表确定）</p>
 <h3 id="新输入系统的几种用法"><a href="#新输入系统的几种用法" class="headerlink" title="新输入系统的几种用法"></a>新输入系统的几种用法</h3><p><img src="/article_img/2023-03-22-12-13-16.png" srcset="/img/loading.gif" lazyload></p>
 <p>按照官网的介绍，新输入系统有四种用法，第一种是和老版本输入系统类似的写法；后面三种都需要借助Actions Asset，可以在Project窗口右键创建，可以将其理解为配置输入的界面，通过Actions Asset就可以可视化的将输入分类，实现输入设备的切换和输入模式的切换。同时在配置Actions Asset时可以选择生成一个C#类来方便在代码中直接使用Actions Asset。</p>
-<p>unity自带的第三人称模板使用的是第四种，这是一种我认为较为直观的使用方法，借助PlayerInput组件，可以选择要使用的Actions Asset以及输入时的行为，下图中的Behavior。</p>
+<p><img src="/article_img/2023-08-12-12-34-07.png" srcset="/img/loading.gif" lazyload></p>
+<p>Action Maps方便区分输入场景，比如游戏中的输入和UI界面的输入；<br>Move，Look等等就是接收具体的输入了，input system可以方便的设置不同的输入设备并在其中切换。</p>
+<h3 id="Using-an-Actions-Asset-and-a-PlayerInput-component"><a href="#Using-an-Actions-Asset-and-a-PlayerInput-component" class="headerlink" title="Using an Actions Asset and a PlayerInput component"></a>Using an Actions Asset and a PlayerInput component</h3><p>unity自带的第三人称模板使用的是第四种，这是一种我认为较为直观的使用方法，借助PlayerInput组件，可以选择要使用的Actions Asset以及输入时的行为，下图中的Behavior。</p>
 <p><img src="/article_img/2023-03-22-12-25-07.png" srcset="/img/loading.gif" lazyload></p>
 <p>第三人称模板使用的Behavior是<a target="_blank" rel="noopener" href="https://docs.unity3d.com/ScriptReference/GameObject.SendMessage.html">Send Messages</a>，这个方法是最简单的物体间的通信方法，他会将信息传递给该物体上附加的所有脚本；<a target="_blank" rel="noopener" href="https://docs.unity3d.com/ScriptReference/GameObject.BroadcastMessage.html">Broadcast Messages</a>会将信息传递给附加到该游戏对象及其所有子对象的每个脚本；<a target="_blank" rel="noopener" href="https://docs.unity3d.com/ScriptReference/Events.UnityEvent.html">Invoke Unity Events</a>对每个单独的消息类型使用单独的 UnityEvent；Invoke C Sharp Events和Invoke Unity Events类似，只是会触发一个C#事件。</p>
 <p>由于Send Messages效率较低（？还不太懂为啥），所以我自己实现的第三人称控制器使用Invoke Unity Events方法。</p>
 <p>这种方法需要配置Events，只需要为每个输入消息配置一个函数，就可以实现当有输入时，直接调用这个函数，使用起来十分方便。</p>
 <p><img src="/article_img/2023-03-22-12-49-01.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="Using-an-Actions-Asset"><a href="#Using-an-Actions-Asset" class="headerlink" title="Using an Actions Asset"></a>Using an Actions Asset</h3><p>这种方法就对代码更加友好，其实和上述的第四种用法一样，需要勾选生成C#类选项：<br><img src="/article_img/2023-08-11-20-23-58.png" srcset="/img/loading.gif" lazyload><br>之后在需要使用输入系统的脚本中就可以使用这个类了：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs Csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">PlayerController</span> : <span class="hljs-title">MonoBehaviour</span><br>&#123;<br>   <span class="hljs-keyword">public</span> PlayerInputControl inputControl; <span class="hljs-comment">// 声明生成的Actions Asset类</span><br>   <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Awake</span>()</span>&#123;<br>      inputControl = <span class="hljs-keyword">new</span> PlayerInputControl();<br>   &#125;<br>   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Update</span>()</span>&#123;<br>      <span class="hljs-comment">// Gameplay是设定的Action Maps，Move是设置的监听移动的Actions</span><br>      inputDirection = inputControl.Gameplay.Move.ReadValue&lt;Vector2&gt;();<br>   &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
 <h2 id="脚本实现"><a href="#脚本实现" class="headerlink" title="脚本实现"></a>脚本实现</h2><p>第三人称控制器需要相机根据玩家鼠标的移动来回旋转，角色的移动是相对与玩家视角的移动（当玩家看向哪，前进方向就是哪），角色的旋转则永远指向角色的移动方向（不会随相机视角的旋转而旋转）。</p>
 <h3 id="相机旋转"><a href="#相机旋转" class="headerlink" title="相机旋转"></a>相机旋转</h3><p>这里的相机使用了Cinemachine系统中的virtual camera，其可以实现跟随角色以及看向角色。</p>
 <p><img src="/article_img/2023-03-22-12-56-23.png" srcset="/img/loading.gif" lazyload></p>
@@ -309,6 +316,10 @@
 <h3 id="角色跳跃"><a href="#角色跳跃" class="headerlink" title="角色跳跃"></a>角色跳跃</h3><p>角色跳跃基于Character Controller组件的isGrounded，当角色在地面时才能跳跃，给予角色一个向上的速度即可，这个速度通过 <strong>v^2 &#x3D; 2gh</strong> 计算，这样可以方便控制角色跳跃的高度。</p>
 <p>Character Controller并没有实现角色重力，要自己实现，只需要检测当角色不在地面时，给角色一个向下的速度，这个速度由 <strong>v&#x3D;gt</strong> 累加计算得来。</p>
 <figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs Csharp"><span class="hljs-keyword">if</span>(characterController.isGrounded)&#123;<br>   <span class="hljs-keyword">if</span>(verticalSpeed &lt; <span class="hljs-number">-1</span>) verticalSpeed = <span class="hljs-number">-1</span>;  <span class="hljs-comment">// 当角色落地后将竖直速度置零</span><br>&#125;<span class="hljs-keyword">else</span>&#123;<br>   verticalSpeed += gravity * Time.deltaTime;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="地面检测"><a href="#地面检测" class="headerlink" title="地面检测"></a>地面检测</h3><p>地面检测可以使用函数 <strong>Physics2D</strong> 进行检测：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs Csharp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">physicsCheck</span> ： <span class="hljs-title">MonoBehaviour</span>&#123;<br>   <span class="hljs-keyword">public</span> <span class="hljs-built_in">bool</span> isGround;<br><br>   <span class="hljs-keyword">public</span> LayerMask groundLayer; <span class="hljs-comment">// 指定对哪一些layer检测</span><br>   <span class="hljs-keyword">public</span> <span class="hljs-built_in">float</span> checkRaduis;<br>   <span class="hljs-keyword">public</span> Vector2 bottomOffset;<br><br>   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Update</span>()</span>&#123;<br>      Check();<br>   &#125;<br>   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Check</span>()</span>&#123;<br>      isGround = Physics2D.OverlapCircle((Vector)transform.position + bottomOffset, checkRadius, groundLayer);<br>   &#125;<br>   <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">OnDrawGizmoSelected</span>()</span>&#123;<br>      Gizmos.DrawWireSphere((Vector2)transform.postion + bottomOffset, checkRaduis);<br>   &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>通过改变Offset可以进行任何检测，比如检测角色是否碰到了墙。</p>
 
               
             </div>
@@ -353,7 +364,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>【边学边做】DreamGuard</div>
+      <div>【边学边做】DreamGuard（New Input System的使用方法）</div>
       <div>https://kenny-hoho.github.io/2023/03/22/[边学边做]DreamGuard/</div>
     </div>
     <div class="license-meta">
