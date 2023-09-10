@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://kenny-hoho.github.io/img/bg/West2.jpg">
 <meta property="article:published_time" content="2023-07-08T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-08-06T07:52:31.782Z">
+<meta property="article:modified_time" content="2023-09-04T10:43:14.932Z">
 <meta property="article:author" content="Kenny-hoho">
 <meta property="article:tag" content="百人计划">
 <meta name="twitter:card" content="summary_large_image">
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.4k 字
+          1.6k 字
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          12 分钟
+          14 分钟
         
       </span>
     
@@ -312,6 +312,16 @@
 <p><img src="/article_img/2023-07-10-15-28-50.png" srcset="/img/loading.gif" lazyload></p>
 <h1 id="着色频率"><a href="#着色频率" class="headerlink" title="着色频率"></a>着色频率</h1><p><img src="/article_img/2022-08-29-15-48-55.png" srcset="/img/loading.gif" lazyload></p>
 <p>着色频率一般有逐平面着色（Flat shading），逐顶点着色（Gouraud shading）和逐像素着色（Phong shading），区别在于对于光照的计算在渲染流水线的哪个阶段，逐顶点着色在顶点着色器计算光照，逐像素着色在片元着色器计算光照。</p>
+<p>计算光照时需要注意要将顶点着色器中计算好的法线在片元着色器中 <strong>归一化</strong>。<br>原因是在片元着色器中每个片元计算用到的法线是由顶点着色器中计算好的法线<strong>插值</strong>得来的，如果不进行归一化，插值得到的法线的模长不为一，点乘计算出的结果会看起来不平滑：</p>
+<table>
+<thead>
+<tr>
+<th><img src="/article_img/2023-09-04-14-12-39.png" srcset="/img/loading.gif" lazyload></th>
+<th><img src="/article_img/2023-09-04-14-13-05.png" srcset="/img/loading.gif" lazyload></th>
+</tr>
+</thead>
+</table>
+<p>观察上图中的高光部分可以明显看出区别。</p>
 <h1 id="在UE和Unity中分别实现各种光照模型"><a href="#在UE和Unity中分别实现各种光照模型" class="headerlink" title="在UE和Unity中分别实现各种光照模型"></a>在UE和Unity中分别实现各种光照模型</h1><table>
 <thead>
 <tr>

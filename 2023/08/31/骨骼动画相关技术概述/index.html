@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://kenny-hoho.github.io/img/bg/spiderman_gewn.jpg">
 <meta property="article:published_time" content="2023-08-30T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-08-31T09:50:34.071Z">
+<meta property="article:modified_time" content="2023-09-05T07:03:26.796Z">
 <meta property="article:author" content="Kenny-hoho">
 <meta property="article:tag" content="计算机角色动画">
 <meta name="twitter:card" content="summary_large_image">
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.7k 字
+          5.3k 字
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          39 分钟
+          45 分钟
         
       </span>
     
@@ -317,7 +317,7 @@
 </thead>
 </table>
 <p>蒙皮可以使顶点跟随骨骼移动的原理如上图所示，先将顶点转换至绑定到的关节空间，因为关节移动时，顶点相对于关节的位置不变，移动关节之后可以将顶点再转换回模型空间，就完成了顶点在模型空间的移动。</p>
-<h2 id="线性混合蒙皮"><a href="#线性混合蒙皮" class="headerlink" title="线性混合蒙皮"></a>线性混合蒙皮</h2><p><img src="/article_img/2023-06-15-15-47-19.png" srcset="/img/loading.gif" lazyload><br>对每个顶点来说，其被绑定到的每个关节对他的影响程度不同，设定每个关节的权重，就可以通过加权算出顶点受这些关节共同影响后的位置。这就是<strong>线性混合蒙皮（Linear Blend Skinning）</strong></p>
+<h2 id="线性混合蒙皮（Linear-Blend-Skining）"><a href="#线性混合蒙皮（Linear-Blend-Skining）" class="headerlink" title="线性混合蒙皮（Linear Blend Skining）"></a>线性混合蒙皮（Linear Blend Skining）</h2><p><img src="/article_img/2023-06-15-15-47-19.png" srcset="/img/loading.gif" lazyload><br>对每个顶点来说，其被绑定到的每个关节对他的影响程度不同，设定每个关节的权重，就可以通过加权算出顶点受这些关节共同影响后的位置。这就是<strong>线性混合蒙皮（Linear Blend Skinning）</strong></p>
 <p><img src="/article_img/2023-06-15-16-16-44.png" srcset="/img/loading.gif" lazyload></p>
 <p>但是线性混合不能维持体积，会产生如下的Candy-Wrapper Artifact<br><img src="/article_img/2023-06-15-15-56-55.png" srcset="/img/loading.gif" lazyload></p>
 <h2 id="双四元数蒙皮（Dual-Quaternion-Skinning）"><a href="#双四元数蒙皮（Dual-Quaternion-Skinning）" class="headerlink" title="双四元数蒙皮（Dual-Quaternion Skinning）"></a>双四元数蒙皮（Dual-Quaternion Skinning）</h2><table>
@@ -346,7 +346,8 @@
 </ol>
 <p>PSD的相关技术文章：<br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/456538362">Pose Space Deformation——从实践到原理再到实践</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/391409060">基于径向基函数的Pose Space Deformation</a></p>
 <p>同时还需要考虑的问题是顶点动画开销太大，还是希望可以使用骨骼驱动，于是希望将blendshape通过某种方法烘焙到骨骼上，就有了蒙皮分解技术（例如SSDR-线性蒙皮分解）</p>
-<h2 id="蒙皮分解（蒙皮动画的逆运算）"><a href="#蒙皮分解（蒙皮动画的逆运算）" class="headerlink" title="蒙皮分解（蒙皮动画的逆运算）"></a>蒙皮分解（蒙皮动画的逆运算）</h2><table>
+<h2 id="蒙皮分解（蒙皮动画的逆运算）"><a href="#蒙皮分解（蒙皮动画的逆运算）" class="headerlink" title="蒙皮分解（蒙皮动画的逆运算）"></a>蒙皮分解（蒙皮动画的逆运算）</h2><p>假如有全身所有顶点的每帧的位置信息，能不能反过来推算出如果使用骨骼动画如何达成同样的效果。即假设我们给定骨骼数量，那么能不能推算出骨骼每一帧应该在什么位置，旋转如何（骨骼的全局姿势），以及每一个顶点应该绑定哪根骨骼，权重是多少。</p>
+<table>
 <thead>
 <tr>
 <th><img src="/article_img/2023-06-15-15-44-37.png" srcset="/img/loading.gif" lazyload></th>
@@ -355,8 +356,15 @@
 </thead>
 </table>
 <p>SSDR是一个优化问题，输入是所有顶点的动画（每一帧来看就是所有顶点的模型空间的坐标），需要拟合出蒙皮计算公式中的 <strong>顶点蒙皮权重，$C_{j \to m}$（每帧的全局姿势）</strong></p>
-<p>原论文：<a target="_blank" rel="noopener" href="http://graphics.cs.uh.edu/ble/papers/2012sa-ssdr/">Smooth Skinning Decomposition with Rigid Bones</a></p>
-<h2 id="自动蒙皮"><a href="#自动蒙皮" class="headerlink" title="自动蒙皮"></a>自动蒙皮</h2><p>Siggraph2021: <a target="_blank" rel="noopener" href="https://peizhuoli.github.io/neural-blend-shapes/index.html">Learning Skeletal Articulations with Neural Blend Shapes</a></p>
+<p>原论文：<a target="_blank" rel="noopener" href="http://graphics.cs.uh.edu/ble/papers/2012sa-ssdr/">Smooth Skinning Decomposition with Rigid Bones</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/384760680">知乎-线性蒙皮分解(SSDR)</a></p>
+<h2 id="ML-Deformer-拟合morph-target"><a href="#ML-Deformer-拟合morph-target" class="headerlink" title="ML Deformer (拟合morph target)"></a>ML Deformer (拟合morph target)</h2><p>SSDR归根结底还是想通过LBS来驱动顶点，但是有一些复杂的BlendShape不是线性变化的，不能用LBS驱动，这种方法解算出来的结果也就不太理想了。于是有了专门针对与BlendShape的拟合方法。</p>
+<p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=OmMi6E0EkQw">MetaHuman Framework &amp; Machine Learning for Next-Gen Character Deformation | GDC 2023</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/632849525">UE5 机器学习变形器解析</a></p>
+<p>UE5推出的新功能ML Deformer借助Deformer Graph和机器学习完成对复杂的非线性顶点运动的拟合，比如肌肉模拟和布料模拟。工作流程如下：</p>
+<p><img src="/article_img/2023-09-05-14-03-52.png" srcset="/img/loading.gif" lazyload></p>
+<p>首先在Maya中完成绑定，使用UE官方提供的Maya插件设置每个关节的活动范围限制，之后生成随机动作（ROM-Random of Motion），之后在Houdini中用离线的方法进行肌肉模拟并生成 abc文件（顶点动画），在UE中训练。。</p>
+<p>下图左侧模型身上的绿色信息就是使用LBS蒙皮的模型和Houdini中模拟出来的模型的顶点坐标的差值，这些差值被提供给神经网络，经过训练，更新原本LBS蒙皮的权重来拟合肌肉模拟的结果。</p>
+<p><img src="/article_img/2023-09-05-14-12-36.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="自动蒙皮"><a href="#自动蒙皮" class="headerlink" title="自动蒙皮"></a>自动蒙皮</h2><p>Siggraph2021: <a target="_blank" rel="noopener" href="https://peizhuoli.github.io/neural-blend-shapes/index.html">Learning Skeletal Articulations with Neural Blend Shapes</a> 类似ML Deformer?</p>
 <p>Siggraph2019: <a target="_blank" rel="noopener" href="https://github.com/FuxiCV/NeuroSkinning#:~:text=NeuroSkinning%3A%20Automatic%20Skin%20Binding%20for%20Production%20Characters%20with,skin%20weights%20for%20skeleton-based%20deformation%20of%20production%20characters.">NeuroSkinning: Automatic Skin Binding for Production Characters with Deep Graph Networks</a></p>
 <h1 id="动画混合"><a href="#动画混合" class="headerlink" title="动画混合"></a>动画混合</h1><h2 id="线性插值混合"><a href="#线性插值混合" class="headerlink" title="线性插值混合"></a>线性插值混合</h2><p><img src="/article_img/2023-06-16-14-57-08.png" srcset="/img/loading.gif" lazyload><br><img src="/article_img/2023-06-16-14-58-35.png" srcset="/img/loading.gif" lazyload><br>在线性插值时，直接对于矩阵插值不可行，因此一般对 SQT 格式的局部姿势插值，其中尤其注意对旋转的插值，一般使用四元数LERP 或 SLEAP（球面线性插值）</p>
 <p>下面列举几种线性插值混合的应用</p>
@@ -544,6 +552,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2023/09/05/%E7%99%BE%E4%BA%BA%E8%AE%A1%E5%88%92-%E6%B8%B2%E6%9F%93%E8%B7%AF%E5%BE%84/" title="百人计划-渲染路径">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">百人计划-渲染路径</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
