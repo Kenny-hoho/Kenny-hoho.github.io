@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://kenny-hoho.github.io/img/bg/West2.jpg">
 <meta property="article:published_time" content="2023-09-07T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-09-11T07:09:34.465Z">
+<meta property="article:modified_time" content="2023-09-12T09:37:59.363Z">
 <meta property="article:author" content="Kenny-hoho">
 <meta property="article:tag" content="百人计划">
 <meta name="twitter:card" content="summary_large_image">
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.7k 字
+          6.3k 字
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          48 分钟
+          53 分钟
         
       </span>
     
@@ -359,7 +359,11 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C++">UsePass <span class="hljs-string">&quot;Universal Render Pipeline/Lit/ShadowCaster&quot;</span> <br></code></pre></td></tr></table></figure>
 
 <p><img src="/article_img/2023-09-10-18-15-08.png" srcset="/img/loading.gif" lazyload></p>
-<p><img src="/article_img/mm_1.gif" srcset="/img/loading.gif" lazyload></p>
+<h1 id="透明物体的阴影"><a href="#透明物体的阴影" class="headerlink" title="透明物体的阴影"></a>透明物体的阴影</h1><p>对于透明物体我们主要处理的是使用 <strong>Alpha Test</strong> 的透明物体的阴影，而使用 <strong>Alpha Blend</strong> 的半透明物体的阴影直接当作不透明物体处理。</p>
+<p>对于接收阴影，透明物体和不透明物体完全相同，对于投射阴影，只需要在shadow caster pass中将不能通过 Alpha Test 的片元舍弃，这样他们在shadow map中的深度就是无限了，从而不会投射阴影。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs C++">pass&#123;<br>    Tags &#123;<span class="hljs-string">&quot;LightMode&quot;</span>=<span class="hljs-string">&quot;ShadowCaster&quot;</span>&#125;<br>    HLSLPRAGMA<br>    <span class="hljs-meta">#<span class="hljs-keyword">pragma</span> vertex vert</span><br>    <span class="hljs-meta">#<span class="hljs-keyword">pragma</span> fragment frag</span><br><br>    v2f <span class="hljs-built_in">vert</span>(in a2v v)&#123;<br>        v2f o;<br>        o.positionCS = <span class="hljs-built_in">TransformObjectToHClip</span>(v.positionOS.xyz);<br>        o.uv = <span class="hljs-built_in">TRANSFORM_TEX</span>(v.texcoord, _BaseMap);<br>        <span class="hljs-keyword">return</span> o;<br>    &#125;<br>    <span class="hljs-function">real4 <span class="hljs-title">frag</span><span class="hljs-params">(in v2f i)</span> : SV_TARGET&#123;</span><br>        half4 texColor = <span class="hljs-built_in">SAMPLE_TEXTURE2D</span>(_BaseMap, sampler_BaseMap, i.uv);<br>        <span class="hljs-built_in">clip</span>(texColor.a - _Cutoff);<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    &#125;<br>    ENDHLSL<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/article_img/2023-09-12-17-37-46.png" srcset="/img/loading.gif" lazyload></p>
 
               
             </div>
@@ -446,6 +450,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2023/09/12/%E8%85%BE%E8%AE%AF%E6%B8%B8%E6%88%8F%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%85%AC%E5%BC%80%E8%AF%BE-UE%E5%85%A5%E9%97%A8/" title="腾讯游戏客户端公开课-UE入门">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">腾讯游戏客户端公开课-UE入门</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
