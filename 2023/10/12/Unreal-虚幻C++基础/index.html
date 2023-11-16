@@ -16,24 +16,24 @@
   <meta name="author" content="Kenny-hoho">
   <meta name="keywords" content="">
   
-    <meta name="description" content="编译虚幻引擎官方文档——下载虚幻引擎源代码 虚幻引擎是开源的，但是要访问github上的虚幻引擎源码需要将自己的github账号和epic账号绑定并授权，具体操作流程参考UE官方教程。之后我们就可以愉快的访问虚幻引擎的github仓库了：  编译源码需要预留大约250G的硬盘空间，我全部编译完UE5.2的文件夹大小为215G clone源码： 1git clone https:&#x2F;&#x2F;github">
+    <meta name="description" content="Unreal项目规范：Allar&#x2F;ue5-style-guide中文翻译版常用的命名规范有：  派生自UObject类的都以U为前缀（派生自U开头类的类也都已U为前缀） 派生自AActor的以A为前缀 bool变量以b前缀，如bPendingDestruction 抽象接口以I前缀虚幻中派生自UInterface的类都有两个定义，一个以U开头实现作为一个基本类的功能，一个以I开头实现">
 <meta property="og:type" content="article">
-<meta property="og:title" content="腾讯游戏客户端公开课-UE入门">
-<meta property="og:url" content="https://kenny-hoho.github.io/2023/09/12/%E8%85%BE%E8%AE%AF%E6%B8%B8%E6%88%8F%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%85%AC%E5%BC%80%E8%AF%BE-UE%E5%85%A5%E9%97%A8/index.html">
+<meta property="og:title" content="Unreal-虚幻C++基础">
+<meta property="og:url" content="https://kenny-hoho.github.io/2023/10/12/Unreal-%E8%99%9A%E5%B9%BBC++%E5%9F%BA%E7%A1%80/index.html">
 <meta property="og:site_name" content="Kenny-hoho">
-<meta property="og:description" content="编译虚幻引擎官方文档——下载虚幻引擎源代码 虚幻引擎是开源的，但是要访问github上的虚幻引擎源码需要将自己的github账号和epic账号绑定并授权，具体操作流程参考UE官方教程。之后我们就可以愉快的访问虚幻引擎的github仓库了：  编译源码需要预留大约250G的硬盘空间，我全部编译完UE5.2的文件夹大小为215G clone源码： 1git clone https:&#x2F;&#x2F;github">
+<meta property="og:description" content="Unreal项目规范：Allar&#x2F;ue5-style-guide中文翻译版常用的命名规范有：  派生自UObject类的都以U为前缀（派生自U开头类的类也都已U为前缀） 派生自AActor的以A为前缀 bool变量以b前缀，如bPendingDestruction 抽象接口以I前缀虚幻中派生自UInterface的类都有两个定义，一个以U开头实现作为一个基本类的功能，一个以I开头实现">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://kenny-hoho.github.io/img/bg/ue5.jpg">
-<meta property="article:published_time" content="2023-09-11T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-09-12T08:12:46.936Z">
+<meta property="article:published_time" content="2023-10-11T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-11-11T07:29:25.570Z">
 <meta property="article:author" content="Kenny-hoho">
-<meta property="article:tag" content="游戏客户端公开课">
+<meta property="article:tag" content="虚幻引擎">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://kenny-hoho.github.io/img/bg/ue5.jpg">
   
   
   
-  <title>腾讯游戏客户端公开课-UE入门 - Kenny-hoho</title>
+  <title>Unreal-虚幻C++基础 - Kenny-hoho</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -196,7 +196,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">腾讯游戏客户端公开课-UE入门</span>
+            <span id="subtitle">Unreal-虚幻C++基础</span>
           
         </div>
 
@@ -207,8 +207,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-09-12 00:00" pubdate>
-          2023年9月12日 凌晨
+        <time datetime="2023-10-12 00:00" pubdate>
+          2023年10月12日 凌晨
         </time>
       </span>
     
@@ -272,52 +272,36 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">腾讯游戏客户端公开课-UE入门</h1>
+            <h1 style="display: none">Unreal-虚幻C++基础</h1>
             
             <div class="markdown-body">
               
               <span id="more"></span>
 
-<h1 id="编译虚幻引擎"><a href="#编译虚幻引擎" class="headerlink" title="编译虚幻引擎"></a>编译虚幻引擎</h1><p><a target="_blank" rel="noopener" href="https://docs.unrealengine.com/5.2/zh-CN/downloading-unreal-engine-source-code/">官方文档——下载虚幻引擎源代码</a></p>
-<p>虚幻引擎是开源的，但是要访问github上的虚幻引擎源码需要将自己的github账号和epic账号绑定并授权，具体操作流程参考UE<a target="_blank" rel="noopener" href="https://www.unrealengine.com/zh-CN/ue-on-github">官方教程</a>。之后我们就可以愉快的访问虚幻引擎的github仓库了：</p>
-<p><img src="/article_img/2023-09-12-09-54-18.png" srcset="/img/loading.gif" lazyload></p>
-<p><strong>编译源码需要预留大约250G的硬盘空间</strong>，我全部编译完UE5.2的文件夹大小为215G</p>
-<p>clone源码：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs git">git clone https://github.com/EpicGames/UnrealEngine.git<br></code></pre></td></tr></table></figure>
+<h1 id="Unreal项目规范："><a href="#Unreal项目规范：" class="headerlink" title="Unreal项目规范："></a>Unreal项目规范：</h1><h2 id="Allar-x2F-ue5-style-guide"><a href="#Allar-x2F-ue5-style-guide" class="headerlink" title="Allar&#x2F;ue5-style-guide"></a><a target="_blank" rel="noopener" href="https://github.com/Allar/ue5-style-guide">Allar&#x2F;ue5-style-guide</a></h2><h2 id="中文翻译版"><a href="#中文翻译版" class="headerlink" title="中文翻译版"></a><a target="_blank" rel="noopener" href="https://github.com/skylens-inc/ue4-style-guide/blob/master/README.md">中文翻译版</a></h2><p>常用的命名规范有：</p>
+<ol>
+<li>派生自UObject类的都以U为前缀（派生自U开头类的类也都已U为前缀）</li>
+<li>派生自AActor的以A为前缀</li>
+<li>bool变量以b前缀，如bPendingDestruction</li>
+<li>抽象接口以I前缀<br><img src="/article_img/2023-11-11-14-59-41.png" srcset="/img/loading.gif" lazyload><br>虚幻中派生自UInterface的类都有两个定义，一个以U开头实现作为一个基本类的功能，一个以I开头实现接口功能<br><img src="/article_img/2023-10-13-14-17-23.png" srcset="/img/loading.gif" lazyload></li>
+</ol>
+<h1 id="虚幻C-基础"><a href="#虚幻C-基础" class="headerlink" title="虚幻C++基础"></a>虚幻C++基础</h1><p>虚幻的C++开发不是使用纯粹的C++进行编程，虚幻引擎为了实现各种复杂机制，在C++基础上搭建了一套反射机制。下面是我们新建一个C++类，虚幻自动帮我们生成的头文件的结构，其中有很多宏定义和必须引用的头文件：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">pragma</span> once</span><br><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;CoreMinimal.h&quot;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;GameFramework/Actor.h&quot;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;SBaseProjectile.generated.h&quot;</span></span><br><br><span class="hljs-built_in">UCLASS</span>()<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">CPPRPG_API</span> ASBaseProjectile : <span class="hljs-keyword">public</span> AActor<br>&#123;<br>	<span class="hljs-built_in">GENERATED_BODY</span>()<br>	<br><span class="hljs-keyword">public</span>:	<br>	<span class="hljs-comment">// Sets default values for this actor&#x27;s properties</span><br>	<span class="hljs-built_in">ASBaseProjectile</span>();<br><br>	<span class="hljs-built_in">UPROPERTY</span>(EditAnywhere, Category=<span class="hljs-string">&quot;Attribute of Base Projectile&quot;</span>)<br>	<span class="hljs-type">float</span> ProjectileMoveSpeed;<br><br><span class="hljs-keyword">protected</span>:<br>	<span class="hljs-comment">// Called when the game starts or when spawned</span><br>	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">BeginPlay</span><span class="hljs-params">()</span> <span class="hljs-keyword">override</span></span>;<br><br><span class="hljs-keyword">public</span>:	<br>	<span class="hljs-comment">// Called every frame</span><br>	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">Tick</span><span class="hljs-params">(<span class="hljs-type">float</span> DeltaTime)</span> <span class="hljs-keyword">override</span></span>;<br>&#125;;<br><br></code></pre></td></tr></table></figure>
 
-<p>直接clone源码默认是在release分支下，当我们把源码全部clone到本地之后，记得切换到想要编译的版本再进行后续操作，这里选择编译安装的5.2.1版本。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs git">git checkout 5.2.1-release <br></code></pre></td></tr></table></figure>
-
-<p>之后依次运行根目录下的 <strong>Setup.bat</strong> (下载一些需要的依赖，需要一两个小时) 和 <strong>GenerateProjectFiles.bat</strong>（生成UE5.sln，几分钟）</p>
-<p>之后就可以从 <strong>VS2022</strong> 打开 <strong>UE5.sln</strong> 开始编译了，为了避免一些可能的编译问题，最好在Visual Studio Installer中安装如下模块（使用Unity的游戏开发可以不安装）：</p>
-<p><img src="/article_img/2023-09-12-10-13-51.png" srcset="/img/loading.gif" lazyload><br><img src="/article_img/2023-09-12-10-14-11.png" srcset="/img/loading.gif" lazyload></p>
-<p>在打开UE5.sln之后，VS会自动检测需要安装那些组件，跟随指引安装即可：<br><img src="/article_img/2023-09-09-19-55-45.png" srcset="/img/loading.gif" lazyload></p>
-<p>安装完成之后，右键UE5，点击生成，开始编译（我电脑编译大约七个小时。。）<br><img src="/article_img/2023-09-12-10-18-00.png" srcset="/img/loading.gif" lazyload></p>
-<p>编译完成之后找到这个地址 <strong>%Engine-Folder%\UnrealEngine\Engine\Binaries\Win64\UnrealEditor.exe</strong> ，启动！<br><img src="/article_img/2023-09-12-10-32-37.png" srcset="/img/loading.gif" lazyload></p>
-<h1 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h1><p>记录从源码版引擎创建第三人称模板，打包到安卓平台的过程。<br>参考<a target="_blank" rel="noopener" href="https://docs.unrealengine.com/5.2/zh-CN/getting-started-and-setup-for-android-projects-in-unreal-engine/">官方文档——Android开始入门</a></p>
-<p>打开虚幻编辑器后，按照如下选项新建项目，注意目标平台选择 <strong>移动平台</strong>，质量预设选择 <strong>可缩放</strong>，项目名称为全英文：<br><img src="/article_img/2023-09-12-10-36-08.png" srcset="/img/loading.gif" lazyload></p>
-<p>创建完成之后会自动打开VS2022，显示刚刚创建的项目工程，右键项目名称，点击生成：<br><img src="/article_img/2023-09-12-10-47-44.png" srcset="/img/loading.gif" lazyload><br>对于第三人称模板来说大约需要几分钟，之后就可以在虚幻编辑器中找到该项目；</p>
-<p>打开项目之后，由于我们想要打包到安卓平台，为了保证开发中和最后在手机上运行效果一致，我们需要设置预览渲染级别（第一次设置之后编译shader需要一段时间）：<br><img src="/article_img/2023-09-12-10-58-00.png" srcset="/img/loading.gif" lazyload></p>
-<p>通过运行按钮左边的按钮可以设置当前的预览渲染模式：</p>
-<table>
-<thead>
-<tr>
-<th><img src="/article_img/2023-09-12-10-59-18.png" srcset="/img/loading.gif" lazyload></th>
-<th><img src="/article_img/2023-09-12-10-59-41.png" srcset="/img/loading.gif" lazyload></th>
-</tr>
-</thead>
-</table>
-<h1 id="打包到安卓平台"><a href="#打包到安卓平台" class="headerlink" title="打包到安卓平台"></a>打包到安卓平台</h1><p>按照<a target="_blank" rel="noopener" href="https://docs.unrealengine.com/5.2/zh-CN/getting-started-and-setup-for-android-projects-in-unreal-engine/">官方文档——Android开始入门</a>步骤进行即可，这里记录几个需要注意的点和自己遇到的报错；</p>
-<h2 id="Android-Studio"><a href="#Android-Studio" class="headerlink" title="Android Studio"></a>Android Studio</h2><p>安装 Android Studio 时需要严格按照官方文档下载 <strong>Android Studio 4.0</strong>，不要下载最新版，因为最新版不自带jdk，会导致之后打包时报错。安装完成之后，要把系统变量中的 <strong>JAVA_HOME</strong> 值改为 Android Studio文件夹中的jre路径（设置完毕后重启电脑），在我们按照教程启动 <strong>SetupAndroid.bat</strong> 的时候会去找系统变量中的 <strong>JAVA_HOME</strong>：<br><img src="/article_img/2023-09-12-11-13-23.png" srcset="/img/loading.gif" lazyload></p>
-<p>如果使用自己的jdk会报如下错误或者类似的和rungradle.bat有关的错误：<br><img src="/article_img/2023-09-12-12-09-35.png" srcset="/img/loading.gif" lazyload></p>
-<h2 id="UE项目设置"><a href="#UE项目设置" class="headerlink" title="UE项目设置"></a>UE项目设置</h2><p>需要勾选生成apk，否则不能正常安装到手机：<br><img src="/article_img/2023-09-12-13-54-18.png" srcset="/img/loading.gif" lazyload></p>
-<p>这里前三项默认即可（会在 <strong>SetupAndroid.bat</strong> 中自动设置），后两项需要和对应的版本一致，<strong>SDK API Level</strong>这里默认填写的是 <strong>latest</strong>，会使用电脑中最新版本的SDK，这里要注意不要和<strong>SetupAndroid.bat</strong> 中的设置冲突（该文件中会定义用到的SDK的版本，如果下载最新版的Android Studio会默认下载更高版本的SDK，也会造成打包失败）；<br><img src="/article_img/2023-09-12-13-55-48.png" srcset="/img/loading.gif" lazyload></p>
-<h2 id="手机设置"><a href="#手机设置" class="headerlink" title="手机设置"></a>手机设置</h2><p>在完成上面的操作之后，还需要在手机上打开开发者模式，这样就能通过打包完成后的文件夹中的批处理命令将游戏安装到手机上：<br><img src="/article_img/2023-09-12-14-03-24.png" srcset="/img/loading.gif" lazyload></p>
-<p>手机的具体设置UE官方文档写的很详细：<a target="_blank" rel="noopener" href="https://docs.unrealengine.com/5.2/zh-CN/setting-up-your-android-device-for-developing-applications-in-unreal-engine/">设置Android设备</a>，这里记录一下我遇到问题，我准备使用退役的小米8（没有SD卡）当作测试用机，在安装时会报如下错误：<br><img src="/article_img/2023-09-12-14-07-43.png" srcset="/img/loading.gif" lazyload></p>
-<p>这是由于MIUI禁止了在没有安装SD卡时通过USB安装程序，需要先插上SD卡，打开 <strong>USB安装</strong>，之后再拔掉SD卡，之后不需要SD卡也可以正常安装了：<br><img src="/article_img/2023-09-12-14-11-00.png" srcset="/img/loading.gif" lazyload></p>
-<p>当手机通过USB连接在电脑上并且设置好上面的各种配置后，可以选择直接在Android设备上启动，如果没有打开USB安装选项也会报如下错误：<br><img src="/article_img/2023-09-11-21-55-11.png" srcset="/img/loading.gif" lazyload></p>
-<p>启动成功！<br><img src="/article_img/2023-09-12-14-22-38.png" srcset="/img/loading.gif" lazyload></p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://docs.unrealengine.com/5.2/zh-CN/getting-started-and-setup-for-android-projects-in-unreal-engine/">UE文档-分享和发布项目-Android-开始入门</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/562504560">Windows10 UE4.27 新手向打包安卓项目流程整理</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/655375421">UE4学习笔记（1）：UE源码下载编译+安卓打包</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/509308558">《UE4开发笔记》Tip 1 编译完全指南</a></p>
+<h2 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h2><p>反射在Java和C#等语言中比较常见，概况的说，反射数据描述了类在运行时的内容。这些数据所存储的信息包括类的名称、类中的数据成员、每个数据成员的类型、每个成员位于对象内存映像的偏移（offset），此外，它也包含类的所有成员函数信息。</p>
+<p>简单来说，反射可以实现在程序运行时<strong>动态地对类，对象，方法等进行操作</strong>。例如在虚幻中，反射用来实现序列化（就是将对象转换为字节流，存储和网络传输使用），编辑器中动态调整各种属性，垃圾回收，网络复制，蓝图&#x2F;C++通信和相互调用的功能。</p>
+<p>虚幻引擎的反射机制的核心是<strong>UObject</strong>类，所有的类都继承自UObject：<br><img src="/article_img/2023-11-11-14-54-02.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>#include “xxx.generated.h”</strong> 以及 <strong>UPROPERTY()<strong>，</strong>UFUNCTION()<strong>，</strong>UCLASS()</strong> 等宏定义都用来让UE实现反射。</p>
+<h2 id="UBT（Unreal-Build-Tool）"><a href="#UBT（Unreal-Build-Tool）" class="headerlink" title="UBT（Unreal Build Tool）"></a>UBT（Unreal Build Tool）</h2><p>虚幻项目的编译全权由<strong>UBT</strong>负责，其本质就和其名字一样就是一个<strong>编译工具</strong>，和CMake之类的是一个东西，只不过其是专门为UE量身定做的编译工具。有了UBT就可以方便配置各个平台的参数和编译选项，不用为每个平台单独配置编译了。</p>
+<p>我们可以直接使用Engine\Binaries\DotNET\UnrealBuildTool目录下的UnrealBuildTool.exe再命令行中编译我们的项目。在创建新项目时，自动生成的Target.cs，Build.cs都是为这个工具服务的。</p>
+<p>UBT工作流程分为两步：</p>
+<ol>
+<li>调用UHT（Unreal Header Tool）</li>
+<li>调用平台特定的编译工具（VS，LLVM）编译各个模块</li>
+</ol>
+<h2 id="UHT（Unreal-Header-Tool）"><a href="#UHT（Unreal-Header-Tool）" class="headerlink" title="UHT（Unreal Header Tool）"></a>UHT（Unreal Header Tool）</h2><p>UHT（Unreal Header Tool）是用来解析虚幻C++的，上面我们提到了要实现UE反射需要些各种宏，<strong>UHT就是将这些代码解析成标准的C++代码</strong>，之后再由UBT组织这些标准C++代码进行正常的C++编译。</p>
+<p>可以这样直观理解，我们写的虚幻C++代码其实和标准C++不同，有很多宏以及很多省略或者固定的写法（接口函数实现xxx_Implementation），可以将我们写的代码称为U++。<strong>编译过程就是调用UBT，UBT先调用UHT将U++翻译为C++，再调用C++编译工具对C++编译。</strong></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/562841250">大象无形UE4笔记六：UBT</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/60622181">UE4反射机制</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/22814098">《InsideUE4》基础概念</a></p>
 
               
             </div>
@@ -350,7 +334,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%B8%B8%E6%88%8F%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%85%AC%E5%BC%80%E8%AF%BE/">#游戏客户端公开课</a>
+        <a href="/tags/%E8%99%9A%E5%B9%BB%E5%BC%95%E6%93%8E/">#虚幻引擎</a>
       
     </div>
   
@@ -362,8 +346,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>腾讯游戏客户端公开课-UE入门</div>
-      <div>https://kenny-hoho.github.io/2023/09/12/腾讯游戏客户端公开课-UE入门/</div>
+      <div>Unreal-虚幻C++基础</div>
+      <div>https://kenny-hoho.github.io/2023/10/12/Unreal-虚幻C++基础/</div>
     </div>
     <div class="license-meta">
       
@@ -375,7 +359,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年9月12日</div>
+          <div>2023年10月12日</div>
         </div>
       
       
@@ -405,12 +389,18 @@
                   <article class="post-prev col-6">
                     
                     
+                      <a href="/2023/11/06/%E5%9F%BA%E4%BA%8E%E6%95%B0%E6%8D%AE%E7%9A%84%E8%A7%92%E8%89%B2%E5%8A%A8%E7%94%BB-PFNN/" title="基于数据的角色动画——PFNN">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">基于数据的角色动画——PFNN</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/09/08/%E7%99%BE%E4%BA%BA%E8%AE%A1%E5%88%92-%E9%98%B4%E5%BD%B1/" title="百人计划-阴影">
-                        <span class="hidden-mobile">百人计划-阴影</span>
+                      <a href="/2023/09/12/Unreal-%E5%BC%95%E6%93%8E%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E5%92%8C%E6%89%93%E5%8C%85/" title="Unreal-引擎源码编译和打包">
+                        <span class="hidden-mobile">Unreal-引擎源码编译和打包</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
