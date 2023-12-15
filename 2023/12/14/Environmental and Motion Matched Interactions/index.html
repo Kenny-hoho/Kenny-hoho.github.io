@@ -1,0 +1,809 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/bg/profile.jpg">
+  <link rel="icon" href="/img/bg/profile.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Kenny-hoho">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="《Environmental and Motion Matched Interactions; ‘Madden’, ‘FIFA’ and Beyond》演讲">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Environmental and Motion Matched Interactions">
+<meta property="og:url" content="https://kenny-hoho.github.io/2023/12/14/Environmental%20and%20Motion%20Matched%20Interactions/index.html">
+<meta property="og:site_name" content="Kenny-hoho">
+<meta property="og:description" content="《Environmental and Motion Matched Interactions; ‘Madden’, ‘FIFA’ and Beyond》演讲">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://kenny-hoho.github.io/img/bg/madden.jpg">
+<meta property="article:published_time" content="2023-12-13T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-12-15T08:25:50.462Z">
+<meta property="article:author" content="Kenny-hoho">
+<meta property="article:tag" content="计算机角色动画">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://kenny-hoho.github.io/img/bg/madden.jpg">
+  
+  
+  
+  <title>Environmental and Motion Matched Interactions - Kenny-hoho</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"kenny-hoho.github.io","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":["home"]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Kenny</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/Pink_city.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">Environmental and Motion Matched Interactions</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-12-14 00:00" pubdate>
+          2023年12月14日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          28 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Environmental and Motion Matched Interactions</h1>
+            
+            <div class="markdown-body">
+              
+              <p>《Environmental and Motion Matched Interactions; ‘Madden’, ‘FIFA’ and Beyond》演讲</p>
+<span id="more"></span>
+
+<p>《Environmental and Motion Matched Interactions; ‘Madden’, ‘FIFA’ and Beyond》是一个实现多人物，人物和场景间交互的技术（本文简称为 <strong>EMMI</strong> ），主要为了开发《Madden-NFL》来实现橄榄球运动中众多的身体接触，该技术是EA在GDC2017上分享的 <strong>N-teract</strong> 技术和 <strong>Motion Matching</strong> 技术的结合。要梳理 EMMI 的思路就要先分别了解 N-teract和 Motion Matching。</p>
+<h1 id="N-teract"><a href="#N-teract" class="headerlink" title="N-teract"></a>N-teract</h1><p><a target="_blank" rel="noopener" href="https://www.gdcvault.com/play/1024015/EA-Presents-N-teract-Next">EA Presents N-teract: Next Generation Multi-Character Interactions</a></p>
+<p><img src="/article_img/Madden.gif" srcset="/img/loading.gif" lazyload></p>
+<p>这个演讲首先展示了EA的 N-teract 工具和工作流，类似于插件的形式，之后讲解了实现原理和一些挑战和解决方案。我们直接从实现原理开始梳理。</p>
+<h2 id="基础定义"><a href="#基础定义" class="headerlink" title="基础定义"></a>基础定义</h2><p>在讲解具体原理之前，需要先了解几个定义：</p>
+<ol>
+<li>多人动画；多人动画是一种同步动画，允许多个轨道分别控制一个角色来播放对应的动画。在N-teract系统中，一个场景（例如Tackle）可以存在多个多人动画，N-teract会从中挑选合适的多人动画播放。<br><img src="/article_img/2023-12-14-09-40-20.png" srcset="/img/loading.gif" lazyload></li>
+<li>Slot（插槽）；要实现多个角色顺利播放多人动画，那就必须要指定每个角色播放多人动画中的哪个角色动画，这就需要插槽来指定。<br><img src="/article_img/2023-12-14-09-41-51.png" srcset="/img/loading.gif" lazyload></li>
+<li>Slots；来定义具体的一个多人动画应该如何分配插槽，这是一个自动的过程，但是需要针对不同的动画设置不同的分配规则，例如对于Tackle（橄榄球中常见的拦截动作）动画使用如下方式指定Slot：<br><img src="/article_img/2023-12-14-09-47-52.png" srcset="/img/loading.gif" lazyload></li>
+</ol>
+<h2 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h2><ol>
+<li>各个角色会根据游戏逻辑发出请求，请求开始播放多人交互动画；<br><img src="/article_img/2023-12-14-09-30-29.png" srcset="/img/loading.gif" lazyload></li>
+<li>系统会收集发出请求的角色，并为他们分配对应的插槽，这里具体分配哪一个插槽就需要根据不同的场景分别设定；<br><img src="/article_img/2023-12-14-10-10-00.png" srcset="/img/loading.gif" lazyload></li>
+<li>根据分配好的插槽去多人动画数据库中挑选合适的动画进行播放；<table>
+<thead>
+<tr>
+<th><img src="/article_img/2023-12-14-10-12-40.png" srcset="/img/loading.gif" lazyload></th>
+<th><img src="/article_img/2023-12-14-10-13-18.png" srcset="/img/loading.gif" lazyload></th>
+</tr>
+</thead>
+</table>
+</li>
+<li>如果找到了合适的多人动画，就播放并且做一些对齐之类的后处理；<br><img src="/article_img/2023-12-14-10-14-50.png" srcset="/img/loading.gif" lazyload></li>
+</ol>
+<h2 id="分配插槽和匹配多人动画"><a href="#分配插槽和匹配多人动画" class="headerlink" title="分配插槽和匹配多人动画"></a>分配插槽和匹配多人动画</h2><p>从上述的流程中可以看出N-teract中的核心步骤是<strong>分配插槽</strong>和<strong>从数据库选择多人动画</strong>，这里就很像MotionMatching中选择关注的姿势信息和轨迹然后匹配下一帧姿势，这两步同样也是MM中核心步骤，决定MM实现质量。</p>
+<p>分配插槽确实需要针对每一种不同的场景设计对应的分配规则，但是其实没有想象的那样需要设计很多分配规则，因为一个场景中可以有多种不同的多人动画。比如Tackle就是一个场景，将各种不同的tackle动画放进这个场景就行了，也就是说在实际操作中，我们只需要将动画数据分类，为每种类型的动画设计一个分配规则即可，这种思路就有点类似与状态机分层。</p>
+<p>可以对匹配算法做一些优化，演讲中分为了两部分：</p>
+<ol>
+<li>离线阶段：根据已有的动画数据构建一个动画表，其中标记哪些方向需要我们关注，在实时中，我们只需要关注对应的方向即可，减少开销，如下图，在runtime中只关注3，5，6，8四个方向即可。<br><img src="/article_img/2023-12-14-11-29-38.png" srcset="/img/loading.gif" lazyload></li>
+<li>Runtime：检测离线阶段确定的方向，如果检测到其他角色就将该角色分配到对应插槽，并在数据库中寻找符合条件的动画。<br><img src="/article_img/2023-12-14-11-34-40.png" srcset="/img/loading.gif" lazyload></li>
+</ol>
+<p>整个过程如下：</p>
+<table>
+<thead>
+<tr>
+<th><img src="/article_img/2023-12-14-11-35-41.png" srcset="/img/loading.gif" lazyload></th>
+<th><img src="/article_img/2023-12-14-11-35-58.png" srcset="/img/loading.gif" lazyload></th>
+</tr>
+</thead>
+</table>
+<p>左图检测到了1号和3号，但是数据库中没有1号和3号同时存在的多人动画，故没有播放tackle动画，继续移动到了右图所示，检测到了1号和2号，数据库中有1号和2号同时存在的动画就播放。</p>
+<h2 id="Late-Join和Invites"><a href="#Late-Join和Invites" class="headerlink" title="Late Join和Invites"></a>Late Join和Invites</h2><p>和MotionMatching一样，N-teract显然也是动画数据越多效果越好，这就造成了Coverage问题，动画数据不可能无限多，那就要尽可能的重用已有的动画，这个思路在动画领域也比较常见了。</p>
+<p>文中主要提到两个重用方法：</p>
+<ol>
+<li><strong>Late Join</strong>：允许角色在播放动画的中途加入，其他角色如果恰好在正在播放的动画的路径上，就直接加入当前动画；<br><img src="/article_img/LateJoin.gif" srcset="/img/loading.gif" lazyload><br>Late Join的实现基于对动画数据的预处理，将多人动画分为好几段，如下图，每隔四帧标记一个入口并计算出对应入口的进入条件。<br><img src="/article_img/2023-12-15-10-19-48.png" srcset="/img/loading.gif" lazyload></li>
+<li><strong>Invites</strong>：字面意思邀请角色加入播放的动画，应用于角色不在路线上时，让角色移动到路线上，再用<strong>Late Join</strong>；<br><img src="/article_img/Invites.gif" srcset="/img/loading.gif" lazyload></li>
+</ol>
+<h2 id="被动交互"><a href="#被动交互" class="headerlink" title="被动交互"></a>被动交互</h2><p><img src="/article_img/EMMI_Env1.gif" srcset="/img/loading.gif" lazyload></p>
+<p>被动交互是指在多人动画中，其中一个角色在接触之前不播放该多人动画，比如上图中间的角色没有对冲过来的角色进行反应，直到被打击之后才播放受击动画。</p>
+<p>其实我们在UE中做的一般都是被动交互，因为我们没有可以直接播放多人动画的动画状态机，只能在攻击之后让受击方播放受击动画；EA的引擎可以直接播放多人动画，那么猜测实现方式就是先禁用受击方的插槽，当检测到受击时启动插槽。</p>
+<h2 id="环境交互"><a href="#环境交互" class="headerlink" title="环境交互"></a>环境交互</h2><p><img src="/article_img/EMMI_Env2.gif" srcset="/img/loading.gif" lazyload></p>
+<p>环境交互其实可以理解成和一个不动的角色进行的多人动画，这里还是N-teract的思路，比如对于翻墙动画，要把手扶的点摆在场景中，之后角色进行N-teract的步骤将这个点当作一个角色，在动画库中找到可以播放的动画。</p>
+<p><img src="/article_img/2023-12-15-11-14-15.png" srcset="/img/loading.gif" lazyload></p>
+<p>这种方式确实可以实现很好的动画效果，对于一些翻墙之类的（不需要很精细的交互）可以通过一些检测自动找到交互点。</p>
+<p>在Madden中，这种环境交互技术主要用于实现下图效果：<br><img src="/article_img/EMMI_Env4.gif" srcset="/img/loading.gif" lazyload></p>
+<table>
+<thead>
+<tr>
+<th><img src="/article_img/EMMI_Env3.gif" srcset="/img/loading.gif" lazyload></th>
+<th><img src="/article_img/EMMI_Env5.gif" srcset="/img/loading.gif" lazyload></th>
+</tr>
+</thead>
+</table>
+<p>所以可以用接口实现，只要有交互接口的对象都能触发N-teract系统：<br><img src="/article_img/2023-12-15-11-39-45.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="动态物体交互"><a href="#动态物体交互" class="headerlink" title="动态物体交互"></a>动态物体交互</h2><p>对于动态物体，其实就是提前计算动态物体的轨迹，设置几个交互点：<br><img src="/article_img/2023-12-15-11-44-00.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="Environmental-and-Motion-Matched-Interactions"><a href="#Environmental-and-Motion-Matched-Interactions" class="headerlink" title="Environmental and Motion Matched Interactions"></a>Environmental and Motion Matched Interactions</h1><h2 id="Rally-Motion-Matching"><a href="#Rally-Motion-Matching" class="headerlink" title="Rally Motion Matching"></a>Rally Motion Matching</h2><p>演讲中首先提到了最容易想到的Motion Matching的应用，利用MM的轨迹预测，让其他角色移动到可以触发N-teract的位置，也使用MM驱动来减少需要做的对齐或者扭曲。这种方法和Invites类似，不同点可能在于Invites是针对多人的，当一个角色开始交互动画之后将其他角色邀请来参加这个已经启动的交互动画，<strong>RallyMM则是在启动交互动画之前发生的</strong>。感觉没什么用，只是减少了Warping和Alignment。</p>
+<p><img src="/article_img/2023-12-15-14-32-25.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="多人动作匹配（MultiChar-MotionMatching）"><a href="#多人动作匹配（MultiChar-MotionMatching）" class="headerlink" title="多人动作匹配（MultiChar MotionMatching）"></a>多人动作匹配（MultiChar MotionMatching）</h2><p>多人动作匹配是将传统动作匹配关注的单个骨架信息扩展为多个骨架，用多个角色的姿势和轨迹信息来匹配一个多人动画。这个理论上是确实是可行的，不过这是基于多人动画数据和EA的能够播放多人动画的状态机才能实现的，想要在UE中复现可能较难。</p>
+<p><img src="/article_img/2023-12-15-14-45-20.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="N-teract与MM的结合"><a href="#N-teract与MM的结合" class="headerlink" title="N-teract与MM的结合"></a>N-teract与MM的结合</h2><p>这两个系统本身很相似，核心都是数据驱动的匹配算法，但是他们的匹配算法差异过大（N-teract依靠的分配Slot强制匹配，MM是计算Cost没那么强制），不能直接合并数据库。最终选择保留N-teract的框架，先进行N-teract，再进行MM：<br><img src="/article_img/2023-12-15-14-55-32.png" srcset="/img/loading.gif" lazyload></p>
+<p>这样的思路就要依靠之前提到的实现Late-Join的方法，将完整的多人动画设置很多入口（其实就是分成很多份），从而实现中途加入。进行改进之后允许在每一段中进行MM：</p>
+<table>
+<thead>
+<tr>
+<th><img src="/article_img/2023-12-15-10-19-48.png" srcset="/img/loading.gif" lazyload></th>
+<th><img src="/article_img/2023-12-15-15-00-40.png" srcset="/img/loading.gif" lazyload></th>
+</tr>
+</thead>
+</table>
+<p>结合了MM之后效果如下，左图没有结合MM，在最后时刻由于受击者转身不匹配原本的动画，直接切换到了另一个动画；右图结合了MM，不匹配之后也切换了N-teract状态但是用到了MM，考虑了当前姿势，选择了合理的出拳动画（切换到站在背后的N-teract状态，开始MM选择继续出右拳）。</p>
+<table>
+<thead>
+<tr>
+<th><img src="/article_img/EMMI_Punch1.gif" srcset="/img/loading.gif" lazyload></th>
+<th><img src="/article_img/EMMI_Punch2.gif" srcset="/img/loading.gif" lazyload></th>
+</tr>
+</thead>
+</table>
+<p>但是还是切换了动画片段，虽然MM了没有直接播放切换的片段，但是还是能感受到切换时会卡顿，还是希望不切换多人动画片段。这里感觉作者没细讲怎么做的（也可能我单纯没看懂</p>
+<h2 id="问题和解决方案"><a href="#问题和解决方案" class="headerlink" title="问题和解决方案"></a>问题和解决方案</h2><ol>
+<li>EMMI的问题之一是交互状态切换频繁，这是因为交互状态的匹配是强制匹配，很可能在交互过程中稍微不满足条件就切换了状态，所以需要在进入状态后加大容忍，让状态更难切换：<br><img src="/article_img/2023-12-15-16-17-53.png" srcset="/img/loading.gif" lazyload></li>
+<li>RootMotiom造成控制感较弱，这里解决方式就是一定程度放弃RootMotion，完全由玩家控制；</li>
+<li>性能优化，实现Late-Join时设置了很多入口，其实不用设置那么多，可以进行预处理，减少入口数量；比如一个多人动画可能其中的角色相对位置始终没有改变，那么就只需要一个入口即可，也就是只在相对位置发生变化从而会影响交互状态匹配时，才设置入口。<br> <img src="/article_img/2023-12-15-16-25-29.png" srcset="/img/loading.gif" lazyload><table>
+<thead>
+<tr>
+<th><img src="/article_img/2023-12-15-16-24-37.png" srcset="/img/loading.gif" lazyload></th>
+<th><img src="/article_img/2023-12-15-16-24-19.png" srcset="/img/loading.gif" lazyload></th>
+</tr>
+</thead>
+</table>
+</li>
+</ol>
+
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%AC%94%E8%AE%B0/" class="category-chain-item">-[笔记]</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%92%E8%89%B2%E5%8A%A8%E7%94%BB/">#计算机角色动画</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Environmental and Motion Matched Interactions</div>
+      <div>https://kenny-hoho.github.io/2023/12/14/Environmental and Motion Matched Interactions/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Kenny-hoho</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年12月14日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/12/11/%E4%BE%AF%E6%8D%B7C++-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B%EF%BC%88%E4%B8%8A%EF%BC%89%E7%AC%94%E8%AE%B0/" title="侯捷C++-面向对象高级编程（上）笔记">
+                        <span class="hidden-mobile">侯捷C++-面向对象高级编程（上）笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        MathJax = {
+          tex    : {
+            inlineMath: { '[+]': [['$', '$']] }
+          },
+          loader : {
+            load: ['ui/lazy']
+          },
+          options: {
+            renderActions: {
+              findScript    : [10, doc => {
+                document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                  const display = !!node.type.match(/; *mode=display/);
+                  const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                  const text = document.createTextNode('');
+                  node.parentNode.replaceChild(text, node);
+                  math.start = { node: text, delim: '', n: 0 };
+                  math.end = { node: text, delim: '', n: 0 };
+                  doc.math.push(math);
+                });
+              }, '', false],
+              insertedScript: [200, () => {
+                document.querySelectorAll('mjx-container').forEach(node => {
+                  let target = node.parentNode;
+                  if (target.nodeName.toLowerCase() === 'li') {
+                    target.parentNode.classList.add('has-jax');
+                  }
+                });
+              }, '', false]
+            }
+          }
+        };
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.0/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
