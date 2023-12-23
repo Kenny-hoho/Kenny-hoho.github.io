@@ -1,0 +1,746 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/bg/profile.jpg">
+  <link rel="icon" href="/img/bg/profile.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Kenny-hoho">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="STL全称 Standard Template Library（标准模板库），C++ Standard Library标准库中有百分之八十都是STL； 参考网站：gcc.gnu.orgcpluspluscppreference STL简介        1. 容器（Containers）2. 分配器（Allocators）3. 算法（Algorithms）4. 迭代器（Iterators）5.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="侯捷C++-STL">
+<meta property="og:url" content="https://kenny-hoho.github.io/2023/12/21/%E4%BE%AF%E6%8D%B7C++-STL/index.html">
+<meta property="og:site_name" content="Kenny-hoho">
+<meta property="og:description" content="STL全称 Standard Template Library（标准模板库），C++ Standard Library标准库中有百分之八十都是STL； 参考网站：gcc.gnu.orgcpluspluscppreference STL简介        1. 容器（Containers）2. 分配器（Allocators）3. 算法（Algorithms）4. 迭代器（Iterators）5.">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://kenny-hoho.github.io/img/bg/cpp.jpg">
+<meta property="article:published_time" content="2023-12-20T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-12-23T10:47:48.689Z">
+<meta property="article:author" content="Kenny-hoho">
+<meta property="article:tag" content="C++">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://kenny-hoho.github.io/img/bg/cpp.jpg">
+  
+  
+  
+  <title>侯捷C++-STL - Kenny-hoho</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"kenny-hoho.github.io","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":["home"]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Kenny</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/Pink_city.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">侯捷C++-STL</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-12-21 00:00" pubdate>
+          2023年12月21日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          22 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">侯捷C++-STL</h1>
+            
+            <div class="markdown-body">
+              
+              <span id="more"></span>
+
+<p><strong>STL</strong>全称 <strong>Standard Template Library（标准模板库）</strong>，<strong>C++ Standard Library标准库</strong>中有百分之八十都是STL；</p>
+<p>参考网站：<br><a target="_blank" rel="noopener" href="http://gcc.gnu.org/">gcc.gnu.org</a><br><a target="_blank" rel="noopener" href="https://cplusplus.com/">cplusplus</a><br><a target="_blank" rel="noopener" href="https://en.cppreference.com/w/">cppreference</a></p>
+<h1 id="STL简介"><a href="#STL简介" class="headerlink" title="STL简介"></a>STL简介</h1><table>
+<thead>
+<tr>
+<th><img src="/article_img/2023-12-21-10-52-12.png" srcset="/img/loading.gif" lazyload></th>
+<th><img src="/article_img/2023-12-21-10-58-12.png" srcset="/img/loading.gif" lazyload></th>
+</tr>
+</thead>
+</table>
+<p><strong>1. 容器（Containers）<br>2. 分配器（Allocators）<br>3. 算法（Algorithms）<br>4. 迭代器（Iterators）<br>5. 适配器（Adapters）<br>6. 仿函数（Functors）</strong></p>
+<p>STL设计的思想不是OOP（Object-Oriented Progragmming）而是<strong>GP（Generic Programming）泛化编程</strong>，这种思想将<strong>数据和方法分开</strong>，在STL里的明显应用就是把数据放在<strong>容器</strong>中，让<strong>算法</strong>通过<strong>迭代器</strong>实现对数据的操作。这种方法可以方便设计容器的团队和设计算法的团队可以独立开发，只要双方迭代器互通即可。</p>
+<h1 id="STL基础——操作符重载和模板"><a href="#STL基础——操作符重载和模板" class="headerlink" title="STL基础——操作符重载和模板"></a>STL基础——操作符重载和模板</h1><h2 id="操作符重载"><a href="#操作符重载" class="headerlink" title="操作符重载"></a>操作符重载</h2><p><img src="/article_img/2023-12-22-14-51-48.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h2><h3 id="类模板"><a href="#类模板" class="headerlink" title="类模板"></a>类模板</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> T&gt;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span>&#123;<br><span class="hljs-keyword">public</span>:<br>   <span class="hljs-built_in">A</span>(T r=<span class="hljs-number">0</span>, T i=<span class="hljs-number">0</span>):<span class="hljs-built_in">re</span>(r),<span class="hljs-built_in">im</span>(i)&#123;&#125;<br>   <span class="hljs-function">T <span class="hljs-title">GetRe</span><span class="hljs-params">()</span></span>&#123;<span class="hljs-keyword">return</span> re;&#125;<br><span class="hljs-keyword">private</span>:<br>   T re, im;<br>&#125;;<br>&#123;<br>   <span class="hljs-function">A&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">c1</span><span class="hljs-params">(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>)</span></span>;<br>   <span class="hljs-function">A&lt;<span class="hljs-type">double</span>&gt; <span class="hljs-title">c2</span><span class="hljs-params">(<span class="hljs-number">1.3</span>, <span class="hljs-number">2.2</span>)</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="函数模板"><a href="#函数模板" class="headerlink" title="函数模板"></a>函数模板</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">class</span> <span class="hljs-title class_">T</span>&gt;<br><span class="hljs-function"><span class="hljs-keyword">inline</span></span><br><span class="hljs-function"><span class="hljs-type">const</span> T&amp; <span class="hljs-title">min</span><span class="hljs-params">(<span class="hljs-type">const</span> T&amp; a, <span class="hljs-type">const</span> T&amp; b)</span></span>&#123;<br>   <span class="hljs-keyword">return</span> b &lt; a ? b : a;  <span class="hljs-comment">// 经过编译器参数推导，这里会用对应类的&lt;重载</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="特化"><a href="#特化" class="headerlink" title="特化"></a>特化</h3><p><img src="/article_img/2023-12-22-15-26-11.png" srcset="/img/loading.gif" lazyload><br>最基础的模板函数可以理解为是一种 <strong>泛化</strong>，不管参数是什么类型都一样操作，C++也提供了 <strong>特化</strong> 来进一步提高效率，特化就是当参数是某种类型时，专为这种类型设计对应的函数。</p>
+<h3 id="偏特化"><a href="#偏特化" class="headerlink" title="偏特化"></a>偏特化</h3><p><img src="/article_img/2023-12-22-15-34-14.png" srcset="/img/loading.gif" lazyload><br><strong>偏特化（Partial Specialization）</strong> 如上图所示，当<strong>一部分</strong>参数是某种类型时，为其设计对应的函数，可以理解为 <strong>个数</strong> 上的偏特化；<br><img src="/article_img/2023-12-22-15-37-43.png" srcset="/img/loading.gif" lazyload><br>另外，还有一种偏特化是 <strong>范围</strong> 上的偏特化，如上图所示。</p>
+<h1 id="分配器-allocators"><a href="#分配器-allocators" class="headerlink" title="分配器 allocators"></a>分配器 allocators</h1><p>每个容器都有一个分配器作为参数，分配器负责真正去<strong>申请开辟内存</strong>；一般我们不需要直接用allocator，让容器去用即可。</p>
+<p><img src="/article_img/2023-12-22-15-52-49.png" srcset="/img/loading.gif" lazyload></p>
+<p>可以看出在VC6中，allocator就是调用了 <strong>operator new</strong> 和 <strong>operator delete</strong> 去申请和释放内存。而我们又知道，operator new 和 operator delete 底层分别由 <strong>malloc</strong> 和 <strong>free</strong> 实现，malloc真正分配的内存会多出一些（cookie确定内存大小，debug相关内存，变量内存，padding内存）<br><img src="/article_img/2023-12-22-15-53-38.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>malloc</strong> 在分配内存的时候不可避免的要多分配一些内存，尤其是<strong>cookie</strong>是不能省略的（<strong>debug</strong>在release模式下就没了，<strong>padding</strong>也有可能恰好没有），因为在拿一块内存的时候系统需要知道拿了多大才能在回收的时候正确回收，<strong>cookie</strong> 就是为了记录申请的内存大小的；<br>那么就有一个问题，如果我们真正想申请的内存很小，比如就1个字节，但是为了申请这一点内存，需要额外的申请cookie的8个字节，这岂不是很<strong>浪费</strong>！那么为了避免这个问题，一些编译器（<strong>G2.9</strong>）的allocator会做一些特殊的操作避免这种浪费，下面会介绍一种操作：**__pool_alloc**；</p>
+<h2 id="pool-alloc"><a href="#pool-alloc" class="headerlink" title="__pool_alloc"></a>__pool_alloc</h2><p>想要不分配cookie，那先要想cookie的作用，上面已经说了很多次了，cookie就是为了记录申请的内存的大小，当我们没有用容器的时候，cookie就没办法省掉，因为我们申请的内存确实是有大有小的，但是当我们使用容器时，<strong>容器内部每个变量的内存一定是一样的！</strong> 那么我们就可以不记录容器中每个变量所占的内存大小了，这就是 <strong>__pool_alloc</strong> 实现的基础。<br><img src="/article_img/2023-12-22-16-33-47.png" srcset="/img/loading.gif" lazyload><br><strong>__pool_alloc</strong> 设计了如图所示的16个链表，**#0<strong>指向的链表每块内存大小为</strong>8字节<strong>，</strong>#1<strong>指向的链表每块内存大小为</strong>16字节<strong>，</strong>#2<strong>指向的链表每块内存大小为</strong>24字节<strong>，以此类推。在使用时，根据容器中元素的内存大小，分配能满足其的最小的内存块，比如容器中元素内存为20，那就选择 <strong>#2</strong> 指向的链表，并将元素内存</strong>填充到24<strong>，</strong>一次性<strong>向系统申请一大片内存（只用额外分配两个cookie），其中每块都是24，将容器中的元素</strong>依次放进每个块中<strong>，当链表中的内存不够时，再去申请一大片内存。这样就能节省大量的内存空间，因为</strong>只用在每次申请大片内存时额外分配cookie**。</p>
+<p>这么好的allocator算法，在G4.9又不是默认的了，也不知道为什么，但是该名为 <strong>__pool_alloc</strong> 可以<strong>手动指定</strong>使用。<br><img src="/article_img/2023-12-22-16-52-50.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h1><p>内容较多，见另一篇笔记；</p>
+<h1 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h1><p>迭代器是算法与容器间的桥梁；STL使用泛型编程把方法与数据分开，那么就需要一个东西把二者联系起来，迭代器充当这个角色，迭代器在使用上和指针类似，有些迭代器（vector）就是一个指针；<br><img src="/article_img/2023-12-23-16-41-38.png" srcset="/img/loading.gif" lazyload></p>
+<p>迭代器要能从容器中<strong>取出元素</strong>交给算法去操作，迭代器也要能 “回答算法的提问”，算法可能会根据容器内元素类型的不同进行不同的操作，所以迭代器还要能<strong>告知算法一些元素的特性</strong>；<br><img src="/article_img/2023-12-23-16-50-03.png" srcset="/img/loading.gif" lazyload><br>一种实现思路如图，<strong>规定</strong>迭代器要指明五种特性都是什么（用typedef实现），迭代器里用typedef指明了这些属性之后，算法<strong>直接取得</strong>即可。<br>但是有一种情况会出问题，算法不是专为容器设计的，也就是说非迭代器也应该能用（况且迭代器本身的设计理念就是当作一个指针），普通的指针比如（int*）也应该能使用算法，因此STL设计了 <strong>iterator_traits</strong>;</p>
+<h2 id="iterator-traits"><a href="#iterator-traits" class="headerlink" title="iterator_traits"></a>iterator_traits</h2><p>traits的中文是属性、特性，在这里可以把他理解成一个<strong>萃取器</strong>，我们要求通过这个 <strong>萃取器</strong> 得到我们想要的属性；<br><img src="/article_img/2023-12-23-16-56-09.png" srcset="/img/loading.gif" lazyload><br><img src="/article_img/2023-12-23-18-47-40.png" srcset="/img/loading.gif" lazyload>s<br>iterator_traits的实现使用了 <strong>范围偏特化</strong>，有一个基础的泛化操作，就是从类（迭代器类）中取特性，之后定义了两个偏特化模板，当<strong>T是指针</strong>时以及<strong>T是常量指针</strong>时，直接返回指针的类型；<br>完整的iterator_traits如下，STL规定迭代器要 “回答” 算法的五个问题：</p>
+<ol>
+<li>容器中元素类型 <strong>value_type</strong></li>
+<li>容器中元素指针类型 pointer</li>
+<li>容器中元素引用类型 reference</li>
+<li>迭代器类型 <strong>iterator_category</strong></li>
+<li>两个迭代器之间的最大距离 <strong>difference_type</strong><br><img src="/article_img/2023-12-23-17-01-53.png" srcset="/img/loading.gif" lazyload></li>
+</ol>
+
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/C/" class="category-chain-item">-[C++]</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/C/">#C++</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>侯捷C++-STL</div>
+      <div>https://kenny-hoho.github.io/2023/12/21/侯捷C++-STL/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Kenny-hoho</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年12月21日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/12/23/%E4%BE%AF%E6%8D%B7C++-STL%E5%AE%B9%E5%99%A8/" title="侯捷C++-STL容器">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">侯捷C++-STL容器</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/12/20/Lyra%E5%8A%A8%E7%94%BB%E7%B3%BB%E7%BB%9F%E5%A4%8D%E7%8E%B0-%E6%A1%86%E6%9E%B6/" title="Lyra动画系统-框架">
+                        <span class="hidden-mobile">Lyra动画系统-框架</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        MathJax = {
+          tex    : {
+            inlineMath: { '[+]': [['$', '$']] }
+          },
+          loader : {
+            load: ['ui/lazy']
+          },
+          options: {
+            renderActions: {
+              findScript    : [10, doc => {
+                document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                  const display = !!node.type.match(/; *mode=display/);
+                  const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                  const text = document.createTextNode('');
+                  node.parentNode.replaceChild(text, node);
+                  math.start = { node: text, delim: '', n: 0 };
+                  math.end = { node: text, delim: '', n: 0 };
+                  doc.math.push(math);
+                });
+              }, '', false],
+              insertedScript: [200, () => {
+                document.querySelectorAll('mjx-container').forEach(node => {
+                  let target = node.parentNode;
+                  if (target.nodeName.toLowerCase() === 'li') {
+                    target.parentNode.classList.add('has-jax');
+                  }
+                });
+              }, '', false]
+            }
+          }
+        };
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.0/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

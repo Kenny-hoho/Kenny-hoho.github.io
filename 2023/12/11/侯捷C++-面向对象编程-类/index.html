@@ -1,0 +1,775 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/bg/profile.jpg">
+  <link rel="icon" href="/img/bg/profile.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Kenny-hoho">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="access level（访问级别）一般数据都要设置为private，需要外界调用的函数设置为public。在单例模式中，会将构造函数设置为private，确保只能有一个对象。 friend关键字可以设置友元，友元可以自由取得private成员。相同的类（class）的各种对象（objects）互为友元。 12345678class A&amp;#123;private:    int v1, v2;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="侯捷C++-面向对象高级编程——类相关">
+<meta property="og:url" content="https://kenny-hoho.github.io/2023/12/11/%E4%BE%AF%E6%8D%B7C++-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B-%E7%B1%BB/index.html">
+<meta property="og:site_name" content="Kenny-hoho">
+<meta property="og:description" content="access level（访问级别）一般数据都要设置为private，需要外界调用的函数设置为public。在单例模式中，会将构造函数设置为private，确保只能有一个对象。 friend关键字可以设置友元，友元可以自由取得private成员。相同的类（class）的各种对象（objects）互为友元。 12345678class A&amp;#123;private:    int v1, v2;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://kenny-hoho.github.io/img/bg/cpp.jpg">
+<meta property="article:published_time" content="2023-12-10T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-12-20T03:29:29.585Z">
+<meta property="article:author" content="Kenny-hoho">
+<meta property="article:tag" content="C++">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://kenny-hoho.github.io/img/bg/cpp.jpg">
+  
+  
+  
+  <title>侯捷C++-面向对象高级编程——类相关 - Kenny-hoho</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"kenny-hoho.github.io","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":["home"]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Kenny</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/Pink_city.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">侯捷C++-面向对象高级编程——类相关</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-12-11 00:00" pubdate>
+          2023年12月11日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          26 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">侯捷C++-面向对象高级编程——类相关</h1>
+            
+            <div class="markdown-body">
+              
+              <span id="more"></span>
+
+<h1 id="access-level（访问级别）"><a href="#access-level（访问级别）" class="headerlink" title="access level（访问级别）"></a>access level（访问级别）</h1><p>一般数据<strong>都要</strong>设置为private，需要外界调用的函数设置为public。在单例模式中，会将构造函数设置为private，确保只能有一个对象。</p>
+<p>friend关键字可以设置友元，友元可以自由取得private成员。<strong>相同的类（class）的各种对象（objects）互为友元</strong>。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span>&#123;<br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-type">int</span> v1, v2;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">func</span><span class="hljs-params">(<span class="hljs-type">const</span> A&amp; a)</span></span>&#123;<br>        <span class="hljs-keyword">return</span> a.v1 + a.v2;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h1 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h1><h2 id="初始化列表"><a href="#初始化列表" class="headerlink" title="初始化列表"></a>初始化列表</h2><p><strong>总是使用构造函数初始化列表！</strong>，不使用函数初始化列表会导致一些变量（比如下面的m_A）被初始化多次，造成性能浪费。因为不使用初始化列表时，是给m_A<strong>赋值</strong>，也就是先调用默认构造函数初始化了一个m_A对象，之后再给他赋值。</p>
+<table>
+<thead>
+<tr>
+<th><img src="/article_img/2023-04-21-14-35-19.png" srcset="/img/loading.gif" lazyload></th>
+<th><img src="/article_img/2023-04-21-14-36-18.png" srcset="/img/loading.gif" lazyload></th>
+</tr>
+</thead>
+</table>
+<p>其次，使用初始化列表可以<strong>防止增添变量时修改函数体内部</strong>。并且，构造函数不只会给成员变量赋值，还有可能做其他操作，使用初始化列表可以将这两种逻辑分开，<strong>增加代码可读性</strong>。</p>
+<p>总结：</p>
+<ol>
+<li>提高效率，避免不必要的复制操作</li>
+<li>便于维护，增添变量时不用修改函数体内部</li>
+<li>增加可读性，将初始化变量和其他构造函数逻辑分开</li>
+</ol>
+<h2 id="拷贝构造函数"><a href="#拷贝构造函数" class="headerlink" title="拷贝构造函数"></a>拷贝构造函数</h2><p>当类内有指针类型的成员变量时，需要手动写拷贝构造函数，进行深拷贝。</p>
+<h2 id="this指针"><a href="#this指针" class="headerlink" title="this指针"></a>this指针</h2><p>成员函数都有this指针。<strong>谁调用构造函数，谁就是this</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C++">Complex::<span class="hljs-built_in">Complex</span>(<span class="hljs-keyword">this</span>, <span class="hljs-type">int</span> a, <span class="hljs-type">int</span> b);<br></code></pre></td></tr></table></figure>
+
+<h1 id="参数传递（passByValue-vs-passByRef）"><a href="#参数传递（passByValue-vs-passByRef）" class="headerlink" title="参数传递（passByValue vs passByRef）"></a>参数传递（passByValue vs passByRef）</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">// pass by value</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">function</span><span class="hljs-params">(<span class="hljs-type">int</span> a)</span></span>&#123;...&#125;<br><span class="hljs-comment">// pass by ref</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">function</span><span class="hljs-params">(<span class="hljs-type">int</span>&amp; a)</span></span>&#123;...&#125;<br></code></pre></td></tr></table></figure>
+<p>传值（byValue）顾名思义是只关注值，也就是说需要新建一个变量来存这个值，这造成了不必要的性能开销，而且对于值很复杂的变量（如一个很大的结构体），传递起来速度也会变慢。因此尽量传递引用，<strong>引用在底层就是一个指针</strong>，传递指针即避免了赋值的开销又保证了传递的数据量较小（一个指针的大小）。</p>
+<p>既然引用是一个指针，那么就要考虑函数内的修改会改变内存中的值，从而影响其他使用这个变量的地方，所以经常用const来修饰引用，保证函数内不会对参数进行修改。<strong>对于不希望改变的函数参数，尽量总是使用 “const引用” 作为函数参数！</strong></p>
+<h1 id="返回值传递（returnByValue-vs-returnByRef）"><a href="#返回值传递（returnByValue-vs-returnByRef）" class="headerlink" title="返回值传递（returnByValue vs returnByRef）"></a>返回值传递（returnByValue vs returnByRef）</h1><p>与参数传递类似，返回值返回引用可以避免赋值开销，但是当返回值为临时变量（临时变量会随函数而消失，造成内存泄漏）时不能返回引用。</p>
+<p><strong>传递者无需知道接收者是以reference形式接收。</strong> 这句话主要是指出引用的优势，使用引用不需要确保使用者事先知道你是否用了引用。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-type">int</span>&amp; <span class="hljs-title">func1</span><span class="hljs-params">(<span class="hljs-type">int</span>* a)</span> </span>&#123;<br>	<span class="hljs-keyword">return</span> *a; <span class="hljs-comment">// 直接返回值</span><br>&#125;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">func2</span><span class="hljs-params">(<span class="hljs-type">int</span>* a)</span> </span>&#123;<br>	<span class="hljs-keyword">return</span> *a; <span class="hljs-comment">// 直接返回值</span><br>&#125;<br><span class="hljs-function"><span class="hljs-type">int</span>* <span class="hljs-title">func3</span><span class="hljs-params">(<span class="hljs-type">int</span> *a)</span> </span>&#123;<br>	<span class="hljs-keyword">return</span> a; <span class="hljs-comment">// 需要返回指针类型</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h1 id="操作符重载"><a href="#操作符重载" class="headerlink" title="操作符重载"></a>操作符重载</h1><p>操作符就是一种函数，C++提供操作符来提高代码可读性。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">complex</span>&#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-comment">// ...</span><br>    complex&amp; complex::<span class="hljs-keyword">operator</span> += (<span class="hljs-type">const</span> complex&amp; )&#123;&#125;;<br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-type">int</span> a, b;<br>&#125;;<br><span class="hljs-comment">// 注意返回值时complex&amp; 来实现连加：c3+=c2+=c1</span><br>complex&amp; complex::<span class="hljs-keyword">operator</span> += (<span class="hljs-type">const</span> complex&amp; x)&#123;<br>    <span class="hljs-keyword">this</span>-&gt;a += x.a;<br>    <span class="hljs-keyword">this</span>-&gt;b += x.b;<br>    <span class="hljs-keyword">return</span> *<span class="hljs-keyword">this</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在重载操作符时需要考虑连加的情况，也就是要注意重载+&#x3D;函数的返回值。</p>
+<h2 id="拷贝赋值重载"><a href="#拷贝赋值重载" class="headerlink" title="拷贝赋值重载"></a>拷贝赋值重载</h2><p><strong>当类内有指针类型的成员变量时，要编写拷贝赋值函数（重载operator&#x3D;）</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">inline</span> String&amp; String::<span class="hljs-keyword">operator</span>=(<span class="hljs-type">const</span> String&amp; str)&#123;<br>    <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span> == &amp;str)<br>        <span class="hljs-keyword">return</span> *<span class="hljs-keyword">this</span>;<br>    <span class="hljs-keyword">delete</span>[] m_data;<br>    m_data = <span class="hljs-keyword">new</span> <span class="hljs-type">char</span>[<span class="hljs-built_in">strlen</span>(str.m_data)+<span class="hljs-number">1</span>];<br>    <span class="hljs-built_in">strcpy</span>(m_data, str.m_data);<br>    <span class="hljs-keyword">return</span> *<span class="hljs-keyword">this</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>注意点：</p>
+<ol>
+<li><strong>检测自我赋值！</strong><br><img src="/article_img/2023-12-17-14-47-53.png" srcset="/img/loading.gif" lazyload></li>
+<li><strong>先删除原本的空间！</strong> 防止产生内存泄漏；</li>
+<li><strong>分配新空间，进行深拷贝！</strong></li>
+</ol>
+<h2 id="output函数（-lt-lt-）"><a href="#output函数（-lt-lt-）" class="headerlink" title="output函数（&lt;&lt;）"></a>output函数（&lt;&lt;）</h2><p><strong>output函数一定要在类外定义，不要定义为成员函数！</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;iostream&gt;</span></span><br>ostream&amp; <span class="hljs-keyword">operator</span>&lt;&lt;(ostream&amp; os, <span class="hljs-type">const</span> String&amp; str)&#123;<br>    os&lt;&lt;str.<span class="hljs-built_in">get_c_str</span>();<br>    <span class="hljs-keyword">return</span> os;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h1 id="堆（heap），栈（stack）"><a href="#堆（heap），栈（stack）" class="headerlink" title="堆（heap），栈（stack）"></a>堆（heap），栈（stack）</h1><p><strong>栈</strong>是存在于某作用域（Scope）的一块内存空间（memory space）。如当调用某个函数，函数本身即会形成一个栈来放置<strong>接受的参数</strong>，<strong>返回的地址</strong>以及<strong>函数内的临时变量</strong>。</p>
+<p><strong>堆</strong>或称为system heap，是指由操作系统提供的一块全局内存空间，程序可以动态分配从中获得若干区块。</p>
+<h2 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h2><ol>
+<li><strong>栈中的对象</strong>，其生命在作用域（scope）结束之后结束，也就是其内存会被<strong>自动</strong>回收。</li>
+<li><strong>static修饰的静态对象</strong>，其生命随程序结束而结束，static修饰的对象并不是真正意义上的全局对象，其在link阶段是局部的，他们只对同一个 <strong>编译单元（.obj）</strong> 可见。</li>
+<li><strong>全局对象</strong>，其生命随程序结束而结束。</li>
+<li><strong>堆中的对象</strong>，其生命周期完全由程序员决定，要警惕内存泄漏。<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Complex</span> &#123;...&#125;<br>...<br>&#123;<br> Comlpex* p = <span class="hljs-keyword">new</span> Complex;<br>&#125; <span class="hljs-comment">// 内存泄漏，指针p的生命结束，但是p所指的堆上的对象仍然存在，这片内存就再也不能用了，相当于丢了这部分内存，这就叫内存泄漏。</span><br></code></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="new与delete"><a href="#new与delete" class="headerlink" title="new与delete"></a>new与delete</h2><p><img src="/article_img/2023-12-17-15-16-29.png" srcset="/img/loading.gif" lazyload></p>
+<p>可以看出 <strong>new</strong> 先调用用 <strong>malloc</strong> 分配内存，再调用构造函数（可以看出这里把pc当作了this指针，印证了谁调用构造函数谁就是this指针  ）。</p>
+<p><img src="/article_img/2023-12-17-15-24-06.png" srcset="/img/loading.gif" lazyload></p>
+<p>可以看出 <strong>delete</strong> 先调用析构函数，再调用 <strong>free</strong> 释放内存。如上图案例，其中先调用析构函数释放动态分配的内存，再释放指针本身的内存。</p>
+<h2 id="动态分配的内存细节（VC编译器）"><a href="#动态分配的内存细节（VC编译器）" class="headerlink" title="动态分配的内存细节（VC编译器）"></a>动态分配的内存细节（VC编译器）</h2><p><img src="/article_img/2023-12-17-15-30-25.png" srcset="/img/loading.gif" lazyload></p>
+<p>在调试模式下，编译器会为了方便调试多加一些灰色的内存，同时不管是不是调试模式，编译器都会在内存首尾添加<strong>cookie</strong>（用来记录分配出去的内存块大小），并且，分配内存必须是<strong>16的整数倍</strong>，所以填补一些pad内存使这块内存变为16的整数倍。 </p>
+<p><img src="/article_img/2023-12-17-15-42-41.png" srcset="/img/loading.gif" lazyload></p>
+<p>在动态分配<strong>数组</strong>时，大致与上面相同，但是需要多4个字节存储数组的大小。</p>
+<p><img src="/article_img/2023-12-17-15-47-43.png" srcset="/img/loading.gif" lazyload><br><strong>array new 一定要搭配 array delete！</strong> 否则，指针数组中的指针指向的区域会发生内存泄漏。如果不用delete[] p 而使用 delete p，会把这块内存完美删掉，不会产生任何内存泄漏，但是由于编译器不知道删除的是一个数组，就只会调用一次析构函数，数组中其他指针指向的内存就没有被析构函数释放，造成内存泄漏。</p>
+
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/C/" class="category-chain-item">-[C++]</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/C/">#C++</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>侯捷C++-面向对象高级编程——类相关</div>
+      <div>https://kenny-hoho.github.io/2023/12/11/侯捷C++-面向对象编程-类/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Kenny-hoho</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年12月11日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/12/14/Environmental%20and%20Motion%20Matched%20Interactions/" title="Environmental and Motion Matched Interactions">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Environmental and Motion Matched Interactions</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/11/12/Unreal-Gameplay%E6%9E%B6%E6%9E%84/" title="Unreal-Gameplay架构">
+                        <span class="hidden-mobile">Unreal-Gameplay架构</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        MathJax = {
+          tex    : {
+            inlineMath: { '[+]': [['$', '$']] }
+          },
+          loader : {
+            load: ['ui/lazy']
+          },
+          options: {
+            renderActions: {
+              findScript    : [10, doc => {
+                document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                  const display = !!node.type.match(/; *mode=display/);
+                  const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                  const text = document.createTextNode('');
+                  node.parentNode.replaceChild(text, node);
+                  math.start = { node: text, delim: '', n: 0 };
+                  math.end = { node: text, delim: '', n: 0 };
+                  doc.math.push(math);
+                });
+              }, '', false],
+              insertedScript: [200, () => {
+                document.querySelectorAll('mjx-container').forEach(node => {
+                  let target = node.parentNode;
+                  if (target.nodeName.toLowerCase() === 'li') {
+                    target.parentNode.classList.add('has-jax');
+                  }
+                });
+              }, '', false]
+            }
+          }
+        };
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.0/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

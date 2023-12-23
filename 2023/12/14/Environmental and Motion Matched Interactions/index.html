@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://kenny-hoho.github.io/img/bg/madden.jpg">
 <meta property="article:published_time" content="2023-12-13T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-12-15T08:25:50.462Z">
+<meta property="article:modified_time" content="2023-12-17T03:51:11.129Z">
 <meta property="article:author" content="Kenny-hoho">
 <meta property="article:tag" content="计算机角色动画">
 <meta name="twitter:card" content="summary_large_image">
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.3k 字
+          3.4k 字
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          28 分钟
+          29 分钟
         
       </span>
     
@@ -308,7 +308,7 @@
 <p>可以对匹配算法做一些优化，演讲中分为了两部分：</p>
 <ol>
 <li>离线阶段：根据已有的动画数据构建一个动画表，其中标记哪些方向需要我们关注，在实时中，我们只需要关注对应的方向即可，减少开销，如下图，在runtime中只关注3，5，6，8四个方向即可。<br><img src="/article_img/2023-12-14-11-29-38.png" srcset="/img/loading.gif" lazyload></li>
-<li>Runtime：检测离线阶段确定的方向，如果检测到其他角色就将该角色分配到对应插槽，并在数据库中寻找符合条件的动画。<br><img src="/article_img/2023-12-14-11-34-40.png" srcset="/img/loading.gif" lazyload></li>
+<li>Runtime：仅检测离线阶段关注的插槽（方向），如果检测到其他角色就将该角色分配到对应插槽，并在数据库中寻找符合条件的动画。<br><img src="/article_img/2023-12-14-11-34-40.png" srcset="/img/loading.gif" lazyload></li>
 </ol>
 <p>整个过程如下：</p>
 <table>
@@ -381,6 +381,7 @@
 </table>
 </li>
 </ol>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>EMMI看起来是用MM对N-teract的一种优化，并没有对MM算法本身进行过多的调整，相当于部分使用MM，类似先使用状态机确定大状态，在大状态中交给MM驱动。</p>
 
               
             </div>
@@ -468,12 +469,18 @@
                   <article class="post-prev col-6">
                     
                     
+                      <a href="/2023/12/17/%E4%BE%AF%E6%8D%B7C++-%E5%85%B3%E9%94%AE%E5%AD%97/" title="侯捷C++-——关键字">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">侯捷C++-——关键字</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/12/11/%E4%BE%AF%E6%8D%B7C++-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B%EF%BC%88%E4%B8%8A%EF%BC%89%E7%AC%94%E8%AE%B0/" title="侯捷C++-面向对象高级编程（上）笔记">
-                        <span class="hidden-mobile">侯捷C++-面向对象高级编程（上）笔记</span>
+                      <a href="/2023/12/11/%E4%BE%AF%E6%8D%B7C++-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B-%E7%B1%BB/" title="侯捷C++-面向对象高级编程——类相关">
+                        <span class="hidden-mobile">侯捷C++-面向对象高级编程——类相关</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
