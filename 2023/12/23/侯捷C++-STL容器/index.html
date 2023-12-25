@@ -16,16 +16,16 @@
   <meta name="author" content="Kenny-hoho">
   <meta name="keywords" content="">
   
-    <meta name="description" content="容器，结构与分类这里的符合是指如 set 拥有 rb_tree，STL的思想是组合优于继承，较少用到继承。容器是一个类，因此容器本身的大小就是容器类的大小，与其中储存的数据无关； 所有的容器都是前闭后开区间！ listlist是STL提供的双向链表； list用法：123456789101112131415161718#include&lt;list&gt;using namespace st">
+    <meta name="description" content="容器，结构与分类容器可以分为两种类型，序列式容器和关联式容器，序列式中存储的就是单一的元素，关联式容器中存储的是一个键值对，并默认会根据个元素的键值大小做排序。这里的符合是指如 set 拥有 rb_tree，STL的思想是组合优于继承，较少用到继承。容器是一个类，因此容器本身的大小就是容器类的大小，与其中储存的数据无关； 所有的容器都是前闭后开区间！ 容器listlist是STL提供的双向链表">
 <meta property="og:type" content="article">
 <meta property="og:title" content="侯捷C++-STL容器">
 <meta property="og:url" content="https://kenny-hoho.github.io/2023/12/23/%E4%BE%AF%E6%8D%B7C++-STL%E5%AE%B9%E5%99%A8/index.html">
 <meta property="og:site_name" content="Kenny-hoho">
-<meta property="og:description" content="容器，结构与分类这里的符合是指如 set 拥有 rb_tree，STL的思想是组合优于继承，较少用到继承。容器是一个类，因此容器本身的大小就是容器类的大小，与其中储存的数据无关； 所有的容器都是前闭后开区间！ listlist是STL提供的双向链表； list用法：123456789101112131415161718#include&lt;list&gt;using namespace st">
+<meta property="og:description" content="容器，结构与分类容器可以分为两种类型，序列式容器和关联式容器，序列式中存储的就是单一的元素，关联式容器中存储的是一个键值对，并默认会根据个元素的键值大小做排序。这里的符合是指如 set 拥有 rb_tree，STL的思想是组合优于继承，较少用到继承。容器是一个类，因此容器本身的大小就是容器类的大小，与其中储存的数据无关； 所有的容器都是前闭后开区间！ 容器listlist是STL提供的双向链表">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://kenny-hoho.github.io/img/bg/cpp.jpg">
 <meta property="article:published_time" content="2023-12-22T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-12-23T13:38:28.312Z">
+<meta property="article:modified_time" content="2023-12-25T09:10:40.885Z">
 <meta property="article:author" content="Kenny-hoho">
 <meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary_large_image">
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.7k 字
+          7k 字
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          15 分钟
+          58 分钟
         
       </span>
     
@@ -278,20 +278,18 @@
               
               <span id="more"></span>
 
-<h1 id="容器，结构与分类"><a href="#容器，结构与分类" class="headerlink" title="容器，结构与分类"></a>容器，结构与分类</h1><p><img src="/article_img/2023-12-23-09-42-36.png" srcset="/img/loading.gif" lazyload><br>这里的符合是指如 <strong>set</strong> 拥有 <strong>rb_tree</strong>，STL的思想是组合优于继承，较少用到继承。容器是一个类，因此容器本身的大小就是容器类的大小，与其中储存的数据无关；</p>
+<h1 id="容器，结构与分类"><a href="#容器，结构与分类" class="headerlink" title="容器，结构与分类"></a>容器，结构与分类</h1><p><img src="/article_img/2023-12-23-09-42-36.png" srcset="/img/loading.gif" lazyload><br>容器可以分为两种类型，<strong>序列式容器</strong>和<strong>关联式容器</strong>，序列式中存储的就是单一的元素，关联式容器中存储的是一个键值对，并默认会根据个元素的键值大小做排序。<br>这里的符合是指如 <strong>set</strong> 拥有 <strong>rb_tree</strong>，STL的思想是组合优于继承，较少用到继承。容器是一个类，因此容器本身的大小就是容器类的大小，与其中储存的数据无关；</p>
 <p><strong>所有的容器都是前闭后开区间！</strong></p>
-<h1 id="list"><a href="#list" class="headerlink" title="list"></a>list</h1><p>list是STL提供的双向链表；</p>
+<h1 id="容器list"><a href="#容器list" class="headerlink" title="容器list"></a>容器list</h1><p>list是STL提供的双向链表；**擅长在任何位置插入或删除元素 O(1)**，不能随机访问；</p>
 <h2 id="list用法："><a href="#list用法：" class="headerlink" title="list用法："></a>list用法：</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;list&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    list&lt;<span class="hljs-type">int</span>&gt; L;<br>    L.<span class="hljs-built_in">push_back</span>(<span class="hljs-number">7</span>); <span class="hljs-comment">// 在链表后插入</span><br>    L.<span class="hljs-built_in">push_front</span>(<span class="hljs-number">4</span>); <span class="hljs-comment">// 在链表头插入</span><br>    L.<span class="hljs-built_in">push_back</span>(<span class="hljs-number">5</span>);<br>    L.<span class="hljs-built_in">sort</span>(); <span class="hljs-comment">// 链表需要用自带的sort</span><br>    <span class="hljs-comment">/*迭代器用法，使用上和指针相同*/</span><br>    list&lt;<span class="hljs-type">int</span>&gt;::iterator ite;<br>    <span class="hljs-keyword">for</span>(ite = L.<span class="hljs-built_in">begin</span>();ite!=L.<span class="hljs-built_in">end</span>();ite++)&#123;<br>        cout&lt;&lt; *ite &lt;&lt; <span class="hljs-string">&quot;\n&quot;</span>;<br>    &#125;<br>    <span class="hljs-comment">/*C++11新用法，很方便*/</span><br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> i : L)&#123;<br>        cout&lt;&lt; i &lt;&lt; <span class="hljs-string">&quot;\n&quot;</span>;  <br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <h2 id="list底层（G2-9）"><a href="#list底层（G2-9）" class="headerlink" title="list底层（G2.9）"></a>list底层（G2.9）</h2><p>侯捷老师使用G2.9编译器的list底层实现作为范例讲解list实现原理，G2.9虽然很古老，但是胜在实现简单，逻辑清晰，很有利于理解实现思路。</p>
 <p><img src="/article_img/2023-12-23-09-46-06.png" srcset="/img/loading.gif" lazyload></p>
 <p><strong>list</strong> 在底层是一个 <strong>环状双向链表</strong>，并有一个空白节点，用来满足STL规定的容器应该是 <strong>前闭后开</strong> 区间；STL中的数据结构为了搭配迭代器都比我们自己随便写的链表要复杂一些，链表节点（我们的写法，有数据，有两个指针实现双向链表）在 <strong>__list_node</strong> 中，**__list_node** 与 <strong>list</strong> 类是组合关系，同时还在 <strong>list</strong> 类中定义了迭代器（也是组合关系）；</p>
 <h2 id="list的iterator"><a href="#list的iterator" class="headerlink" title="list的iterator"></a>list的iterator</h2><p>值得关注的是迭代器，list的迭代器是一个<strong>希望看上去像一个指针</strong>的类，需要完成 ++ – 等之指针能完成的操作，所以在迭代器的定义中，有很多操作符重载：<br><img src="/article_img/2023-12-23-11-15-14.png" srcset="/img/loading.gif" lazyload><br>在G4.9，对迭代器的写法进行了一些优化，传递的参数只是模板 _Tp；也对链表节点做了优化，直接将指针类型设为本身（我们平时也这么实现），同时用了继承把数据和指针分开；<br><img src="/article_img/2023-12-23-11-18-43.png" srcset="/img/loading.gif" lazyload></p>
-<h1 id="vector"><a href="#vector" class="headerlink" title="vector"></a>vector</h1><p>vector在使用上就是一个可变长的数组，可以一直向其中加入元素；</p>
+<h2 id="forward-list（单向链表）"><a href="#forward-list（单向链表）" class="headerlink" title="forward_list（单向链表）"></a>forward_list（单向链表）</h2><p><img src="/article_img/2023-12-24-13-21-11.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="容器vector"><a href="#容器vector" class="headerlink" title="容器vector"></a>容器vector</h1><p>vector在使用上就是一个可变长的数组，**擅长从尾部添加和删除元素 O(1)**，</p>
 <h2 id="vector用法"><a href="#vector用法" class="headerlink" title="vector用法"></a>vector用法</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;list&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br>	vector&lt;<span class="hljs-type">int</span>&gt; v;<br>	v.<span class="hljs-built_in">push_back</span>(<span class="hljs-number">1</span>);<br>	v.<span class="hljs-built_in">push_back</span>(<span class="hljs-number">2</span>);<br>	vector&lt;<span class="hljs-type">int</span>&gt;::iterator it;<br>	<span class="hljs-keyword">for</span> (it = v.<span class="hljs-built_in">begin</span>(); it != v.<span class="hljs-built_in">end</span>(); it++) &#123;<br>		cout &lt;&lt; *it &lt;&lt; <span class="hljs-string">&quot;\n&quot;</span>;<br>	&#125;<br>	cout &lt;&lt; <span class="hljs-string">&quot;-------------------&quot;</span> &lt;&lt; <span class="hljs-string">&quot;\n&quot;</span>;<br>	vector&lt;<span class="hljs-type">int</span>&gt;::iterator ite;<br>	<span class="hljs-keyword">for</span> (ite = v.<span class="hljs-built_in">begin</span>(); ite != v.<span class="hljs-built_in">end</span>(); ite++) &#123;<br>		cout &lt;&lt; *ite &lt;&lt; <span class="hljs-string">&quot;\n&quot;</span>;<br>	&#125;<br>	cout &lt;&lt; <span class="hljs-string">&quot;-------------------&quot;</span> &lt;&lt; <span class="hljs-string">&quot;\n&quot;</span>;<br>	<span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i : v) &#123;<br>		cout &lt;&lt; i &lt;&lt; <span class="hljs-string">&quot;\n&quot;</span>;<br>	&#125;<br></code></pre></td></tr></table></figure>
-
-<h2 id="vector实现"><a href="#vector实现" class="headerlink" title="vector实现"></a>vector实现</h2><p><img src="/article_img/2023-12-23-17-17-00.png" srcset="/img/loading.gif" lazyload></p>
-<p>vector的实现简单来说就是 <strong>申请二倍空间，之后把当前vector的元素挨个拷贝过去，再插入新元素，并删除原本的元素</strong>；因此，一旦vector的空间增长，就会涉及大量的<strong>拷贝构造函数</strong>和<strong>析构函数</strong>，这是使用vector时要考虑到的开销；</p>
 <h2 id="vector的iterator"><a href="#vector的iterator" class="headerlink" title="vector的iterator"></a>vector的iterator</h2><table>
 <thead>
 <tr>
@@ -300,7 +298,108 @@
 </tr>
 </thead>
 </table>
-<p> vector的iterator就是一个 <strong>T</strong>* 指向T的指针，这是因为对于vector这种在连续内存空间存储的使用指针就完全足够了；</p>
+<p>vector的iterator就是一个 <strong>T</strong>* 指向T的指针，这是因为对于vector这种在连续内存空间存储的使用指针就完全足够了；</p>
+<h2 id="vector实现"><a href="#vector实现" class="headerlink" title="vector实现"></a>vector实现</h2><p><img src="/article_img/2023-12-23-17-17-00.png" srcset="/img/loading.gif" lazyload></p>
+<p>vector本身的大小就是三个iterator，也就是三个指针，分别是<strong>start（记录开头位置），finish（记录末尾位置），end_of_storage（记录当前空间的大小也叫容量）</strong>；</p>
+<p>vector的实现简单来说就是 <strong>申请二倍空间，之后把当前vector的元素挨个拷贝过去，再插入新元素，并删除原本的元素</strong>；因此，一旦vector的空间增长，就会涉及大量的<strong>拷贝构造函数</strong>和<strong>析构函数</strong>，这是使用vector时要考虑到的开销；</p>
+<h1 id="容器array"><a href="#容器array" class="headerlink" title="容器array"></a>容器array</h1><h2 id="array的用法"><a href="#array的用法" class="headerlink" title="array的用法"></a>array的用法</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;array&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>	array&lt;<span class="hljs-type">int</span>, 10&gt; myArray;<br>	<span class="hljs-keyword">auto</span> ite = myArray.<span class="hljs-built_in">begin</span>();	<br>	<span class="hljs-comment">// array&lt;int, 10&gt;::iterator ite = myArray.begin();</span><br>	<span class="hljs-keyword">for</span> (ite; ite != myArray.<span class="hljs-built_in">end</span>(); ite++) &#123;<br>		cout &lt;&lt; *ite;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="array的iterator"><a href="#array的iterator" class="headerlink" title="array的iterator"></a>array的iterator</h2><p>array的迭代器也是一个<strong>指针</strong>；</p>
+<h2 id="array的实现"><a href="#array的实现" class="headerlink" title="array的实现"></a>array的实现</h2><p>array就是要模拟语言中基础的<strong>数组</strong>，所以其实现就是一个数组，专门为语言中自带的数组写一个容器是<strong>为了与算法配合</strong>；</p>
+<h1 id="容器deque"><a href="#容器deque" class="headerlink" title="容器deque"></a>容器deque</h1><p>deque 是 double-ended queue 的缩写，又称双端队列容器。**擅长从首尾添加和删除元素 O(1)**，不擅长从队列中添加和删除；</p>
+<h2 id="deque的用法"><a href="#deque的用法" class="headerlink" title="deque的用法"></a>deque的用法</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;deque&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    deque&lt;<span class="hljs-type">int</span>&gt; d1; <span class="hljs-comment">// 初始化空deque</span><br>    <span class="hljs-function">deque&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">d2</span><span class="hljs-params">(<span class="hljs-number">10</span>)</span></span>; <span class="hljs-comment">// 初始化一个空间为10的deque，元素默认为0</span><br>    <span class="hljs-function">deque&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">d3</span><span class="hljs-params">(<span class="hljs-number">10</span>, <span class="hljs-number">5</span>)</span></span>; <span class="hljs-comment">// 空间为10，元素为5</span><br>    d1.<span class="hljs-built_in">push_back</span>(<span class="hljs-number">1</span>); <span class="hljs-comment">// &#123;1&#125;</span><br>    d1.<span class="hljs-built_in">push_front</span>(<span class="hljs-number">2</span>);  <span class="hljs-comment">// &#123;2, 1&#125;</span><br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> i = d1.<span class="hljs-built_in">begin</span>(); i!=d1.<span class="hljs-built_in">end</span>();i++)&#123;<br>        cout &lt;&lt; *i &lt;&lt; <span class="hljs-string">&quot;\n&quot;</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="deque的iterator"><a href="#deque的iterator" class="headerlink" title="deque的iterator"></a>deque的iterator</h2><p><img src="/article_img/2023-12-24-14-02-17.png" srcset="/img/loading.gif" lazyload><br>deque的iterator比较复杂，是一个类，其中有四个指针，分别表示<strong>当前位置</strong>，<strong>当前位置所在buffer的首尾位置</strong>，<strong>在map中的位置</strong>；</p>
+<h2 id="deque的实现"><a href="#deque的实现" class="headerlink" title="deque的实现"></a>deque的实现</h2><p><img src="/article_img/2023-12-24-13-54-31.png" srcset="/img/loading.gif" lazyload><br>deque的实现如上图所示，deque对外声称自己是连续存储的，但其实是由多段 <strong>连续内存（buffer）</strong> 拼起来的，<strong>map</strong> 作为索引（控制中心），用指针负责将多段<strong>buffer</strong>拼起来，<strong>map</strong>本身是一个 <strong>vector</strong>；当向前或者向后插入元素且内存不够时，会申请一个 <strong>buffer</strong>，并用将buffer的头指针插入 <strong>map</strong> 的前端或尾端；<br><img src="/article_img/2023-12-24-14-48-21.png" srcset="/img/loading.gif" lazyload><br>上面提到，<strong>map</strong> 是用 <strong>vector</strong> 实现的，且map需要在头部插入数据，vector本身不擅长头插，因此在vector扩充内存时，<strong>会将现有数据拷贝到新申请的内存的中部</strong>，减少头插出现的概率；</p>
+<p><strong>deque类实现</strong>：<br><img src="/article_img/2023-12-24-14-06-04.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="deque如何模拟连续空间"><a href="#deque如何模拟连续空间" class="headerlink" title="deque如何模拟连续空间"></a>deque如何模拟连续空间</h3><p>deque利用其iterator类中的各种操作符重载模拟连续空间；<br><img src="/article_img/2023-12-24-14-23-48.png" srcset="/img/loading.gif" lazyload><br><img src="/article_img/2023-12-24-14-14-10.png" srcset="/img/loading.gif" lazyload><br><img src="/article_img/2023-12-24-14-24-46.png" srcset="/img/loading.gif" lazyload><br><img src="/article_img/2023-12-24-14-24-58.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="queue队列"><a href="#queue队列" class="headerlink" title="queue队列"></a>queue队列</h2><p><strong>queue的实现完全基于deque</strong>，queue类中有一个成员变量是deque，所有的函数都交给这个deque成员变量操作；因此有些人也把queue不叫做一个容器而叫做<strong>适配器（adapter）</strong><br><img src="/article_img/2023-12-24-14-52-58.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="stack栈"><a href="#stack栈" class="headerlink" title="stack栈"></a>stack栈</h2><p><strong>stack的实现也是完全基于deque</strong>：<br><img src="/article_img/2023-12-24-14-55-50.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>stack和queue都不允许遍历，也不提供iterator！</strong></p>
+<h1 id="容器rb-tree"><a href="#容器rb-tree" class="headerlink" title="容器rb_tree"></a>容器rb_tree</h1><p>接下来要介绍的就是<strong>关联式容器</strong>，在STL中有<strong>map，multimap，set，multiset，unordered_map，unordered_set，unordered_multimap，unordered_multiset；</strong> 其中前面几种不带unordered的前缀的底层实现都是<strong>容器rb_tree</strong>，所以它们都可以称为<strong>容器适配器</strong>。</p>
+<p><img src="/article_img/2023-12-25-10-01-22.png" srcset="/img/loading.gif" lazyload></p>
+<p>红黑树是一种<strong>平衡二叉树</strong>，它可以自动排序，这里红黑树的原理（如何排序，涉及各种旋转操作）就先不赘述了，rb_tree提供了迭代器，但是我们不应该用迭代器改变元素值，rb_tree提供了迭代器是为了作为set和map的底部支持。<br>rb_tree可以直接使用，但是其实没必要，我们直接使用set和map即可，下面是使用的用例：<br><img src="/article_img/2023-12-25-10-05-39.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="set、multiset"><a href="#set、multiset" class="headerlink" title="set、multiset"></a>set、multiset</h2><p>set和multiset的 <strong>键（key）</strong> 和 <strong>数据（data）</strong> 合二为一，set不允许key重复，也就是set的元素不能重复（使用tb_tree的 **insert_unique()**），multiset允许元素重复（使用tb_tree的 **insert_equal()**）；</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">template</span> &lt; <span class="hljs-keyword">class</span> <span class="hljs-title class_">T</span>,                        <span class="hljs-comment">// 键 key 和值 value 的类型</span><br>            <span class="hljs-keyword">class</span> <span class="hljs-title class_">Compare</span> = less&lt;T&gt;,        <span class="hljs-comment">// 指定 set 容器内部的排序规则</span><br>            <span class="hljs-keyword">class</span> Alloc = allocator&lt;T&gt;      <span class="hljs-comment">// 指定分配器对象的类型</span><br>            &gt; <span class="hljs-keyword">class</span> set;<br></code></pre></td></tr></table></figure>
+
+<h3 id="set、multiset的实现"><a href="#set、multiset的实现" class="headerlink" title="set、multiset的实现"></a>set、multiset的实现</h3><p><img src="/article_img/2023-12-25-10-12-17.png" srcset="/img/loading.gif" lazyload><br>set的底层实现完全使用红黑树，但是由于set的键值合二为一，因此set的迭代器不能更改值，这里set类使用<strong>const迭代器</strong>确保迭代器指向的键值对不会被改变。</p>
+<h2 id="map，multimap"><a href="#map，multimap" class="headerlink" title="map，multimap"></a>map，multimap</h2><p>map和multimap就是很明显的关联式容器了，其 <strong>键（key）</strong> 和 <strong>数据（data）</strong> 分离，与set、multiset类似，multimap允许 <strong>键（key）</strong> 重复。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">template</span> &lt; <span class="hljs-keyword">class</span> <span class="hljs-title class_">Key</span>,                                     <span class="hljs-comment">// 指定键（key）的类型</span><br>           <span class="hljs-keyword">class</span> <span class="hljs-title class_">T</span>,                                       <span class="hljs-comment">// 指定值（value）的类型</span><br>           <span class="hljs-keyword">class</span> <span class="hljs-title class_">Compare</span> = less&lt;Key&gt;,                     <span class="hljs-comment">// 指定排序规则</span><br>           <span class="hljs-keyword">class</span> Alloc = allocator&lt;pair&lt;<span class="hljs-type">const</span> Key,T&gt; &gt;    <span class="hljs-comment">// 指定分配器对象的类型</span><br>           &gt; <span class="hljs-keyword">class</span> map;<br></code></pre></td></tr></table></figure>
+
+<h3 id="map，multimap的实现"><a href="#map，multimap的实现" class="headerlink" title="map，multimap的实现"></a>map，multimap的实现</h3><p><img src="/article_img/2023-12-25-10-18-41.png" srcset="/img/loading.gif" lazyload></p>
+<p>map的 <strong>键（key）</strong> 和 <strong>数据（data）</strong> 分离，所以我们当然应该可以更改每个元素的<strong>数据</strong>，因此map的迭代器就不能简单的设置为const iterator了，STL 提供了 <strong>pair 类模板</strong>，其专门用来将 2 个普通元素 <strong>first</strong> 和 <strong>second</strong>（可以是 C++ 基本数据类型、结构体、类自定的类型）创建成一个新元素 **&lt;first, second&gt;**。用法如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    pair&lt;string, <span class="hljs-type">double</span>&gt; pair1;<br>    <span class="hljs-function">pair&lt;string, string&gt; <span class="hljs-title">pair2</span><span class="hljs-params">(<span class="hljs-string">&quot;hello&quot;</span>, <span class="hljs-string">&quot;world&quot;</span>)</span></span>;<br>    cout&lt;&lt; pair1.first &lt;&lt; <span class="hljs-string">&quot; &quot;</span> &lt;&lt; pair2.second &lt;&lt; <span class="hljs-string">&quot;\n&quot;</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>map的 <strong>operator[]</strong> 有独特的设计：<br><img src="/article_img/2023-12-25-10-31-24.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="容器hashtable"><a href="#容器hashtable" class="headerlink" title="容器hashtable"></a>容器hashtable</h1><p><img src="/article_img/2023-12-25-14-58-29.png" srcset="/img/loading.gif" lazyload></p>
+<p>hash表的思路是：先申请一个bucket，为每个元素计算一个编号，根据这个编号和bucket大小的余数将元素放入表中，如果发生碰撞就用链表将碰撞的元素串起来；但是当碰撞太多时，链表过长，查找效率会严重降低，因此当链表过长时（经验上是<strong>元素</strong>个数多于bucket时），<strong>将bucket扩为原来的二倍</strong>并调整为<strong>质数</strong>（可见bucket用vector实现很好），重新计算每个元素应该放在哪里，这个过程也叫<strong>rehashing</strong>。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-type">static</span> <span class="hljs-type">const</span> <span class="hljs-type">int</span> _stl_num_primes=<span class="hljs-number">28</span>;<br><span class="hljs-type">static</span> <span class="hljs-type">const</span> <span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> _stl_prime_list[_stl_num_primes]=&#123; <span class="hljs-comment">// STL将扩容的大小硬编码</span><br>    <span class="hljs-number">53</span>,<span class="hljs-number">97</span>,<span class="hljs-number">193</span>,<span class="hljs-number">389</span>,<span class="hljs-number">769</span>,<span class="hljs-number">1543</span>,<span class="hljs-number">3079</span>,<span class="hljs-number">6151</span>,<span class="hljs-number">12289</span>,<span class="hljs-number">24593</span>,<span class="hljs-number">1572869</span>,<span class="hljs-number">3145739</span>,<span class="hljs-number">6291469.</span>..<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="hashtable的iterator"><a href="#hashtable的iterator" class="headerlink" title="hashtable的iterator"></a>hashtable的iterator</h2><p><img src="/article_img/2023-12-25-15-11-25.png" srcset="/img/loading.gif" lazyload></p>
+<p>hashtable的迭代器要记录当前指向的链表节点（hashtable_node），也要能在走到一个链表尽头的时候返回bucket走到下一个链表，因此还需要一个指针指向bucket（hashtable* ht）；</p>
+<p>hashtable要用的时候不光要给出<strong>元素的类型（class Value）</strong>，<strong>键的类型（class Key）</strong>，<strong>怎样取出键的函数（class ExtractKey）</strong>，<strong>怎样判断键相等（class EqualKey）</strong> 这些在rb_tree中要给出的模板参数，还要给出一个 <strong>hashFuc</strong> 用来计算 <strong>hash_code</strong> 从而将元素填入哈希表。这个hashFunc在我们使用的时候也要手动给出，不过好在STL已经提供了一些常见类型的hashFunc，我们定义自己的类的hashFunc时可以使用这些hashFunc的和：<br><img src="/article_img/2023-12-25-15-52-45.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="unordered-set、unordered-multiset"><a href="#unordered-set、unordered-multiset" class="headerlink" title="unordered_set、unordered_multiset"></a>unordered_set、unordered_multiset</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">template</span> &lt; <span class="hljs-keyword">class</span> <span class="hljs-title class_">Key</span>,            <span class="hljs-comment">//容器中存储元素的类型</span><br>            <span class="hljs-keyword">class</span> <span class="hljs-title class_">Hash</span> = hash&lt;Key&gt;,    <span class="hljs-comment">//确定元素存储位置所用的哈希函数</span><br>            <span class="hljs-keyword">class</span> Pred = equal_to&lt;Key&gt;,   <span class="hljs-comment">//判断各个元素是否相等所用的函数</span><br>            <span class="hljs-keyword">class</span> Alloc = allocator&lt;Key&gt;   <span class="hljs-comment">//指定分配器对象的类型</span><br>            &gt; <span class="hljs-keyword">class</span> unordered_set;<br></code></pre></td></tr></table></figure>
+<p>unordered_set、unordered_multiset这两种容器与set、multiset的区别就在于<strong>无序</strong>，set、multiset底层是红黑树实现，中序遍历可以输出有序元素；</p>
+<h2 id="unordered-map、unordered-multimap"><a href="#unordered-map、unordered-multimap" class="headerlink" title="unordered_map、unordered_multimap"></a>unordered_map、unordered_multimap</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">template</span> &lt; <span class="hljs-keyword">class</span> <span class="hljs-title class_">Key</span>,                        <span class="hljs-comment">//键值对中键的类型</span><br>            <span class="hljs-keyword">class</span> <span class="hljs-title class_">T</span>,                          <span class="hljs-comment">//键值对中值的类型</span><br>            <span class="hljs-keyword">class</span> <span class="hljs-title class_">Hash</span> = hash&lt;Key&gt;,           <span class="hljs-comment">//容器内部存储键值对所用的哈希函数</span><br>            <span class="hljs-keyword">class</span> Pred = equal_to&lt;Key&gt;,       <span class="hljs-comment">//判断各个键值对键相同的规则</span><br>            <span class="hljs-keyword">class</span> Alloc = allocator&lt; pair&lt;<span class="hljs-type">const</span> Key,T&gt; &gt;  <span class="hljs-comment">// 指定分配器对象的类型</span><br>            &gt; <span class="hljs-keyword">class</span> unordered_map;<br></code></pre></td></tr></table></figure>
+<p>unordered_map、unordered_multimap这两种容器与map、multimap的区别就在于<strong>无序</strong>，map、multimap底层是红黑树实现，中序遍历可以输出有序元素；</p>
+<h1 id="容器的使用场景"><a href="#容器的使用场景" class="headerlink" title="容器的使用场景"></a>容器的使用场景</h1><table>
+<thead>
+<tr>
+<th>容器名称</th>
+<th>概述</th>
+<th>时间复杂度</th>
+<th>优点</th>
+<th>缺点</th>
+<th>总结</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>vector</strong></td>
+<td><strong>动态数组</strong>；在内存中连续存储，内存不够时调用<strong>malloc</strong>在堆分配二倍内存，进行拷贝，并调用<strong>free</strong>释放原内存</td>
+<td><strong>尾插&#x2F;删</strong>：O(1)；<strong>头&#x2F;中间插&#x2F;删</strong>：O(N)；<strong>查找（无序）</strong>：O(N)；<strong>查找（有序二分查找）</strong>：O(logN)</td>
+<td>支持随机访问</td>
+<td>非末尾插入删除效率低</td>
+<td>适合需要经常随机访问，并且不需要堆中间元素插入删除的情况</td>
+</tr>
+<tr>
+<td><strong>list</strong></td>
+<td><strong>双向循环链表</strong>；内存空间不连续</td>
+<td><strong>任何位置插&#x2F;删</strong>：O(1)；<strong>查询</strong>：O(N)</td>
+<td>内存不连续，在任何位置插&#x2F;删效率高</td>
+<td>不能随机访问</td>
+<td>适用于经常插入删除并不需要随机访问的情况</td>
+</tr>
+<tr>
+<td><strong>deque</strong></td>
+<td><strong>双向队列</strong>；内部用vector作为控制中心，用buffer（一段定长的连续内存）存储数据</td>
+<td><strong>头&#x2F;尾插&#x2F;删</strong>：O(1)；<strong>中间插&#x2F;删：O(N)<strong>；</strong>查找</strong>：O(N)；</td>
+<td>支持随机访问（效率比vector差），在首尾操作效率很高</td>
+<td>非首尾操作效率低</td>
+<td>适用于需要随机访问，且需要对首尾频繁操作的情况</td>
+</tr>
+<tr>
+<td><strong>set&#x2F;multiset</strong></td>
+<td>是一种容器适配器，内部由<strong>红黑树rb_tree</strong>（平衡二叉树）实现，内部元素自动排序</td>
+<td><strong>增删改查</strong>：O(logN)</td>
+<td>便于元素查找，支持自动排序</td>
+<td>每次插入元素要调整红黑树，对效率有一定影响</td>
+<td>适用于需要警察查找一个元素是否在某集群中的情况</td>
+</tr>
+<tr>
+<td><strong>map&#x2F;multimap</strong></td>
+<td>是一种容器适配器，内部由<strong>红黑树rb_tree</strong>（平衡二叉树）实现，有键值对，按照key自动排序</td>
+<td><strong>增删改查</strong>：O(logN)</td>
+<td>便于查找，可以创建字典</td>
+<td>每次插入元素要调整红黑树，对效率有一定影响</td>
+<td>适用于需要字典的情况</td>
+</tr>
+<tr>
+<td><strong>unordered_set&#x2F;unordered_map</strong></td>
+<td>是容器适配器,内部由<strong>哈希表hashtable</strong>实现，元素无序</td>
+<td><strong>增删改查（理论上）</strong>：O(1)；<strong>最坏情况</strong>：O(N)</td>
+<td>理论上增删改查极快</td>
+<td>需要较大内存是以空间换时间，插入数据是否均匀影响其性能</td>
+<td>适用于一些特定算法，或者数据很分散的情况</td>
+</tr>
+</tbody></table>
 
               
             </div>
@@ -392,8 +491,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/12/21/%E4%BE%AF%E6%8D%B7C++-STL/" title="侯捷C++-STL">
-                        <span class="hidden-mobile">侯捷C++-STL</span>
+                      <a href="/2023/12/23/Lyra%E5%8A%A8%E7%94%BB%E7%B3%BB%E7%BB%9F%E5%A4%8D%E7%8E%B0-Locomotion/" title="Lyra动画系统-Locomotion">
+                        <span class="hidden-mobile">Lyra动画系统-Locomotion</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
