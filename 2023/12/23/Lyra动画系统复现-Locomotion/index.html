@@ -16,16 +16,16 @@
   <meta name="author" content="Kenny-hoho">
   <meta name="keywords" content="">
   
-    <meta name="description" content="UE5 骨骼动画 Lyra 距离匹配 速度匹配Distance Matching in UE5官方文档 距离匹配（Distance Matching）距离匹配是一种避免胶囊体速度与动画根运动速度不匹配造成的滑步等现象的技术；我们人类在运动的时候几乎不会是匀速运动或者匀加速运动，因此动捕出来的动画数据的加速度也不是匀速的，而由程序驱动的胶囊体的加速是匀速的，就会造成速度与动画不匹配，产生滑步现象">
+    <meta name="description" content="距离匹配（Distance Matching）距离匹配是一种避免胶囊体速度与动画根运动速度不匹配造成的滑步等现象的技术；我们人类在运动的时候几乎不会是匀速运动或者匀加速运动，因此动捕出来的动画数据的加速度也不是匀速的，而由程序驱动的胶囊体的加速是匀速的，就会造成速度与动画不匹配，产生滑步现象： 在UE中距离匹配是一个大概念，其中包括了三个具体的函数：Advance Time by Distan">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Lyra动画系统-Locomotion">
 <meta property="og:url" content="https://kenny-hoho.github.io/2023/12/23/Lyra%E5%8A%A8%E7%94%BB%E7%B3%BB%E7%BB%9F%E5%A4%8D%E7%8E%B0-Locomotion/index.html">
 <meta property="og:site_name" content="Kenny-hoho">
-<meta property="og:description" content="UE5 骨骼动画 Lyra 距离匹配 速度匹配Distance Matching in UE5官方文档 距离匹配（Distance Matching）距离匹配是一种避免胶囊体速度与动画根运动速度不匹配造成的滑步等现象的技术；我们人类在运动的时候几乎不会是匀速运动或者匀加速运动，因此动捕出来的动画数据的加速度也不是匀速的，而由程序驱动的胶囊体的加速是匀速的，就会造成速度与动画不匹配，产生滑步现象">
+<meta property="og:description" content="距离匹配（Distance Matching）距离匹配是一种避免胶囊体速度与动画根运动速度不匹配造成的滑步等现象的技术；我们人类在运动的时候几乎不会是匀速运动或者匀加速运动，因此动捕出来的动画数据的加速度也不是匀速的，而由程序驱动的胶囊体的加速是匀速的，就会造成速度与动画不匹配，产生滑步现象： 在UE中距离匹配是一个大概念，其中包括了三个具体的函数：Advance Time by Distan">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://kenny-hoho.github.io/img/bg/Lyra.jpg">
 <meta property="article:published_time" content="2023-12-22T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-01-08T01:50:04.097Z">
+<meta property="article:modified_time" content="2024-01-13T08:40:45.081Z">
 <meta property="article:author" content="Kenny-hoho">
 <meta property="article:tag" content="计算机角色动画">
 <meta name="twitter:card" content="summary_large_image">
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.6k 字
+          4.7k 字
         
       </span>
     
@@ -278,7 +278,6 @@
               
               <span id="more"></span>
 
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/572811605">UE5 骨骼动画 Lyra 距离匹配 速度匹配</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/574219921">Distance Matching in UE5</a><br><a target="_blank" rel="noopener" href="https://docs.unrealengine.com/5.0/zh-CN/distance-matching-in-unreal-engine/">官方文档</a></p>
 <h1 id="距离匹配（Distance-Matching）"><a href="#距离匹配（Distance-Matching）" class="headerlink" title="距离匹配（Distance Matching）"></a>距离匹配（Distance Matching）</h1><p>距离匹配是一种避免<strong>胶囊体速度与动画根运动速度不匹配</strong>造成的滑步等现象的技术；我们人类在运动的时候几乎不会是匀速运动或者匀加速运动，因此动捕出来的动画数据的加速度也不是匀速的，而由程序驱动的胶囊体的加速是匀速的，就会造成速度与动画不匹配，产生滑步现象：<br><img src="/article_img/2024-01-03-10-34-26.png" srcset="/img/loading.gif" lazyload></p>
 <p>在UE中距离匹配是一个大概念，其中包括了三个具体的函数：<strong>Advance Time by Distance Matching</strong>，<strong>Distance Match to Target</strong>，<strong>Set Playrate to Match Speed</strong>；<br><img src="/article_img/2024-01-03-10-12-00.png" srcset="/img/loading.gif" lazyload></p>
 <p>接下来我们逐一进行分析学习；</p>
@@ -297,6 +296,7 @@
 <h2 id="Set-Playrate-to-Match-Speed"><a href="#Set-Playrate-to-Match-Speed" class="headerlink" title="Set Playrate to Match Speed"></a>Set Playrate to Match Speed</h2><p>Set Playrate to Match Speed（根据匹配速度设置播放速率），一般用在跑步走路等循环动画，用来根据真实移动速度调整动画播放速率，避免滑步；<br><img src="/article_img/2024-01-03-12-52-28.png" srcset="/img/loading.gif" lazyload></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-type">const</span> <span class="hljs-type">float</span> AnimLength = AnimSequence-&gt;<span class="hljs-built_in">GetPlayLength</span>();<br><span class="hljs-keyword">if</span> (!FMath::<span class="hljs-built_in">IsNearlyZero</span>(AnimLength))<br>&#123;<br>   <span class="hljs-comment">// Calculate the speed as: (distance traveled by the animation) / (length of the animation)</span><br>   <span class="hljs-type">const</span> FVector RootMotionTranslation = AnimSequence-&gt;<span class="hljs-built_in">ExtractRootMotionFromRange</span>(<span class="hljs-number">0.0f</span>, AnimLength).<span class="hljs-built_in">GetTranslation</span>();<br>   <span class="hljs-type">const</span> <span class="hljs-type">float</span> RootMotionDistance = RootMotionTranslation.<span class="hljs-built_in">Size2D</span>();<br>   <span class="hljs-keyword">if</span> (!FMath::<span class="hljs-built_in">IsNearlyZero</span>(RootMotionDistance))<br>   &#123;<br>      <span class="hljs-comment">// 计算出动画移动速度</span><br>      <span class="hljs-type">const</span> <span class="hljs-type">float</span> AnimationSpeed = RootMotionDistance / AnimLength;<br>      <span class="hljs-comment">// 根据真实移动速度和动画根移动速度的比值计算应该播放的速率</span><br>      <span class="hljs-type">float</span> DesiredPlayRate = SpeedToMatch / AnimationSpeed;<br>      <span class="hljs-keyword">if</span> (PlayRateClamp.X &gt;= <span class="hljs-number">0.0f</span> &amp;&amp; PlayRateClamp.X &lt; PlayRateClamp.Y) <span class="hljs-comment">// clamp</span><br>      &#123;<br>         DesiredPlayRate = FMath::<span class="hljs-built_in">Clamp</span>(DesiredPlayRate, PlayRateClamp.X, PlayRateClamp.Y);<br>      &#125;<br><br>      <span class="hljs-keyword">if</span> (!InSequencePlayer.<span class="hljs-built_in">SetPlayRate</span>(DesiredPlayRate)) <span class="hljs-comment">// 设置播放速率</span><br>      &#123;<br>         <span class="hljs-comment">//...</span><br>      &#125;<br>   &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>这里要注意，不要使用CharacterMovementComp中的速度值作为真实移动速度，经测试，在加速和减速过程中速度值和真实移动速度不同：<br><img src="/article_img/2024-01-03-13-02-30.png" srcset="/img/loading.gif" lazyload><br>因此要重新根据位置计算一个位移速度。</p>
+<h1 id="跨步扭曲（Stride-Warping）"><a href="#跨步扭曲（Stride-Warping）" class="headerlink" title="跨步扭曲（Stride Warping）"></a>跨步扭曲（Stride Warping）</h1><h1 id="朝向扭曲（Orientation-Warping）"><a href="#朝向扭曲（Orientation-Warping）" class="headerlink" title="朝向扭曲（Orientation Warping）"></a>朝向扭曲（Orientation Warping）</h1><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/572811605">UE5 骨骼动画 Lyra 距离匹配 速度匹配</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/574219921">Distance Matching in UE5</a><br><a target="_blank" rel="noopener" href="https://docs.unrealengine.com/5.0/zh-CN/distance-matching-in-unreal-engine/">官方文档</a></p>
 
               
             </div>

@@ -16,16 +16,16 @@
   <meta name="author" content="Kenny-hoho">
   <meta name="keywords" content="">
   
-    <meta name="description" content="【UE】Lyra动画系统拆解（框架篇） Lyra动画系统框架 Lyra的动画系统框架很值得学习，他的核心思想就是解耦，不断地解耦。 主动画蓝图（ABP_Mannequin_Base） 用来实现最基础的状态机，其中每个状态都 没有具体实现，而是直接交给一个动画图层实现，这些动画层又被全部抽象出来，放在一个 动画层接口（ALI_ItemAnimLayers） 中，主动画蓝图继承这个动画层接口，但是">
+    <meta name="description" content="Lyra动画系统框架 Lyra的动画系统框架很值得学习，他的核心思想就是解耦，不断地解耦。 主动画蓝图（ABP_Mannequin_Base） 用来实现最基础的状态机，其中每个状态都 没有具体实现，而是直接交给一个动画图层实现，这些动画层又被全部抽象出来，放在一个 动画层接口（ALI_ItemAnimLayers） 中，主动画蓝图继承这个动画层接口，但是也不实现这些动画层，把实现的工作交给另一">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Lyra动画系统-框架">
 <meta property="og:url" content="https://kenny-hoho.github.io/2023/12/20/Lyra%E5%8A%A8%E7%94%BB%E7%B3%BB%E7%BB%9F%E5%A4%8D%E7%8E%B0-%E6%A1%86%E6%9E%B6/index.html">
 <meta property="og:site_name" content="Kenny-hoho">
-<meta property="og:description" content="【UE】Lyra动画系统拆解（框架篇） Lyra动画系统框架 Lyra的动画系统框架很值得学习，他的核心思想就是解耦，不断地解耦。 主动画蓝图（ABP_Mannequin_Base） 用来实现最基础的状态机，其中每个状态都 没有具体实现，而是直接交给一个动画图层实现，这些动画层又被全部抽象出来，放在一个 动画层接口（ALI_ItemAnimLayers） 中，主动画蓝图继承这个动画层接口，但是">
+<meta property="og:description" content="Lyra动画系统框架 Lyra的动画系统框架很值得学习，他的核心思想就是解耦，不断地解耦。 主动画蓝图（ABP_Mannequin_Base） 用来实现最基础的状态机，其中每个状态都 没有具体实现，而是直接交给一个动画图层实现，这些动画层又被全部抽象出来，放在一个 动画层接口（ALI_ItemAnimLayers） 中，主动画蓝图继承这个动画层接口，但是也不实现这些动画层，把实现的工作交给另一">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://kenny-hoho.github.io/img/bg/Lyra.jpg">
 <meta property="article:published_time" content="2023-12-19T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-12-21T07:40:32.694Z">
+<meta property="article:modified_time" content="2024-01-12T07:05:12.810Z">
 <meta property="article:author" content="Kenny-hoho">
 <meta property="article:tag" content="计算机角色动画">
 <meta name="twitter:card" content="summary_large_image">
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          866 字
+          1.7k 字
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          8 分钟
+          14 分钟
         
       </span>
     
@@ -278,7 +278,6 @@
               
               <span id="more"></span>
 
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/628247619">【UE】Lyra动画系统拆解（框架篇）</a></p>
 <h1 id="Lyra动画系统框架"><a href="#Lyra动画系统框架" class="headerlink" title="Lyra动画系统框架"></a>Lyra动画系统框架</h1><p><img src="/article_img/2023-12-20-16-32-23.png" srcset="/img/loading.gif" lazyload></p>
 <p>Lyra的动画系统框架很值得学习，他的核心思想就是解耦，不断地解耦。</p>
 <p><strong>主动画蓝图（ABP_Mannequin_Base）</strong> 用来实现最基础的状态机，其中每个状态都 <strong>没有具体实现</strong>，而是直接交给一个动画图层实现，这些动画层又被全部抽象出来，放在一个 <strong>动画层接口（ALI_ItemAnimLayers）</strong> 中，主动画蓝图继承这个动画层接口，但是也不实现这些动画层，把实现的工作交给另一个动画蓝图；<strong>把基础状态机和每个具体状态的实现解耦</strong>；</p>
@@ -294,9 +293,30 @@
 <p><strong>资产配置蓝图（ABP_PistolAnimLayers）</strong> 继承自状态实现蓝图，负责把对应的动画序列填入状态实现蓝图的对应变量中：<br><img src="/article_img/2023-12-21-15-22-24.png" srcset="/img/loading.gif" lazyload></p>
 <p>最后，使用 <strong>关联动画类图层（LinkAnimClassLayer）</strong> 节点，把要要播放的资产配置蓝图和主动画蓝图关联即可；<br><img src="/article_img/2023-12-21-15-28-57.png" srcset="/img/loading.gif" lazyload></p>
 <p>Lyra这样设计动画系统可以非常方便的完成一个新状态机的制作，比如有使用手枪和使用步枪的两套动画，他们有相同的动画状态机和状态实现，只需要不同的资产配置蓝图用来把两套动画序列配置好即可，在切换武器时变更动画也非常方便。</p>
+<h1 id="动画节点与动画节点函数"><a href="#动画节点与动画节点函数" class="headerlink" title="动画节点与动画节点函数"></a>动画节点与动画节点函数</h1><p>在动画蓝图中，AnimNode是诸多节点的父类，从动画播放器（SequencePlayer）到动画状态机，都是动画节点。</p>
+<h2 id="动画节点函数"><a href="#动画节点函数" class="headerlink" title="动画节点函数"></a>动画节点函数</h2><p>动画节点都可以绑定动画节点函数，按照函数的触发事件分为三种：</p>
+<ol>
+<li><strong>On Initial Update</strong>：在该动画节点所属的AnimBP的生命周期中第一次执行节点时</li>
+<li><strong>On Become Relevant</strong>：节点变为相关时，也就是每次开始执行节点时</li>
+<li><strong>On Update</strong>：节点tick更新时</li>
+</ol>
+<p><strong>执行顺序是先执行上层的节点再执行下层的节点</strong>，如下图，先执行State节点，再执行序列求值器节点：<br><img src="/article_img/2024-01-12-14-35-15.png" srcset="/img/loading.gif" lazyload></p>
 <h1 id="多线程更新动画（Blueprint-Thread-Safe-Update-Functions）"><a href="#多线程更新动画（Blueprint-Thread-Safe-Update-Functions）" class="headerlink" title="多线程更新动画（Blueprint Thread Safe Update Functions）"></a>多线程更新动画（Blueprint Thread Safe Update Functions）</h1><p>Lyra把原本放在 <strong>事件图标（EventGraph）</strong> 也就是<strong>游戏线程</strong>中执行的逻辑（比如获取角色的速度旋转等信息），放到了 <strong>工作线程</strong> 中执行，可以获得更好的性能。</p>
-<p>但是这样做有个点要注意，由于将数据更新放在工作线程中，许多变量和函数无法直接调用（只有用BlueprintThreadSafe修饰的才可以），因此需要使用 <strong>PropertyAccess</strong> 来访问变量：<br><img src="/article_img/2023-12-21-15-37-08.png" srcset="/img/loading.gif" lazyload></p>
+<p>但是这样做有个点要注意，由于将数据更新放在工作线程中，许多变量和函数无法直接调用（只有用BlueprintThreadSafe修饰的才可以），因为其他线程可能同时运行并且它们可能正在更改该数据。因此，使用 <strong>属性访问系统（Property Access System）</strong> 来访问数据。属性访问系统会在安全时自动复制数据：<br><img src="/article_img/2023-12-21-15-37-08.png" srcset="/img/loading.gif" lazyload></p>
 <p>为此，我们需要定义一系列函数来更新变量，这些函数需要勾选 <strong>线程安全</strong> 才能在<strong>BlueprintThreadSafeUpdateAnimation</strong>中被调用：<br><img src="/article_img/2023-12-21-15-40-32.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="序列播放器（SequencePlayer）和序列求值器（SequenceEvaluator）"><a href="#序列播放器（SequencePlayer）和序列求值器（SequenceEvaluator）" class="headerlink" title="序列播放器（SequencePlayer）和序列求值器（SequenceEvaluator）"></a>序列播放器（SequencePlayer）和序列求值器（SequenceEvaluator）</h1><p>二者都是用来播放动画序列的动画节点，但序列播放器可以自动播放动画序列，序列求值器需要指出显式时间才能播放对应时间的动画帧；也就是说序列求值器更加灵活，常常将序列求值器播放的<strong>序列</strong>和<strong>显式时间</strong>设为动态值，通过节点函数动态改变动画序列和播放速率：<br><img src="/article_img/2024-01-12-14-50-47.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="Animation-Layer-Interface（ALI）"><a href="#Animation-Layer-Interface（ALI）" class="headerlink" title="Animation Layer Interface（ALI）"></a>Animation Layer Interface（ALI）</h1><p>动画层接口是只能用在动画蓝图中的一个接口类，继承自UInterface；和蓝图接口一样，可以在其中创建函数，这些函数被称作AnimationLayers；实现这些函数的方法有：</p>
+<ol>
+<li>继承了ALI的动画蓝图可以在其内部直接实现</li>
+<li>运行时动态指定另一个继承了相同ALI的动画蓝图来实现（使用**关联动画类图层(Link Anim Class Layer)**），Lyra中就是这种方式；</li>
+</ol>
+<h1 id="Animation-Layer"><a href="#Animation-Layer" class="headerlink" title="Animation Layer"></a>Animation Layer</h1><p>动画层也是一种动画蓝图，一种 <strong>子动画蓝图</strong>，本质是一种函数，不过函数处理和输出的都是动画数据；</p>
+<ol>
+<li>AnimLayer：在当前动画蓝图类中直接创建的</li>
+<li>LinkedAnimLayer：继承ALI后获得的</li>
+</ol>
+<p><img src="/article_img/2024-01-12-15-05-01.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/628247619">【UE】Lyra动画系统拆解（框架篇）</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/654430436">UE5 白话Lyra动画系统</a></p>
 
               
             </div>
