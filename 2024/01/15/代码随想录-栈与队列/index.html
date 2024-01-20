@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://kenny-hoho.github.io/img/bg/xt4.png">
 <meta property="article:published_time" content="2024-01-14T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-01-16T06:56:18.372Z">
+<meta property="article:modified_time" content="2024-01-18T02:57:16.414Z">
 <meta property="article:author" content="Kenny-hoho">
 <meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary_large_image">
@@ -309,6 +309,7 @@
 <p>使用unordered_map记录元素出现次数，使用 <strong>大小为k的小顶堆</strong> 遍历map，小顶堆元素超过k就弹出最小元素（pop），最后剩下的小顶堆中的k个元素就是前k个高频元素。</p>
 <p>大顶堆小顶堆在C++中使用 <strong>priority_queue</strong> 实现；</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">myCompare</span>&#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">operator</span><span class="hljs-params">()</span><span class="hljs-params">(<span class="hljs-type">const</span> pair&lt;<span class="hljs-type">int</span>, <span class="hljs-type">int</span>&gt;&amp; lhs, <span class="hljs-type">const</span> pair&lt;<span class="hljs-type">int</span>, <span class="hljs-type">int</span>&gt;&amp; rhs)</span></span>&#123;<br>        <span class="hljs-keyword">return</span> lhs.second&gt;rhs.second;<br>    &#125;<br>&#125;;<br><span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">topKFrequent</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums, <span class="hljs-type">int</span> k)</span> </span>&#123;<br>    unordered_map&lt;<span class="hljs-type">int</span>, <span class="hljs-type">int</span>&gt; map;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;nums.<span class="hljs-built_in">size</span>();i++)&#123;<br>        map[nums[i]]++;<br>    &#125;<br>    priority_queue&lt;pair&lt;<span class="hljs-type">int</span>, <span class="hljs-type">int</span>&gt;, vector&lt;pair&lt;<span class="hljs-type">int</span>, <span class="hljs-type">int</span>&gt;&gt;, myCompare&gt; pri_que;<br>    <span class="hljs-keyword">for</span>(unordered_map&lt;<span class="hljs-type">int</span>, <span class="hljs-type">int</span>&gt;::iterator ite=map.<span class="hljs-built_in">begin</span>();ite!=map.<span class="hljs-built_in">end</span>();ite++)&#123;<br>        pri_que.<span class="hljs-built_in">push</span>(*ite);<br>        <span class="hljs-keyword">if</span>(pri_que.<span class="hljs-built_in">size</span>()&gt;k)&#123;<br>            pri_que.<span class="hljs-built_in">pop</span>();<br>        &#125;<br>    &#125;<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">res</span><span class="hljs-params">(k)</span></span>;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=k<span class="hljs-number">-1</span>;i&gt;=<span class="hljs-number">0</span>;i--)&#123;<br>        res[i]=pri_que.<span class="hljs-built_in">top</span>().first;<br>        pri_que.<span class="hljs-built_in">pop</span>();<br>    &#125;<br>    <span class="hljs-keyword">return</span> res;<br>&#125;<br></code></pre></td></tr></table></figure>
+
               
             </div>
             <hr/>
@@ -394,6 +395,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2024/01/17/%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95-%E4%BA%8C%E5%8F%89%E6%A0%91/" title="代码随想录-二叉树">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">代码随想录-二叉树</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
