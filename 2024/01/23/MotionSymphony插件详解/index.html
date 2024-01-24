@@ -1,0 +1,757 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/bg/profile.jpg">
+  <link rel="icon" href="/img/bg/profile.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Kenny-hoho">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="MotionSymphony插件报告">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MotionSymphony插件详解">
+<meta property="og:url" content="https://kenny-hoho.github.io/2024/01/23/MotionSymphony%E6%8F%92%E4%BB%B6%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:site_name" content="Kenny-hoho">
+<meta property="og:description" content="MotionSymphony插件报告">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://kenny-hoho.github.io/img/bg/MotionSymphony.jpg">
+<meta property="article:published_time" content="2024-01-22T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-01-24T12:14:25.336Z">
+<meta property="article:author" content="Kenny-hoho">
+<meta property="article:tag" content="计算机角色动画">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://kenny-hoho.github.io/img/bg/MotionSymphony.jpg">
+  
+  
+  
+  <title>MotionSymphony插件详解 - Kenny-hoho</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"kenny-hoho.github.io","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":["home"]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Kenny</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/Pink_city.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">MotionSymphony插件详解</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-01-23 00:00" pubdate>
+          2024年1月23日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          14k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          115 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">MotionSymphony插件详解</h1>
+            
+            <div class="markdown-body">
+              
+              <p>MotionSymphony插件报告</p>
+<span id="more"></span>
+
+<h1 id="Motion-Symphony资产和数据结构"><a href="#Motion-Symphony资产和数据结构" class="headerlink" title="Motion Symphony资产和数据结构"></a>Motion Symphony资产和数据结构</h1><h2 id="资产"><a href="#资产" class="headerlink" title="资产"></a>资产</h2><p>Motion Symphony是一个实现Motion Matching的虚幻引擎动画工具集，Motion Matching是一个基于数据的动画驱动方案，Motion Symphony中提供了一套完整的工具和工作流用于构建MM需要的动画数据集，在Motion Symphony中这个数据集叫做 <strong>Motion Data</strong>；如下图，可见要构建Motion Data还需要几个其他的Motion Symphony提供的资产；<br><img src="/article_img/2024-01-23-16-26-34.png" srcset="/img/loading.gif" lazyload></p>
+<p>Motion Matching的原理是根据当前姿势和未来轨迹在动画数据库中寻找下一帧要播放的姿势，针对姿势匹配一般选取几个骨骼代表一个姿势，对于轨迹一般分别采样几个过去和未来的点；在Motion Symphony中这些信息被定义在资产 <strong>Motion Matching Config</strong> 中：<br><img src="/article_img/2024-01-23-16-34-54.png" srcset="/img/loading.gif" lazyload></p>
+<p>MM中的寻找，就是一个计算Cost的过程，计算最能匹配当前帧姿势和未来轨迹的动画帧作为下一个要播放的动画帧，计算Cost时需要对不同的特征设置不同的权重（表示我们更关注哪些特征），这些权重信息被定义在资产 <strong>Motion Calibration</strong> 中：<br><img src="/article_img/2024-01-23-16-34-41.png" srcset="/img/loading.gif" lazyload></p>
+<p>这三个资产是Motion Symphony中最重要的三个自定义资产，源码中的位置在<strong>CustomAessets</strong>目录下：<br><img src="/article_img/2024-01-23-16-39-57.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><p>Motion Symphony定义了许多数据结构来方便之后的动画节点计算：<br><img src="/article_img/2024-01-23-16-48-25.png" srcset="/img/loading.gif" lazyload><br>其中最重要的是 <strong>AnimChannelState</strong>，这个数据结构中存储了：动画id，动画权重，动画类型（序列，混合空间等）等信息，<strong>用来方便操作（不需要每次都用AnimId去找动画长度，是否循环等等）</strong>，AnimNode_MotionMatching中维护了一个 <strong>BlendChannels</strong> 数组，经过MM后选择了一个要播放的动画帧，就会将选择的动画帧构造成一个 <strong>AnimChannelState</strong> 并加入 <strong>BlendChannels</strong> 数组：<br><img src="/article_img/2024-01-23-16-58-58.png" srcset="/img/loading.gif" lazyload><br>之后在 <strong>FAnimNode_MotionMatching::Evaluate_AnyThread(FPoseContext&amp; Output)</strong> 函数中通过BlendChannels数组选择播放的动画帧：<br><img src="/article_img/2024-01-23-17-03-19.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="AnimNode（Motion-Symphony中的动画节点）"><a href="#AnimNode（Motion-Symphony中的动画节点）" class="headerlink" title="AnimNode（Motion Symphony中的动画节点）"></a>AnimNode（Motion Symphony中的动画节点）</h1><p>Motion Symphony提供了许多AnimNode来实现各种功能，其中最重要的是 <strong>AnimNode_MotionMatching</strong>，<strong>AnimNode_MotionRecorder</strong> 以及 <strong>AnimNode_PoseMatching</strong>，这三个节点在官方案例中均被使用：<br><img src="/article_img/2024-01-23-16-44-54.png" srcset="/img/loading.gif" lazyload><br><img src="/article_img/2024-01-23-16-45-14.png" srcset="/img/loading.gif" lazyload><br><img src="/article_img/2024-01-23-16-45-28.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="AnimNode-MotionMatching（MM节点）"><a href="#AnimNode-MotionMatching（MM节点）" class="headerlink" title="AnimNode_MotionMatching（MM节点）"></a>AnimNode_MotionMatching（MM节点）</h2><p>MM节点继承自 <strong>FAnimNode_AssetPlayerBase</strong>，SequencePlayer和SequenceEvaluator也继承自该类，因此可以感性理解MM节点就是一个复杂的SequenceEvaluator（序列求值器），求出当前要播放哪一帧；<br><img src="/article_img/2024-01-23-17-07-37.png" srcset="/img/loading.gif" lazyload></p>
+<p>所有的AnimNode都继承自 <strong>FAnimNode_Base</strong> 类，其中有几个重要的函数 ：</p>
+<ol>
+<li><strong>Initialize_AnyThread</strong> （节点第一次被调用时的初始化操作）<br><img src="/article_img/2024-01-24-09-31-13.png" srcset="/img/loading.gif" lazyload></li>
+<li><strong>Update_AnyThread</strong> （图表更新时调用，一般用来计算影响骨骼姿势的权重）<br><img src="/article_img/2024-01-24-09-31-01.png" srcset="/img/loading.gif" lazyload></li>
+<li><strong>Evaluate_AnyThread</strong> （根据update中计算出的权重估计本地空间下的骨骼变换）<br><img src="/article_img/2024-01-24-09-30-51.png" srcset="/img/loading.gif" lazyload><br>我们看任何一个AnimNode的代码都可以从这几个函数入手。</li>
+</ol>
+<p>AnimNode_MotionMatching还覆写了几个其他的 <strong>FAnimNode_Base</strong> 函数，如果用到我们后面再提；<br><img src="/article_img/2024-01-24-09-22-48.png" srcset="/img/loading.gif" lazyload><br>注意到MM节点没有覆写 <strong>Update_AnyThread</strong> 因为MM节点继承自 <strong>FAnimNode_AssetPlayerBase</strong>，该父类将 <strong>Update_AnyThread</strong> 定义为了final，无法覆写：<br><img src="/article_img/2024-01-24-09-27-28.png" srcset="/img/loading.gif" lazyload><br>MM节点的主要逻辑都写在 <strong>UpdateAssetPlayer</strong> 中，其中关键的函数及调用如下图所示：<br><img src="/article_img/MMFunc.png" srcset="/img/loading.gif" lazyload></p>
+<p>下面我们阅读一下几个重要函数的代码逻辑：</p>
+<p>首先Motion Matching算法是基于当前姿势去进行匹配的，因此需要得到当前姿势，这里使用 <strong>ComputeCurrentPose</strong> 函数得到当前姿势，要注意的是，Motion Symphony在实现时使用了两个变量来表示当前姿势：</p>
+<ol>
+<li><strong>CurrentInterpolatedPose</strong>：从FAnimNode_MotionRecorder中得到记录的当前姿势；</li>
+<li><strong>CurrentChosenPoseId</strong>：通过与上次MM之间的时间间隔计算出的当前已选择的姿势id；之后如果进行MM得到的匹配结果也要赋值给该变量；</li>
+</ol>
+<p>下面看看源码（省略了大量代码，只展示最核心的代码）：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">FAnimNode_MotionMatching::ComputeCurrentPose</span><span class="hljs-params">(<span class="hljs-type">const</span> FCachedMotionPose&amp; CachedMotionPose)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-type">const</span> <span class="hljs-type">float</span> PoseInterval = FMath::<span class="hljs-built_in">Max</span>(<span class="hljs-number">0.01f</span>, MotionData-&gt;PoseInterval);<br><br>	<span class="hljs-comment">//====== Determine the next chosen pose ========</span><br>	FAnimChannelState&amp; ChosenChannel = BlendChannels.<span class="hljs-built_in">Last</span>();<br><br>	<span class="hljs-type">float</span> TimePassed = TimeSinceMotionChosen;<br>	int32 PoseIndex = ChosenChannel.StartPoseId;<br><br>	int32 NumPosesPassed = <span class="hljs-number">0</span>;<br>	<span class="hljs-keyword">if</span> (TimePassed &lt; <span class="hljs-number">0.0f</span>)<br>	&#123;<br>		NumPosesPassed = FMath::<span class="hljs-built_in">CeilToInt</span>(TimePassed / PoseInterval);<br>	&#125;<br>	<span class="hljs-keyword">else</span><br>	&#123;<br>		NumPosesPassed = FMath::<span class="hljs-built_in">FloorToInt</span>(TimePassed / PoseInterval);<br>	&#125;<br>	<span class="hljs-comment">// 计算得到当前已选择的姿势id</span><br>	CurrentChosenPoseId = PoseIndex + NumPosesPassed;<br><br>	<span class="hljs-comment">//====== Determine the next dominant pose ========</span><br>    <span class="hljs-comment">// 对当前记录的姿势进行轨迹插值，因为正在播放的帧有可能是插值出来的，轨迹信息没有经过预处理得到</span><br>	FMotionMatchingUtils::<span class="hljs-built_in">LerpPoseTrajectory</span>(CurrentInterpolatedPose, *BeforePose, *AfterPose, PoseInterpolationValue);<br>    <span class="hljs-comment">// 把FAnimNode_MotionRecorder中记录的姿势赋值给CurrentInterpolatedPose</span><br>	<span class="hljs-keyword">for</span> (int32 i = <span class="hljs-number">0</span>; i &lt; PoseBoneRemap.<span class="hljs-built_in">Num</span>(); ++i)<br>	&#123;<br>		<span class="hljs-type">const</span> FCachedMotionBone&amp; CachedMotionBone = CachedMotionPose.CachedBoneData[PoseBoneRemap[i]];<br>		CurrentInterpolatedPose.JointData[i] = <span class="hljs-built_in">FJointData</span>(CachedMotionBone.Transform.<span class="hljs-built_in">GetLocation</span>(), CachedMotionBone.Velocity);<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>清楚了当前姿势是如何得到的我们就可以来看MM算法的“主函数”<strong>UpdateMotionMatching</strong>了，大致流程就是先得到当前姿势，之后进行<strong>SchedulePoseSearch</strong>；</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">FAnimNode_MotionMatching::UpdateMotionMatching</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">float</span> DeltaTime, <span class="hljs-type">const</span> FAnimationUpdateContext&amp; Context)</span></span><br><span class="hljs-function"></span>&#123;<br>	bForcePoseSearch = <span class="hljs-literal">false</span>;<br>	TimeSinceMotionChosen += DeltaTime;<br>	TimeSinceMotionUpdate += DeltaTime;<br><br>    <span class="hljs-comment">/*</span><br><span class="hljs-comment">    EarlyOut</span><br><span class="hljs-comment">    */</span><br><br>    <span class="hljs-comment">// 得到负责记录姿势的MotionRecoredNode</span><br>	FAnimNode_MotionRecorder* MotionRecorderNode = Context.<span class="hljs-built_in">GetAncestor</span>&lt;FAnimNode_MotionRecorder&gt;();<br><br>	<span class="hljs-keyword">if</span> (MotionRecorderNode)<br>	&#123;   <span class="hljs-comment">// 得到顺序播放情况下当前已选择的姿势CurrentChosenPoseId，从MotionRecoredNode中得到当前姿势CurrentInterpolatedPose</span><br>		<span class="hljs-built_in">ComputeCurrentPose</span>(MotionRecorderNode-&gt;<span class="hljs-built_in">GetMotionPose</span>());<br>	&#125;<br>	<span class="hljs-keyword">else</span><br>	&#123;<br>		<span class="hljs-built_in">ComputeCurrentPose</span>();<br>	&#125;<br><br>	<span class="hljs-comment">//If we have ran into a &#x27;DoNotUse&#x27; pose. We need to force a new pose search</span><br>	<span class="hljs-keyword">if</span>(CurrentInterpolatedPose.bDoNotUse)<br>	&#123;<br>		bForcePoseSearch = <span class="hljs-literal">true</span>;<br>	&#125;<br><br>	UMotionMatchConfig* MMConfig = MotionData-&gt;MotionMatchConfig;<br><br>	<span class="hljs-comment">//Past trajectory mode</span><br>	<span class="hljs-keyword">if</span> (PastTrajectoryMode == EPastTrajectoryMode::CopyFromCurrentPose)<br>	&#123;<br>		<span class="hljs-keyword">for</span> (int32 i = <span class="hljs-number">0</span>; i &lt; MMConfig-&gt;TrajectoryTimes.<span class="hljs-built_in">Num</span>(); ++i)<br>		&#123;<br>			<span class="hljs-keyword">if</span> (MMConfig-&gt;TrajectoryTimes[i] &gt; <span class="hljs-number">0.0f</span>)<br>			&#123; <br>				<span class="hljs-keyword">break</span>;<br>			&#125;<br><br>			DesiredTrajectory.TrajectoryPoints[i] = CurrentInterpolatedPose.Trajectory[i];<br>		&#125;<br>	&#125;<br><br>    <span class="hljs-comment">// 上次MM经过更新时间间隔或者强制进行MM</span><br>	<span class="hljs-keyword">if</span> (TimeSinceMotionUpdate &gt;= UpdateInterval || bForcePoseSearch)<br>	&#123;<br>        <span class="hljs-comment">// 重置MM更新时间</span><br>		TimeSinceMotionUpdate = <span class="hljs-number">0.0f</span>;<br>        <span class="hljs-comment">// 姿势匹配</span><br>		<span class="hljs-built_in">SchedulePoseSearch</span>(DeltaTime, Context);<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>姿势匹配函数 <strong>SchedulePoseSearch</strong>：首先根据当前已选择的姿势得到下一帧姿势（我们更希望动画连续，也就是尽可能顺着当前动画播放，会在计算Cost更偏向下一帧姿势，使下一帧姿势的Cost更小），开始计算Cost，得到Cost最小的姿势，判断该姿势是否是 <strong>FAnimNode_MotionRecorder</strong> 记录的当前姿势（CurrentInterpolatedPose），以及是否是当前已选择的姿势（CurrentChosenPoseId），都不是就过渡到该Cost最小的姿势；</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">FAnimNode_MotionMatching::SchedulePoseSearch</span><span class="hljs-params">(<span class="hljs-type">float</span> DeltaTime, <span class="hljs-type">const</span> FAnimationUpdateContext&amp; Context)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-comment">/*</span><br><span class="hljs-comment">    省略一些代码</span><br><span class="hljs-comment">    */</span><br><br>	FPoseMotionData&amp; NextPose = MotionData-&gt;Poses[MotionData-&gt;Poses[CurrentChosenPoseId].NextPoseId];<br><br>    <span class="hljs-comment">/*</span><br><span class="hljs-comment">    省略一些代码</span><br><span class="hljs-comment">    */</span><br><br>	int32 LowestPoseId = NextPose.PoseId;<br><br>	<span class="hljs-keyword">switch</span> (PoseMatchMethod)<br>	&#123;   <span class="hljs-comment">// 根据搜索方式，分为优化和线性（优化模式不会搜索全部数据库），搜索数据库得到Cost最小的姿势id</span><br>		<span class="hljs-keyword">case</span> EPoseMatchMethod::Optimized: &#123; LowestPoseId = <span class="hljs-built_in">GetLowestCostPoseId</span>(NextPose); &#125; <span class="hljs-keyword">break</span>;<br>		<span class="hljs-keyword">case</span> EPoseMatchMethod::Linear: &#123; LowestPoseId = <span class="hljs-built_in">GetLowestCostPoseId_Linear</span>(NextPose); &#125; <span class="hljs-keyword">break</span>;<br>	&#125;<br><br>    <span class="hljs-comment">/*</span><br><span class="hljs-comment">    省略一些DEBUG代码</span><br><span class="hljs-comment">    */</span><br><br>	FPoseMotionData&amp; BestPose = MotionData-&gt;Poses[LowestPoseId];<br>	FPoseMotionData&amp; ChosenPose = MotionData-&gt;Poses[CurrentChosenPoseId];<br><br>	<span class="hljs-type">bool</span> bWinnerAtSameLocation = BestPose.AnimId == CurrentInterpolatedPose.AnimId &amp;&amp;<br>								 BestPose.bMirrored == CurrentInterpolatedPose.bMirrored &amp;&amp;<br>								FMath::<span class="hljs-built_in">Abs</span>(BestPose.Time - CurrentInterpolatedPose.Time) &lt; <span class="hljs-number">0.25f</span><br>								&amp;&amp; FVector2D::<span class="hljs-built_in">DistSquared</span>(BestPose.BlendSpacePosition, CurrentInterpolatedPose.BlendSpacePosition) &lt; <span class="hljs-number">1.0f</span>;<br>    <span class="hljs-comment">// 判断是否时ChosenPose（当前被选择的姿势）</span><br>	<span class="hljs-keyword">if</span> (!bWinnerAtSameLocation)<br>	&#123;<br>		bWinnerAtSameLocation = BestPose.AnimId == ChosenPose.AnimId &amp;&amp;<br>								BestPose.bMirrored == ChosenPose.bMirrored &amp;&amp;<br>								FMath::<span class="hljs-built_in">Abs</span>(BestPose.Time - ChosenPose.Time) &lt; <span class="hljs-number">0.25f</span><br>								&amp;&amp; FVector2D::<span class="hljs-built_in">DistSquared</span>(BestPose.BlendSpacePosition, ChosenPose.BlendSpacePosition) &lt; <span class="hljs-number">1.0f</span>;<br>	&#125;<br>    <span class="hljs-comment">// 不是ChosenPose，也不是CurrentInterpolatedPose，过渡到该姿势</span><br>	<span class="hljs-keyword">if</span> (!bWinnerAtSameLocation)<br>	&#123;<br>		<span class="hljs-built_in">TransitionToPose</span>(BestPose.PoseId, Context);<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>接下来，我们就可以看MM算法的核心，匹配算法的实现了，在 <strong>GetLowestCostPoseId</strong> 和 <strong>GetLowestCostPoseId_Linear</strong> 这两个函数中，他们区别不大，唯一的区别就是是否对数据库进行了筛选，因此我们只看 <strong>GetLowestCostPoseId</strong> 即可，同样省略了一些非核心代码；</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-function">int32 <span class="hljs-title">FAnimNode_MotionMatching::GetLowestCostPoseId</span><span class="hljs-params">(FPoseMotionData&amp; NextPose)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-comment">// 得到计算权重</span><br>	FCalibrationData&amp; FinalCalibration = FinalCalibrationSets[RequiredTraits];<br>    <span class="hljs-comment">// 得到候选姿势</span><br>	TArray&lt;FPoseMotionData&gt;* PoseCandidates = MotionData-&gt;OptimisationModule-&gt;<span class="hljs-built_in">GetFilteredPoseList</span>(CurrentInterpolatedPose, RequiredTraits, FinalCalibration);<br><br>	<span class="hljs-keyword">if</span> (!PoseCandidates)<br>	&#123;   <span class="hljs-comment">// 没有候选姿势，也就是没有配置优化（后面讲），就线性搜索数据库</span><br>		<span class="hljs-keyword">return</span> <span class="hljs-built_in">GetLowestCostPoseId_Linear</span>(NextPose);<br>	&#125;<br><br>	int32 LowestPoseId = <span class="hljs-number">0</span>;<br>	<span class="hljs-type">float</span> LowestCost = <span class="hljs-number">10000000.0f</span>;<br>    <span class="hljs-comment">// 遍历候选姿势，开始计算cost</span><br>	<span class="hljs-keyword">for</span> (FPoseMotionData&amp; Pose : *PoseCandidates)<br>	&#123;<br>		<span class="hljs-comment">//Body Momentum</span><br>		<span class="hljs-type">float</span> Cost = FVector::<span class="hljs-built_in">DistSquared</span>(CurrentInterpolatedPose.LocalVelocity, Pose.LocalVelocity) * FinalCalibration.Weight_Momentum;<br><br>		<span class="hljs-comment">//Body Rotational Momentum</span><br>		Cost += FMath::<span class="hljs-built_in">Abs</span>(CurrentInterpolatedPose.RotationalVelocity - Pose.RotationalVelocity)<br>			* FinalCalibration.Weight_AngularMomentum;<br><br>		<span class="hljs-comment">//Trajectory Cost </span><br>		<span class="hljs-type">const</span> int32 TrajectoryIterations = FMath::<span class="hljs-built_in">Min</span>(DesiredTrajectory.TrajectoryPoints.<span class="hljs-built_in">Num</span>(), FinalCalibration.TrajectoryWeights.<span class="hljs-built_in">Num</span>());<br>		<span class="hljs-keyword">for</span> (int32 i = <span class="hljs-number">0</span>; i &lt; TrajectoryIterations; ++i)<br>		&#123;<br>			<span class="hljs-type">const</span> FTrajectoryWeightSet WeightSet = FinalCalibration.TrajectoryWeights[i];<br>			<span class="hljs-type">const</span> FTrajectoryPoint CurrentPoint = DesiredTrajectory.TrajectoryPoints[i];<br>			<span class="hljs-type">const</span> FTrajectoryPoint CandidatePoint = Pose.Trajectory[i];<br><br>			Cost += FVector::<span class="hljs-built_in">DistSquared</span>(CandidatePoint.Position, CurrentPoint.Position) * WeightSet.Weight_Pos;<br>			Cost += FMath::<span class="hljs-built_in">Abs</span>(FMath::<span class="hljs-built_in">FindDeltaAngleDegrees</span>(CandidatePoint.RotationZ, CurrentPoint.RotationZ)) * WeightSet.Weight_Facing;<br>		&#125;<br>        <span class="hljs-comment">// Pose Cost</span><br>		<span class="hljs-keyword">for</span> (int32 i = <span class="hljs-number">0</span>; i &lt; CurrentInterpolatedPose.JointData.<span class="hljs-built_in">Num</span>(); ++i)<br>		&#123;<br>			<span class="hljs-type">const</span> FJointWeightSet WeightSet = FinalCalibration.PoseJointWeights[i];<br>			<span class="hljs-type">const</span> FJointData CurrentJoint = CurrentInterpolatedPose.JointData[i];<br>			<span class="hljs-type">const</span> FJointData CandidateJoint = Pose.JointData[i];<br><br>			Cost += FVector::<span class="hljs-built_in">DistSquared</span>(CurrentJoint.Velocity, CandidateJoint.Velocity) * WeightSet.Weight_Vel;<br>			Cost += FVector::<span class="hljs-built_in">DistSquared</span>(CurrentJoint.Position, CandidateJoint.Position) * WeightSet.Weight_Pos;<br>		&#125;<br><br>		<span class="hljs-comment">//Favour Current Pose 如果是顺序播放时当前姿势的下一个姿势，就乘上一个Favour值，让其cost更小（这里默认值是0.95）</span><br>		<span class="hljs-keyword">if</span> (bFavourCurrentPose &amp;&amp; Pose.PoseId == NextPose.PoseId)<br>		&#123;<br>			Cost *= CurrentPoseFavour;<br>		&#125;<br><br>		<span class="hljs-comment">//Apply Pose Favour</span><br>		Cost *= Pose.Favour;<br><br>		<span class="hljs-keyword">if</span> (Cost &lt; LowestCost)<br>		&#123;<br>			LowestCost = Cost;<br>			LowestPoseId = Pose.PoseId;<br>		&#125;<br>	&#125;<br><br>	<span class="hljs-keyword">return</span> LowestPoseId;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="匹配算法"><a href="#匹配算法" class="headerlink" title="匹配算法"></a>匹配算法</h3><p>看完<strong>GetLowestCostPoseId</strong>函数，我们可以就总结出Motion Symphony使用的匹配算法了！</p>
+<p>$$<br>\begin{aligned}<br>Cost&amp;&#x3D;(Cost_{BodyMomentum}+Cost_{Trajectory}+Cost_{Pose})*Favour\<br>    &amp;&#x3D;{[Dist(localVelocity)*Weight_{localVelocity}+Dist(rotationalVelocity)*Weight_{rotation}]\<br>    &amp;+[\sum_{i&#x3D;0}^{n}Dist(TrajectoryPosition)*Weight_{TrajectoryPosition}+\sum_{i&#x3D;0}^{n}Dist(TrajectoryRotation)*Weight_{facing}]\<br>    &amp;+[\sum_{i&#x3D;0}^{n}Dist(BoneVelocity)*Weight_{BoneVelocity}+\sum_{i&#x3D;0}^{n}Dist(BonePosstion)*Weight_{BonePosition}]}\<br>    &amp;*Favour<br>\end{aligned}<br>$$</p>
+<h1 id="Debug工具"><a href="#Debug工具" class="headerlink" title="Debug工具"></a>Debug工具</h1><p>Motion Symphony提供了一系列Debug工具，大多是通过命令行开启后在视口中打印出相关数据或者绘制出相应轨迹。下面看几个常用的Debug工具如何开启以及如何在代码中如何实现；</p>
+<h2 id="Debugging-the-Trajectory（轨迹线绘制）"><a href="#Debugging-the-Trajectory（轨迹线绘制）" class="headerlink" title="Debugging the Trajectory（轨迹线绘制）"></a>Debugging the Trajectory（轨迹线绘制）</h2><p><img src="/article_img/2024-01-24-16-19-52.png" srcset="/img/loading.gif" lazyload><br>开启后效果，红色为匹配姿势的轨迹，绿色为输入轨迹：<br><img src="/article_img/2024-01-24-16-19-20.png" srcset="/img/loading.gif" lazyload></p>
+<p>轨迹线绘制实现在<strong>UpdateAssetPlayer</strong>函数中，如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">//Visualize the trajectroy debugging</span><br><span class="hljs-type">const</span> int32 TrajDebugLevel = CVarMMTrajectoryDebug.<span class="hljs-built_in">GetValueOnAnyThread</span>();<br><br><span class="hljs-keyword">if</span> (TrajDebugLevel &gt; <span class="hljs-number">0</span>)<br>&#123;<br>    <span class="hljs-keyword">if</span> (TrajDebugLevel == <span class="hljs-number">2</span>)<br>    &#123;<br>        <span class="hljs-comment">//Draw chosen trajectory</span><br>        <span class="hljs-built_in">DrawChosenTrajectoryDebug</span>(Context.AnimInstanceProxy);<br>    &#125;<br><br>    <span class="hljs-comment">//Draw Input trajectory</span><br>    <span class="hljs-built_in">DrawTrajectoryDebug</span>(Context.AnimInstanceProxy);<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="Debugging-the-Pose（绘制Pose位置和速度）"><a href="#Debugging-the-Pose（绘制Pose位置和速度）" class="headerlink" title="Debugging the Pose（绘制Pose位置和速度）"></a>Debugging the Pose（绘制Pose位置和速度）</h2><p><img src="/article_img/2024-01-24-16-23-49.png" srcset="/img/loading.gif" lazyload><br>开启后效果：<br><img src="/article_img/2024-01-24-16-24-48.png" srcset="/img/loading.gif" lazyload><br>PoseDebug实现在UpdateAssetPlayer函数中，如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs C++">int32 PoseDebugLevel = CVarMMPoseDebug.<span class="hljs-built_in">GetValueOnAnyThread</span>();<br><br><span class="hljs-keyword">if</span> (PoseDebugLevel &gt; <span class="hljs-number">0</span>)<br>&#123;<br>    <span class="hljs-built_in">DrawChosenPoseDebug</span>(Context.AnimInstanceProxy, PoseDebugLevel &gt; <span class="hljs-number">1</span>);<br>&#125;<br><br><span class="hljs-comment">//Debug the current animation data being played by the motion matching node</span><br>int32 AnimDebugLevel = CVarMMAnimDebug.<span class="hljs-built_in">GetValueOnAnyThread</span>();<br><br><span class="hljs-keyword">if</span>(AnimDebugLevel &gt; <span class="hljs-number">0</span>)<br>&#123;<br>    <span class="hljs-built_in">DrawAnimDebug</span>(Context.AnimInstanceProxy);<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="Animation-Info-Debugging（当前姿势的相关信息）"><a href="#Animation-Info-Debugging（当前姿势的相关信息）" class="headerlink" title="Animation Info Debugging（当前姿势的相关信息）"></a>Animation Info Debugging（当前姿势的相关信息）</h2><p><img src="/article_img/2024-01-24-16-29-13.png" srcset="/img/loading.gif" lazyload><br>开启后效果：<br><img src="/article_img/2024-01-24-16-28-10.png" srcset="/img/loading.gif" lazyload><br>也实现在UpdateAssetPlayer函数中：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">//Debug the current animation data being played by the motion matching node</span><br>int32 AnimDebugLevel = CVarMMAnimDebug.<span class="hljs-built_in">GetValueOnAnyThread</span>();<br><br><span class="hljs-keyword">if</span>(AnimDebugLevel &gt; <span class="hljs-number">0</span>)<br>&#123;<br>    <span class="hljs-built_in">DrawAnimDebug</span>(Context.AnimInstanceProxy);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="Search-x2F-Optimization-Debugging"><a href="#Search-x2F-Optimization-Debugging" class="headerlink" title="Search &#x2F; Optimization Debugging"></a>Search &#x2F; Optimization Debugging</h2><p>显示候选姿势的个数，并绘制所有候选姿势的轨迹；也可以查看使用了优化手段后与使用线性搜索之间的误差；<br><img src="/article_img/2024-01-24-16-33-52.png" srcset="/img/loading.gif" lazyload><br>开启后效果：<br><img src="/article_img/2024-01-24-16-35-45.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="Cost-Debugging"><a href="#Cost-Debugging" class="headerlink" title="Cost Debugging"></a>Cost Debugging</h2><p>许多其他的MM方案会提供Cost的debug工具来显示所有姿势的Cost值，Motion Symphony没有提供类似的工具，无法直接查看每个候选姿势的Cost是多少；之后可以仿照上面的其他Debug工具的写法添加一个。</p>
+<h1 id="优化策略"><a href="#优化策略" class="headerlink" title="优化策略"></a>优化策略</h1><p>Motion Symphony的优化策略可以分为两类，一类是处理数据集，为数据集中的每个姿势定义一个候选姿势集，减少要搜索的数据数量；另一类是在逻辑中提前结束搜索；</p>
+<p>处理数据集的优化策略都依靠在Motion Data中配置从而在预处理Motion Data时实现候选姿势集的构建，因此定义了几个资产来表示不同的优化策略，分别是<strong>MMOptimisation_MultiClustering</strong>，<strong>MMOptimisation_TraitsBin</strong>和 <strong>MMOptimisation_LayeredAABB</strong>（在编辑器中没找到，应该是功能还没完善），他们均继承自类 <strong>UMMOptimisationModule</strong>；</p>
+<h2 id="K-means-Clustering"><a href="#K-means-Clustering" class="headerlink" title="K-means Clustering"></a>K-means Clustering</h2><p>K-means是一种经典的机器学习分类算法，核心目标是将给定的数据集划分成K个簇（K是超参），并给出每个样本数据对应的中心点。<br>在Motion Symphony中，使用K-means算法将相同Traits划分后的姿势数据集按照<strong>轨迹</strong>分为K个簇，在匹配过程中只搜索与当前姿势在同一个簇中的姿势。</p>
+<p>Motion Symphony定义了一种资产来实现K-means算法：<strong>MMOptimisation_MultiClustering</strong>；其中定义了K-means算法的分簇数，最大迭代次数和期望的查询表的大小，该表中存放一个包含候选姿势集的数组，Desired Lookup Table Size就是这个数组的大小，也是最终姿势数据库会被划分的簇数；<br><img src="/article_img/2024-01-24-19-26-14.png" srcset="/img/loading.gif" lazyload><br>核心函数是 <strong>BuildOptimisationStructures</strong>，该函数是父类 <strong>UMMOptimisationModule</strong> 中定义的虚函数；</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">UMMOptimisation_MultiClustering::BuildOptimisationStructures</span><span class="hljs-params">(UMotionDataAsset* InMotionDataAsset)</span></span><br><span class="hljs-function"></span>&#123;<br>	Super::<span class="hljs-built_in">BuildOptimisationStructures</span>(InMotionDataAsset);<br><br>	<span class="hljs-comment">//First create trait bins with which to cluster on. 相当于先按照Traits划分了一次</span><br>	TMap&lt;FMotionTraitField, TArray&lt;FPoseMotionData&gt; &gt; PoseBins;<br><br>	<span class="hljs-keyword">for</span> (FPoseMotionData&amp; Pose : InMotionDataAsset-&gt;Poses)<br>	&#123;<br>		TArray&lt;FPoseMotionData&gt;&amp; PoseBin = PoseBins.<span class="hljs-built_in">FindOrAdd</span>(Pose.Traits);<br>		PoseBin.<span class="hljs-built_in">Add</span>(<span class="hljs-built_in">FPoseMotionData</span>(Pose));<br>	&#125;<br><br>	<span class="hljs-comment">//For each trait bin we need to cluster and create a lookup table</span><br>	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span>&amp; TraitPoseSet : PoseBins)<br>	&#123;<br>		FCalibrationData FinalPreProcessCalibration = <span class="hljs-built_in">FCalibrationData</span>();<br>		FinalPreProcessCalibration.<span class="hljs-built_in">GenerateFinalWeights</span>(InMotionDataAsset-&gt;PreprocessCalibration, <br>			InMotionDataAsset-&gt;FeatureStandardDeviations[TraitPoseSet.Key]);<br><br><span class="hljs-meta">#<span class="hljs-keyword">if</span> WITH_EDITORONLY_DATA</span><br>		KMeansClusteringSet.<span class="hljs-built_in">Clear</span>();<br><span class="hljs-meta">#<span class="hljs-keyword">else</span></span><br>		FKMeansClusteringSet KMeansClusteringSet = <span class="hljs-built_in">FKMeansClusteringSet</span>();<br><span class="hljs-meta">#<span class="hljs-keyword">endif</span></span><br>        <span class="hljs-comment">// K-Means算法划分</span><br>		KMeansClusteringSet.<span class="hljs-built_in">BeginClustering</span>(TraitPoseSet.Value, FinalPreProcessCalibration, KMeansClusterCount, KMeansMaxIterations, <span class="hljs-literal">true</span>);<br><br>		FPoseLookupTable&amp; PoseLookupTable = PoseLookupSets.<span class="hljs-built_in">FindOrAdd</span>(TraitPoseSet.Key);<br>        <span class="hljs-comment">// 在LookupTable中再做一次K-Means</span><br>		PoseLookupTable.<span class="hljs-built_in">Process</span>(TraitPoseSet.Value, KMeansClusteringSet, FinalPreProcessCalibration,<br>			DesiredLookupTableSize);<br><br>		<span class="hljs-comment">//Set the candidate set Id for each pose that is able to be looked up.</span><br>		<span class="hljs-keyword">for</span> (int32 i = <span class="hljs-number">0</span>; i &lt; PoseLookupTable.CandidateSets.<span class="hljs-built_in">Num</span>(); ++i)<br>		&#123;<br>			FPoseCandidateSet&amp; CandidateSet = PoseLookupTable.CandidateSets[i];<br>			CandidateSet.SetId = i;<br><br>			<span class="hljs-keyword">for</span> (FPoseMotionData&amp; Pose : CandidateSet.PoseCandidates)<br>			&#123;   <span class="hljs-comment">// 为每个姿势分配其候选集</span><br>				InMotionDataAsset-&gt;Poses[Pose.PoseId].CandidateSetId = i;<br>			&#125;<br>		&#125;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><img src="/article_img/2024-01-24-20-02-49.png" srcset="/img/loading.gif" lazyload><br>其中 <strong>BeginClustering</strong> 函数调用了 bool FKMeansClusteringSet::ProcessClusters(TArray<FPoseMotionData>&amp; Poses)函数，其中可见划分方式是按照轨迹距离划分，<strong>也就是每个姿势的候选匹配姿势集中都是与当前姿势轨迹接近的姿势</strong>；</p>
+<h2 id="TraitsBin"><a href="#TraitsBin" class="headerlink" title="TraitsBin"></a>TraitsBin</h2><p>只在需要的Traits里搜索；例如在MM节点里设置需要的Traits为 Walk，那么就只会在Tag被设置为Walk的姿势中搜索；<strong>DoNotUse</strong> Tag原理相同；</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-function">TArray&lt;FPoseMotionData&gt;* <span class="hljs-title">UMMOptimisation_TraitBins::GetFilteredPoseList</span><span class="hljs-params">(<span class="hljs-type">const</span> FPoseMotionData&amp; CurrentPose, </span></span><br><span class="hljs-params"><span class="hljs-function">	<span class="hljs-type">const</span> FMotionTraitField RequiredTraits, <span class="hljs-type">const</span> FCalibrationData&amp; FinalCalibration)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">if</span> (PoseBins.<span class="hljs-built_in">Contains</span>(RequiredTraits))<br>	&#123;<br>		<span class="hljs-keyword">return</span> &amp;PoseBins[RequiredTraits].Poses;<br>	&#125;<br><br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">nullptr</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%AC%94%E8%AE%B0/" class="category-chain-item">-[笔记]</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%92%E8%89%B2%E5%8A%A8%E7%94%BB/">#计算机角色动画</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>MotionSymphony插件详解</div>
+      <div>https://kenny-hoho.github.io/2024/01/23/MotionSymphony插件详解/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Kenny-hoho</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年1月23日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/01/18/TortoiseGit%E9%85%8D%E7%BD%AE/" title="TortoiseGit配置">
+                        <span class="hidden-mobile">TortoiseGit配置</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        MathJax = {
+          tex    : {
+            inlineMath: { '[+]': [['$', '$']] }
+          },
+          loader : {
+            load: ['ui/lazy']
+          },
+          options: {
+            renderActions: {
+              findScript    : [10, doc => {
+                document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                  const display = !!node.type.match(/; *mode=display/);
+                  const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                  const text = document.createTextNode('');
+                  node.parentNode.replaceChild(text, node);
+                  math.start = { node: text, delim: '', n: 0 };
+                  math.end = { node: text, delim: '', n: 0 };
+                  doc.math.push(math);
+                });
+              }, '', false],
+              insertedScript: [200, () => {
+                document.querySelectorAll('mjx-container').forEach(node => {
+                  let target = node.parentNode;
+                  if (target.nodeName.toLowerCase() === 'li') {
+                    target.parentNode.classList.add('has-jax');
+                  }
+                });
+              }, '', false]
+            }
+          }
+        };
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.0/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
