@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://kenny-hoho.github.io/img/bg/West2.jpg">
 <meta property="article:published_time" content="2023-09-04T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-09-05T13:32:41.244Z">
+<meta property="article:modified_time" content="2024-03-03T09:01:21.599Z">
 <meta property="article:author" content="Kenny-hoho">
 <meta property="article:tag" content="百人计划">
 <meta name="twitter:card" content="summary_large_image">
@@ -230,7 +230,7 @@
         
         
         
-          19 分钟
+          20 分钟
         
       </span>
     
@@ -314,6 +314,7 @@
 <li>对MSAA支持不好：其实理论上MSAA是可以支持的，具体看这几篇文章<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/366668747/answer/977240803">延迟渲染为什么不支持MSAA？</a>，<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/135444145">延迟渲染与MSAA的那些事</a></li>
 <li>无法渲染透明物体：因为在渲染透明物体时，要对透明物体排序，从后往前渲染透明物体，并且关闭了ZWrite，在延迟渲染的几何处理阶段，实际上就无法记录到透明物体的深度信息，透明物体就被当作不存在了；</li>
 <li>占用显存带宽：因为延迟渲染需要使用G-buffer，往往还是多个G-buffer，存储这些G-buffer需要占用显存；</li>
+<li>只能使用一种光照模型，因为延迟渲染计算光照的时候已经不知道每个像素是哪一个mesh的了；</li>
 </ol>
 <h1 id="延迟渲染的改进"><a href="#延迟渲染的改进" class="headerlink" title="延迟渲染的改进"></a>延迟渲染的改进</h1><h2 id="延迟光照（LightPre-Pass-x2F-Deferred-Lighting）"><a href="#延迟光照（LightPre-Pass-x2F-Deferred-Lighting）" class="headerlink" title="延迟光照（LightPre-Pass&#x2F;Deferred Lighting）"></a>延迟光照（LightPre-Pass&#x2F;Deferred Lighting）</h2><p>将G-Buffer的数据结构减小，从而减少带宽占用。</p>
 <h2 id="分块延迟渲染（Tile-BasedDeferred-Rendering-TBDR）（？有点胡言乱语，之后补充）"><a href="#分块延迟渲染（Tile-BasedDeferred-Rendering-TBDR）（？有点胡言乱语，之后补充）" class="headerlink" title="分块延迟渲染（Tile-BasedDeferred Rendering TBDR）（？有点胡言乱语，之后补充）"></a>分块延迟渲染（Tile-BasedDeferred Rendering TBDR）（？有点胡言乱语，之后补充）</h2><p>延迟渲染的瓶颈在于读写 G-buffer，在大量光源下，具体瓶颈将位于每个光源对 G-buffer的读取及与颜色缓冲区（color buffer）混合。但是不是每个片元都受到了全部光源的影响，对每个片元都遍历一次全部光源会产生浪费。于是，就想到把屏幕空间分块，事先计算并记录每个块中收到了那些光源的影响，之后渲染这个块的时候就只需要遍历这些光源即可。</p>

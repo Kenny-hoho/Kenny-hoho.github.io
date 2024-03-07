@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://kenny-hoho.github.io/img/bg/cpp.jpg">
 <meta property="article:published_time" content="2023-12-22T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-01-10T00:59:07.333Z">
+<meta property="article:modified_time" content="2024-03-05T02:25:57.973Z">
 <meta property="article:author" content="Kenny-hoho">
 <meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary_large_image">
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          7k 字
+          7.5k 字
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          59 分钟
+          63 分钟
         
       </span>
     
@@ -340,6 +340,7 @@
 <td>适用于一些特定算法，或者数据很分散的情况</td>
 </tr>
 </tbody></table>
+<h1 id="容器的push-back-和emplace-back-的区别"><a href="#容器的push-back-和emplace-back-的区别" class="headerlink" title="容器的push_back()和emplace_back()的区别"></a>容器的push_back()和emplace_back()的区别</h1><p>emplace&#x2F;emplace_back函数使用传递来的参数<strong>直接</strong>在容器管理的内存空间中<strong>构造元素</strong>（只调用了构造函数）；push_back会创建一个局部<strong>临时对象</strong>，并将其压入容器中（可能调用拷贝构造函数或移动构造函数）</p>
 <h1 id="容器list"><a href="#容器list" class="headerlink" title="容器list"></a>容器list</h1><p>list是STL提供的双向链表；**擅长在任何位置插入或删除元素 O(1)**，不能随机访问；</p>
 <h2 id="list用法："><a href="#list用法：" class="headerlink" title="list用法："></a>list用法：</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;list&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    list&lt;<span class="hljs-type">int</span>&gt; L;<br>    L.<span class="hljs-built_in">push_back</span>(<span class="hljs-number">7</span>); <span class="hljs-comment">// 在链表后插入</span><br>    L.<span class="hljs-built_in">push_front</span>(<span class="hljs-number">4</span>); <span class="hljs-comment">// 在链表头插入</span><br>    L.<span class="hljs-built_in">push_back</span>(<span class="hljs-number">5</span>);<br>    L.<span class="hljs-built_in">sort</span>(); <span class="hljs-comment">// 链表需要用自带的sort</span><br>    <span class="hljs-comment">/*迭代器用法，使用上和指针相同*/</span><br>    list&lt;<span class="hljs-type">int</span>&gt;::iterator ite;<br>    <span class="hljs-keyword">for</span>(ite = L.<span class="hljs-built_in">begin</span>();ite!=L.<span class="hljs-built_in">end</span>();ite++)&#123;<br>        cout&lt;&lt; *ite &lt;&lt; <span class="hljs-string">&quot;\n&quot;</span>;<br>    &#125;<br>    <span class="hljs-comment">/*C++11新用法，很方便*/</span><br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> i : L)&#123;<br>        cout&lt;&lt; i &lt;&lt; <span class="hljs-string">&quot;\n&quot;</span>;  <br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
@@ -376,7 +377,16 @@
 <h2 id="stack栈"><a href="#stack栈" class="headerlink" title="stack栈"></a>stack栈</h2><p><strong>stack的实现也是完全基于deque</strong>：<br><img src="/article_img/2023-12-24-14-55-50.png" srcset="/img/loading.gif" lazyload></p>
 <p><strong>stack和queue都不允许遍历，也不提供iterator！</strong> 因为栈和队列都不能被直接访问元素，应该按照对应的先进后出和先进先出访问元素。</p>
 <h1 id="容器rb-tree"><a href="#容器rb-tree" class="headerlink" title="容器rb_tree"></a>容器rb_tree</h1><p>接下来要介绍的就是<strong>关联式容器</strong>，在STL中有<strong>map，multimap，set，multiset，unordered_map，unordered_set，unordered_multimap，unordered_multiset；</strong> 其中前面几种不带unordered的前缀的底层实现都是<strong>容器rb_tree</strong>，所以它们都可以称为<strong>容器适配器</strong>。</p>
-<p><img src="/article_img/2023-12-25-10-01-22.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h2><p>红黑树是一种二叉搜索树，但是多了一个颜色的属性，性质如下：</p>
+<ol>
+<li>每个节点非黑及红</li>
+<li>根节点是黑色的</li>
+<li>如果一个节点是红色，那么其子节点就是黑色</li>
+<li>任一结点到树尾端的路径上含有的黑色节点个数必须相同</li>
+</ol>
+<p>这些性质保证了红黑树没有一条路径会比其他路径多出两倍以上，因此红黑树是一种 <strong>弱平衡二叉树</strong>，相对于严格要求平衡的平衡二叉树来说，旋转次数少，所以对于插入、删除操作较多的情况下，通常使用红黑树。</p>
+<h3 id="红黑树和平衡二叉树（AVL）的区别"><a href="#红黑树和平衡二叉树（AVL）的区别" class="headerlink" title="红黑树和平衡二叉树（AVL）的区别"></a>红黑树和平衡二叉树（AVL）的区别</h3><p>AVL 树是高度平衡的，频繁的插入和删除，会引起频繁的rebalance（旋转操作），导致效率下降；红黑树不是高度平衡的，算是一种折中，插入最多两次旋转，删除最多三次旋转。</p>
+<h2 id="rb-tree"><a href="#rb-tree" class="headerlink" title="rb_tree"></a>rb_tree</h2><p><img src="/article_img/2023-12-25-10-01-22.png" srcset="/img/loading.gif" lazyload></p>
 <p>红黑树是一种<strong>平衡二叉树</strong>，它可以自动排序，这里红黑树的原理（如何排序，涉及各种旋转操作）就先不赘述了，rb_tree提供了迭代器，但是我们不应该用迭代器改变元素值，rb_tree提供了迭代器是为了作为set和map的底部支持。<br>rb_tree可以直接使用，但是其实没必要，我们直接使用set和map即可，下面是使用的用例：<br><img src="/article_img/2023-12-25-10-05-39.png" srcset="/img/loading.gif" lazyload></p>
 <h2 id="set、multiset"><a href="#set、multiset" class="headerlink" title="set、multiset"></a>set、multiset</h2><p>set和multiset的 <strong>键（key）</strong> 和 <strong>数据（data）</strong> 合二为一，set不允许key重复，也就是set的元素不能重复（使用tb_tree的 **insert_unique()**），multiset允许元素重复（使用tb_tree的 **insert_equal()**）；</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">template</span> &lt; <span class="hljs-keyword">class</span> <span class="hljs-title class_">T</span>,                        <span class="hljs-comment">// 键 key 和值 value 的类型</span><br>            <span class="hljs-keyword">class</span> <span class="hljs-title class_">Compare</span> = less&lt;T&gt;,        <span class="hljs-comment">// 指定 set 容器内部的排序规则</span><br>            <span class="hljs-keyword">class</span> Alloc = allocator&lt;T&gt;      <span class="hljs-comment">// 指定分配器对象的类型</span><br>            &gt; <span class="hljs-keyword">class</span> set;<br></code></pre></td></tr></table></figure>
@@ -393,6 +403,7 @@
 <p>hash表的思路是：先申请一个bucket，为每个元素计算一个编号，根据这个编号和bucket大小的余数将元素放入表中，如果发生碰撞就用链表将碰撞的元素串起来；但是当碰撞太多时，链表过长，查找效率会严重降低，因此当链表过长时（经验上是<strong>元素</strong>个数多于bucket时），<strong>将bucket扩为原来的二倍</strong>并调整为<strong>质数</strong>（可见bucket用vector实现很好），重新计算每个元素应该放在哪里，这个过程也叫<strong>rehashing</strong>。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-type">static</span> <span class="hljs-type">const</span> <span class="hljs-type">int</span> _stl_num_primes=<span class="hljs-number">28</span>;<br><span class="hljs-type">static</span> <span class="hljs-type">const</span> <span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> _stl_prime_list[_stl_num_primes]=&#123; <span class="hljs-comment">// STL将扩容的大小硬编码</span><br>    <span class="hljs-number">53</span>,<span class="hljs-number">97</span>,<span class="hljs-number">193</span>,<span class="hljs-number">389</span>,<span class="hljs-number">769</span>,<span class="hljs-number">1543</span>,<span class="hljs-number">3079</span>,<span class="hljs-number">6151</span>,<span class="hljs-number">12289</span>,<span class="hljs-number">24593</span>,<span class="hljs-number">1572869</span>,<span class="hljs-number">3145739</span>,<span class="hljs-number">6291469.</span>..<br>&#125;<br></code></pre></td></tr></table></figure>
 
+<p><strong>由上图可以看出，hashtable这种数据结构是一个指向元素的vector，总占用内存大小为：vector.size()*(4+sizeof(element))</strong></p>
 <h2 id="hashtable的iterator"><a href="#hashtable的iterator" class="headerlink" title="hashtable的iterator"></a>hashtable的iterator</h2><p><img src="/article_img/2023-12-25-15-11-25.png" srcset="/img/loading.gif" lazyload></p>
 <p>hashtable的迭代器要记录当前指向的链表节点（hashtable_node），也要能在走到一个链表尽头的时候返回bucket走到下一个链表，因此还需要一个指针指向bucket（hashtable* ht）；</p>
 <p>hashtable要用的时候不光要给出<strong>元素的类型（class Value）</strong>，<strong>键的类型（class Key）</strong>，<strong>怎样取出键的函数（class ExtractKey）</strong>，<strong>怎样判断键相等（class EqualKey）</strong> 这些在rb_tree中要给出的模板参数，还要给出一个 <strong>hashFuc</strong> 用来计算 <strong>hash_code</strong> 从而将元素填入哈希表。这个hashFunc在我们使用的时候也要手动给出，不过好在STL已经提供了一些常见类型的hashFunc，我们定义自己的类的hashFunc时可以使用这些hashFunc的和：<br><img src="/article_img/2023-12-25-15-52-45.png" srcset="/img/loading.gif" lazyload></p>

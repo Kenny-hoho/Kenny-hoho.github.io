@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://kenny-hoho.github.io/img/bg/cpp.jpg">
 <meta property="article:published_time" content="2023-12-20T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-01-14T06:26:39.711Z">
+<meta property="article:modified_time" content="2024-03-02T07:29:16.441Z">
 <meta property="article:author" content="Kenny-hoho">
 <meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary_large_image">
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.8k 字
+          4.5k 字
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          32 分钟
+          38 分钟
         
       </span>
     
@@ -340,7 +340,12 @@
 <p>算法的形态大致如下，都是模板函数，并且都有两个迭代器参数：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">typename</span> Iterator&gt;</span><br><span class="hljs-function"><span class="hljs-title">std::Algorithm</span><span class="hljs-params">(Iterator itr1, Iterator itr2, ...)</span></span>&#123;<br>   ...<br>&#125;<br></code></pre></td></tr></table></figure>
 
-
+<h2 id="STL的排序算法"><a href="#STL的排序算法" class="headerlink" title="STL的排序算法"></a>STL的排序算法</h2><p>快速排序、插入排序和堆排序；当数据量很大的时候用快排，划分区段比较小的时候用插入排序，当划分有导致最坏情况的倾向的时候使用堆排序。</p>
+<h3 id="各种排序算法的原理和时间复杂度"><a href="#各种排序算法的原理和时间复杂度" class="headerlink" title="各种排序算法的原理和时间复杂度"></a>各种排序算法的原理和时间复杂度</h3><p>判断一个排序算法是否稳定就是看 <strong>相同的数位置会不会变化</strong>；</p>
+<p><img src="/article_img/2024-03-02-15-03-48.png" srcset="/img/loading.gif" lazyload></p>
+<p>快排代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">quickSort</span><span class="hljs-params">(<span class="hljs-type">int</span> nums[], <span class="hljs-type">int</span> start, <span class="hljs-type">int</span> end)</span></span>&#123;<br>   <span class="hljs-keyword">if</span>(start&lt;end)&#123;<br>      <span class="hljs-type">int</span> base = nums[start]; <span class="hljs-comment">// 确定基准</span><br>      <span class="hljs-type">int</span> left = start;<br>      <span class="hljs-type">int</span> right = end;<br>      <span class="hljs-keyword">while</span>(left&lt;right)&#123;<br>         <span class="hljs-comment">// 先从后往前找第一个比基准小的值</span><br>         <span class="hljs-keyword">while</span>(left&lt;right&amp;&amp;nums[right]&gt;base)&#123;<br>            right--;<br>         &#125;<br>         <span class="hljs-comment">// 找到，将其赋值给左指针</span><br>         nums[left]=nums[right];<br>         <span class="hljs-comment">// 从前往后找第一个比基准大的值</span><br>         <span class="hljs-keyword">while</span>(left&lt;right&amp;&amp;nums[left]&lt;base)&#123;<br>            left++;<br>         &#125;<br>         <span class="hljs-comment">// 找到，将其赋值给右指针，不用担心右指针的值会丢，已经给了左指针了，而之前的左指针就是base</span><br>         nums[right]=nums[left];<br>      &#125;<br>      <span class="hljs-comment">// 左右指针相遇，将base赋值给当前位置</span><br>      nums[left]=base;<br>      <span class="hljs-built_in">quickSort</span>(nums, start, left<span class="hljs-number">-1</span>);<br>      <span class="hljs-built_in">quickSort</span>(nums, left+<span class="hljs-number">1</span>, end);<br>   &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>最坏情况就是没有划分，时间复杂度为O(n^2)；</p>
 
               
             </div>

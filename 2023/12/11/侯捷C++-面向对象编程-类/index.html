@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://kenny-hoho.github.io/img/bg/cpp.jpg">
 <meta property="article:published_time" content="2023-12-10T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-12-20T03:29:29.585Z">
+<meta property="article:modified_time" content="2024-03-07T08:28:50.081Z">
 <meta property="article:author" content="Kenny-hoho">
 <meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary_large_image">
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3k 字
+          3.9k 字
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          26 分钟
+          33 分钟
         
       </span>
     
@@ -302,6 +302,11 @@
 <h2 id="this指针"><a href="#this指针" class="headerlink" title="this指针"></a>this指针</h2><p>成员函数都有this指针。<strong>谁调用构造函数，谁就是this</strong></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C++">Complex::<span class="hljs-built_in">Complex</span>(<span class="hljs-keyword">this</span>, <span class="hljs-type">int</span> a, <span class="hljs-type">int</span> b);<br></code></pre></td></tr></table></figure>
 
+<h1 id="引用与指针"><a href="#引用与指针" class="headerlink" title="引用与指针"></a>引用与指针</h1><ol>
+<li>指针是一个地址，有自己的内存空间，引用是别名（底层也是一个指针，可以说是指针的一种特例）</li>
+<li>指针可以指向其他对象，引用初始化之后就不能改变了</li>
+<li>指针可以初始化为nullptr，引用必须被初始化为一个已有对象的引用</li>
+</ol>
 <h1 id="参数传递（passByValue-vs-passByRef）"><a href="#参数传递（passByValue-vs-passByRef）" class="headerlink" title="参数传递（passByValue vs passByRef）"></a>参数传递（passByValue vs passByRef）</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">// pass by value</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">function</span><span class="hljs-params">(<span class="hljs-type">int</span> a)</span></span>&#123;...&#125;<br><span class="hljs-comment">// pass by ref</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">function</span><span class="hljs-params">(<span class="hljs-type">int</span>&amp; a)</span></span>&#123;...&#125;<br></code></pre></td></tr></table></figure>
 <p>传值（byValue）顾名思义是只关注值，也就是说需要新建一个变量来存这个值，这造成了不必要的性能开销，而且对于值很复杂的变量（如一个很大的结构体），传递起来速度也会变慢。因此尽量传递引用，<strong>引用在底层就是一个指针</strong>，传递指针即避免了赋值的开销又保证了传递的数据量较小（一个指针的大小）。</p>
 <p>既然引用是一个指针，那么就要考虑函数内的修改会改变内存中的值，从而影响其他使用这个变量的地方，所以经常用const来修饰引用，保证函数内不会对参数进行修改。<strong>对于不希望改变的函数参数，尽量总是使用 “const引用” 作为函数参数！</strong></p>
@@ -324,7 +329,7 @@
 <h2 id="output函数（-lt-lt-）"><a href="#output函数（-lt-lt-）" class="headerlink" title="output函数（&lt;&lt;）"></a>output函数（&lt;&lt;）</h2><p><strong>output函数一定要在类外定义，不要定义为成员函数！</strong></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;iostream&gt;</span></span><br>ostream&amp; <span class="hljs-keyword">operator</span>&lt;&lt;(ostream&amp; os, <span class="hljs-type">const</span> String&amp; str)&#123;<br>    os&lt;&lt;str.<span class="hljs-built_in">get_c_str</span>();<br>    <span class="hljs-keyword">return</span> os;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h1 id="堆（heap），栈（stack）"><a href="#堆（heap），栈（stack）" class="headerlink" title="堆（heap），栈（stack）"></a>堆（heap），栈（stack）</h1><p><strong>栈</strong>是存在于某作用域（Scope）的一块内存空间（memory space）。如当调用某个函数，函数本身即会形成一个栈来放置<strong>接受的参数</strong>，<strong>返回的地址</strong>以及<strong>函数内的临时变量</strong>。</p>
+<h1 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h1><h2 id="堆（heap），栈（stack）"><a href="#堆（heap），栈（stack）" class="headerlink" title="堆（heap），栈（stack）"></a>堆（heap），栈（stack）</h2><p><strong>栈</strong>是存在于某作用域（Scope）的一块内存空间（memory space）。如当调用某个函数，函数本身即会形成一个栈来放置<strong>接受的参数</strong>，<strong>返回的地址</strong>以及<strong>函数内的临时变量</strong>。</p>
 <p><strong>堆</strong>或称为system heap，是指由操作系统提供的一块全局内存空间，程序可以动态分配从中获得若干区块。</p>
 <h2 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h2><ol>
 <li><strong>栈中的对象</strong>，其生命在作用域（scope）结束之后结束，也就是其内存会被<strong>自动</strong>回收。</li>
@@ -341,6 +346,29 @@
 <p><img src="/article_img/2023-12-17-15-42-41.png" srcset="/img/loading.gif" lazyload></p>
 <p>在动态分配<strong>数组</strong>时，大致与上面相同，但是需要多4个字节存储数组的大小。</p>
 <p><img src="/article_img/2023-12-17-15-47-43.png" srcset="/img/loading.gif" lazyload><br><strong>array new 一定要搭配 array delete！</strong> 否则，指针数组中的指针指向的区域会发生内存泄漏。如果不用delete[] p 而使用 delete p，会把这块内存完美删掉，不会产生任何内存泄漏，但是由于编译器不知道删除的是一个数组，就只会调用一次析构函数，数组中其他指针指向的内存就没有被析构函数释放，造成内存泄漏。</p>
+<h2 id="总结C-的内存布局"><a href="#总结C-的内存布局" class="headerlink" title="总结C++的内存布局"></a>总结C++的内存布局</h2><p><img src="/article_img/2024-03-01-13-03-59.png" srcset="/img/loading.gif" lazyload></p>
+<ol>
+<li><strong>栈</strong>：系统分配的内存区域，大小较小一般为1M；<strong>存放局部变量，返回值，参数</strong>；由操作系统<strong>自动管理内存的申请和释放</strong>，栈由于由操作系统管理因此<strong>分配效率高</strong>，栈内地址<strong>由高向下</strong>；</li>
+<li><strong>堆</strong>：专门开辟出的一片空间用于给程序员动态申请内存使用，大小较大一般为几个G；<strong>存放malloc，new出来的变量</strong>；需要程序员<strong>手动管理内存的申请和释放</strong>，因此 <strong>分配效率不如栈</strong>，堆内地址 <strong>自下而上</strong>；</li>
+<li>全局&#x2F;静态存储区：存放 <strong>全局变量和静态变量</strong>，程序结束自动释放；初始化了的全局和静态变量放一起，没初始化的放一起，两个区域相邻；</li>
+<li>常量存储区：存放<strong>常量</strong>如 string s&#x3D;”hello world” 中的 “hello world”；</li>
+<li>代码存储区：存放<strong>代码，函数体</strong>，不可更改；生命周期与程序相同；</li>
+</ol>
+<h2 id="内存对齐"><a href="#内存对齐" class="headerlink" title="内存对齐"></a>内存对齐</h2><h3 id="内存对齐的原因"><a href="#内存对齐的原因" class="headerlink" title="内存对齐的原因"></a>内存对齐的原因</h3><p><strong>关键在于CPU存取的效率问题</strong>。计算机从内存中取数据是按照<strong>固定长度</strong>的，如在32位机上，CPU每次都取32bit数据，也就是4字节，如果不进行对齐，要取出两块地址中的数据，要进行掩码和移位操作，写入目标寄存器内存，效率很低，因此要内存对齐；</p>
+<h3 id="对齐原则"><a href="#对齐原则" class="headerlink" title="对齐原则"></a>对齐原则</h3><ol>
+<li>结构体变量的首地址能被其最宽基本类型成员的对齐值整除</li>
+<li>结构体内每个成员相对于起始地址的偏移量能够被该变量的大小整除</li>
+<li>结构体总体大小能被最宽成员大小整除</li>
+</ol>
+<p>如不满足以上条件，编译器会进行填充（padding）</p>
+<h3 id="如何对齐"><a href="#如何对齐" class="headerlink" title="如何对齐"></a>如何对齐</h3><p>字节对齐的数据依次声明，最后将小成员组合在一起，不要把小成员掺杂在对齐的数据之间；</p>
+<h2 id="类的大小"><a href="#类的大小" class="headerlink" title="类的大小"></a>类的大小</h2><ul>
+<li>C++中一个空类的大小是1<br><img src="/article_img/2024-03-07-16-23-49.png" srcset="/img/loading.gif" lazyload></li>
+<li>继承一个空类时，基类的大小就是0了，而不是1+1&#x3D;2：<br><img src="/article_img/2024-03-07-16-28-46.png" srcset="/img/loading.gif" lazyload></li>
+<li>有虚函数的类，会有一个<strong>虚函数指针</strong></li>
+<li>static成员变量不存储在对象中，存储在 <strong>全局&#x2F;常量存储区</strong>：<br><img src="/article_img/2024-03-07-16-25-41.png" srcset="/img/loading.gif" lazyload></li>
+<li>static函数存储在代码区，而<strong>不是</strong>全局&#x2F;常量存储区</li>
+</ul>
 
               
             </div>
