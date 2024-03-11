@@ -16,24 +16,24 @@
   <meta name="author" content="Kenny-hoho">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Gameplay架构APawnACharacterUE数据结构FName，FText和FStringUE反射UFunctionconst函数在蓝图里怎样显示 组件USkeletalMesh、USkeletalMeshComponent和ASkeletalMeshActor">
+    <meta name="description" content="参考资料《Exploring in UE4》Unreal回放系统剖析Replay System TutorialUE文档-重播系统Experimental:Sample code for Implementing Instant ReplaysImplementing Instant Replays (Killcam) UE回放系统">
 <meta property="og:type" content="article">
-<meta property="og:title" content="面试复习-UE">
-<meta property="og:url" content="https://kenny-hoho.github.io/2024/03/05/%E9%9D%A2%E8%AF%95%E5%A4%8D%E4%B9%A0-UE%E7%9B%B8%E5%85%B3/index.html">
+<meta property="og:title" content="Unreal-回放系统浅析">
+<meta property="og:url" content="https://kenny-hoho.github.io/2024/03/11/UE%E5%9B%9E%E6%94%BE%E7%B3%BB%E7%BB%9F%E6%B5%85%E6%9E%90/index.html">
 <meta property="og:site_name" content="Kenny-hoho">
-<meta property="og:description" content="Gameplay架构APawnACharacterUE数据结构FName，FText和FStringUE反射UFunctionconst函数在蓝图里怎样显示 组件USkeletalMesh、USkeletalMeshComponent和ASkeletalMeshActor">
+<meta property="og:description" content="参考资料《Exploring in UE4》Unreal回放系统剖析Replay System TutorialUE文档-重播系统Experimental:Sample code for Implementing Instant ReplaysImplementing Instant Replays (Killcam) UE回放系统">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://kenny-hoho.github.io/img/bg/xt2.png">
-<meta property="article:published_time" content="2024-03-04T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-03-07T09:25:37.198Z">
+<meta property="og:image" content="https://kenny-hoho.github.io/img/bg/ue5.jpg">
+<meta property="article:published_time" content="2024-03-10T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-03-11T04:49:29.485Z">
 <meta property="article:author" content="Kenny-hoho">
-<meta property="article:tag" content="面试">
+<meta property="article:tag" content="虚幻引擎">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://kenny-hoho.github.io/img/bg/xt2.png">
+<meta name="twitter:image" content="https://kenny-hoho.github.io/img/bg/ue5.jpg">
   
   
   
-  <title>面试复习-UE - Kenny-hoho</title>
+  <title>Unreal-回放系统浅析 - Kenny-hoho</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -196,7 +196,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">面试复习-UE</span>
+            <span id="subtitle">Unreal-回放系统浅析</span>
           
         </div>
 
@@ -207,8 +207,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-03-05 00:00" pubdate>
-          2024年3月5日 凌晨
+        <time datetime="2024-03-11 00:00" pubdate>
+          2024年3月11日 凌晨
         </time>
       </span>
     
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          135 字
+          154 字
         
       </span>
     
@@ -272,15 +272,14 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">面试复习-UE</h1>
+            <h1 style="display: none">Unreal-回放系统浅析</h1>
             
             <div class="markdown-body">
               
               <span id="more"></span>
 
-<h1 id="Gameplay架构"><a href="#Gameplay架构" class="headerlink" title="Gameplay架构"></a>Gameplay架构</h1><h2 id="APawn"><a href="#APawn" class="headerlink" title="APawn"></a>APawn</h2><h2 id="ACharacter"><a href="#ACharacter" class="headerlink" title="ACharacter"></a>ACharacter</h2><h1 id="UE数据结构"><a href="#UE数据结构" class="headerlink" title="UE数据结构"></a>UE数据结构</h1><h2 id="FName，FText和FString"><a href="#FName，FText和FString" class="headerlink" title="FName，FText和FString"></a>FName，FText和FString</h2><h1 id="UE反射"><a href="#UE反射" class="headerlink" title="UE反射"></a>UE反射</h1><h2 id="UFunction"><a href="#UFunction" class="headerlink" title="UFunction"></a>UFunction</h2><p>const函数在蓝图里怎样显示</p>
-<h1 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h1><h2 id="USkeletalMesh、USkeletalMeshComponent和ASkeletalMeshActor"><a href="#USkeletalMesh、USkeletalMeshComponent和ASkeletalMeshActor" class="headerlink" title="USkeletalMesh、USkeletalMeshComponent和ASkeletalMeshActor"></a>USkeletalMesh、USkeletalMeshComponent和ASkeletalMeshActor</h2><p><img src="/article_img/2024-03-07-17-23-16.png" srcset="/img/loading.gif" lazyload></p>
-
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/564017214">《Exploring in UE4》Unreal回放系统剖析</a><br><a target="_blank" rel="noopener" href="https://unrealcommunity.wiki/replay-system-tutorial-41kq5b58">Replay System Tutorial</a><br><a target="_blank" rel="noopener" href="https://docs.unrealengine.com/5.3/zh-CN/using-the-replay-system-in-unreal-engine/">UE文档-重播系统</a><br><a target="_blank" rel="noopener" href="https://forums.unrealengine.com/t/experimental-sample-code-for-implementing-instant-replays/264946">Experimental:Sample code for Implementing Instant Replays</a><br><a target="_blank" rel="noopener" href="https://vorixo.github.io/devtricks/killcam/">Implementing Instant Replays (Killcam)</a></p>
+<h1 id="UE回放系统"><a href="#UE回放系统" class="headerlink" title="UE回放系统"></a>UE回放系统</h1>
               
             </div>
             <hr/>
@@ -297,7 +296,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E9%9D%A2%E8%AF%95/" class="category-chain-item">-[面试]</a>
+  <a href="/categories/%E5%AE%A2%E6%88%B7%E7%AB%AF/" class="category-chain-item">-[客户端]</a>
   
   
 
@@ -312,7 +311,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E9%9D%A2%E8%AF%95/">#面试</a>
+        <a href="/tags/%E8%99%9A%E5%B9%BB%E5%BC%95%E6%93%8E/">#虚幻引擎</a>
       
     </div>
   
@@ -324,8 +323,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>面试复习-UE</div>
-      <div>https://kenny-hoho.github.io/2024/03/05/面试复习-UE相关/</div>
+      <div>Unreal-回放系统浅析</div>
+      <div>https://kenny-hoho.github.io/2024/03/11/UE回放系统浅析/</div>
     </div>
     <div class="license-meta">
       
@@ -337,7 +336,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年3月5日</div>
+          <div>2024年3月11日</div>
         </div>
       
       
@@ -367,18 +366,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/03/07/%E9%9D%A2%E8%AF%95%E5%A4%8D%E4%B9%A0-%E6%B8%B8%E6%88%8F%E7%9B%B8%E5%85%B3/" title="面试复习-游戏相关">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">面试复习-游戏相关</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/03/02/%E9%9D%A2%E8%AF%95%E5%A4%8D%E4%B9%A0-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" title="面试复习-计算机基础">
-                        <span class="hidden-mobile">面试复习-计算机基础</span>
+                      <a href="/2024/03/07/%E9%9D%A2%E8%AF%95%E5%A4%8D%E4%B9%A0-%E6%B8%B8%E6%88%8F%E7%9B%B8%E5%85%B3/" title="面试复习-游戏相关">
+                        <span class="hidden-mobile">面试复习-游戏相关</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
